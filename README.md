@@ -5,6 +5,6 @@ Jameel Bsata (Jamster187)
 
 Benjamin Morley (UpscalePilot)
 
-Grant Baartman (grantbaartman) hello
+Grant Baartman (grantbaartman)
 
 Jamie McDonald (JamieMcDonald2)
