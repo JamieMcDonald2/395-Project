@@ -2,10 +2,19 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="All Tests">
+      <entry key="app">
         <State />
       </entry>
-      <entry key="Unnamed">
+      <entry key="app.androidTest">
+        <State />
+      </entry>
+      <entry key="app.main">
+        <State />
+      </entry>
+      <entry key="w24goldwasser.395Project.app">
+        <State />
+      </entry>
+      <entry key="w24goldwasser.395Project.app.main">
         <State />
       </entry>
     </value>

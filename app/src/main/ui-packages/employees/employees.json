@@ -5,10 +5,11 @@
     "type": "figma",
     "file": "sjYPI6UptLTQ1tIf73pxSn",
     "node": "228:8332",
-    "version": "5133978440",
+    "version": "5143536812",
     "component-id": "e50a8a1b1a3771150280b03cc7269aff7bc649a0"
   },
   "default": "Employees",
+  "documentation": "Employees List Screen",
   "design": {
     "atoms": [
       {
@@ -18,11 +19,11 @@
       },
       {
         "type": "group",
-        "id": "List item/List Item: 0 Density"
+        "id": "List item Demo 1"
       },
       {
         "type": "text",
-        "id": "Employees"
+        "id": "Employees_Header_1"
       },
       {
         "type": "group",
@@ -46,7 +47,7 @@
       },
       {
         "type": "group",
-        "id": "List item/List Item: 0 Density1"
+        "id": "Layer_1"
       },
       {
         "type": "group",
@@ -54,7 +55,7 @@
       },
       {
         "type": "group",
-        "id": "List item/List Item: 0 Density_synth"
+        "id": "Layer_1_synth"
       },
       {
         "type": "group",
@@ -62,7 +63,7 @@
       },
       {
         "type": "group",
-        "id": "Divider"
+        "id": "Divider_1"
       },
       {
         "type": "group",
@@ -94,7 +95,7 @@
       },
       {
         "type": "text",
-        "id": "Headline"
+        "id": "Headline_1_Temp"
       },
       {
         "type": "text",
@@ -106,19 +107,19 @@
       },
       {
         "type": "vector",
-        "id": "Divider1"
+        "id": "Divider_1_Object"
       },
       {
         "type": "vector",
-        "id": "Divider2"
+        "id": "Divider"
       },
       {
         "type": "group",
-        "id": "Icons/navigate_before1"
+        "id": "Icons/navigate_before_E"
       },
       {
         "type": "vector",
-        "id": "icon1"
+        "id": "icon_1"
       },
       {
         "type": "text",
@@ -130,11 +131,11 @@
       },
       {
         "type": "text",
-        "id": "T"
+        "id": "Tu_E"
       },
       {
         "type": "text",
-        "id": "T1"
+        "id": "Th_E"
       },
       {
         "type": "text",
@@ -146,7 +147,7 @@
       },
       {
         "type": "text",
-        "id": "S1"
+        "id": "Su_1"
       },
       {
         "type": "text",
@@ -190,87 +191,87 @@
       },
       {
         "type": "group",
-        "id": "state-layer1"
+        "id": "Su_state_layer_1"
       },
       {
         "type": "text",
-        "id": "Date"
+        "id": "Date_1_Su"
       },
       {
         "type": "group",
-        "id": "container1"
+        "id": "M_container_1"
       },
       {
         "type": "group",
-        "id": "state-layer2"
+        "id": "M_state_layer_1"
       },
       {
         "type": "text",
-        "id": "Date1"
+        "id": "Date_1_M"
       },
       {
         "type": "group",
-        "id": "container2"
+        "id": "Tu_container_1"
       },
       {
         "type": "group",
-        "id": "state-layer3"
+        "id": "Tu_state_layer_1"
       },
       {
         "type": "text",
-        "id": "Date2"
+        "id": "Date_1_Tu"
       },
       {
         "type": "group",
-        "id": "container3"
+        "id": "W_container_1"
       },
       {
         "type": "group",
-        "id": "state-layer4"
+        "id": "W_state_layer_1"
       },
       {
         "type": "text",
-        "id": "Date3"
+        "id": "Date_1_W"
       },
       {
         "type": "group",
-        "id": "container4"
+        "id": "Th_container_1"
       },
       {
         "type": "group",
-        "id": "state-layer5"
+        "id": "Th_state_layer_1"
       },
       {
         "type": "text",
-        "id": "Date4"
+        "id": "Date_1_Th"
       },
       {
         "type": "group",
-        "id": "container5"
+        "id": "F_container_1"
       },
       {
         "type": "group",
-        "id": "state-layer6"
+        "id": "F_state_layer_1"
       },
       {
         "type": "text",
-        "id": "Date5"
+        "id": "Date_1_F"
       },
       {
         "type": "group",
-        "id": "container6"
+        "id": "Sat_container_1"
       },
       {
         "type": "group",
-        "id": "state-layer7"
+        "id": "Sat_state_layer_1"
       },
       {
         "type": "text",
-        "id": "Date6"
+        "id": "Date_1_Sat"
       },
       {
         "type": "group",
-        "id": "state-layer8"
+        "id": "state_layer_SB_1"
       },
       {
         "type": "vector",
@@ -278,15 +279,15 @@
       },
       {
         "type": "group",
-        "id": "state-layer_synth"
+        "id": "state_layer_SB_1_synth"
       },
       {
         "type": "group",
-        "id": "Leading-icon"
+        "id": "Leading_icon_SB_1"
       },
       {
         "type": "group",
-        "id": "Content1"
+        "id": "SB_Content_!"
       },
       {
         "type": "group",
@@ -294,23 +295,23 @@
       },
       {
         "type": "group",
-        "id": "container7"
+        "id": "Li_container_1"
       },
       {
         "type": "group",
-        "id": "state-layer9"
+        "id": "Li_state_layer_1"
       },
       {
         "type": "group",
-        "id": "Icon"
+        "id": "Li_Icon_1"
       },
       {
         "type": "group",
-        "id": "Icons/search_24px"
+        "id": "Li_Icons_search_24px_1"
       },
       {
         "type": "vector",
-        "id": "icon2"
+        "id": "Li_icon_1"
       },
       {
         "type": "text",
@@ -326,35 +327,35 @@
       },
       {
         "type": "group",
-        "id": "container8"
+        "id": "Ti_container_1"
       },
       {
         "type": "group",
-        "id": "state-layer10"
+        "id": "Ti_state_layer_1"
       },
       {
         "type": "group",
-        "id": "Icon1"
+        "id": "Ti_Icon_1"
       },
       {
         "type": "vector",
-        "id": "icon3"
+        "id": "Ti_icon_1a"
       },
       {
         "type": "group",
-        "id": "container9"
+        "id": "2Ti_container_1"
       },
       {
         "type": "group",
-        "id": "state-layer11"
+        "id": "2Ti_state_layer_1"
       },
       {
         "type": "group",
-        "id": "Icon2"
+        "id": "2Ti_Icon_1"
       },
       {
         "type": "vector",
-        "id": "icon4"
+        "id": "2Ti_icon_1a"
       },
       {
         "type": "group",
@@ -370,7 +371,7 @@
       },
       {
         "type": "group",
-        "id": "leading-icon"
+        "id": "leading_icon_E1"
       },
       {
         "type": "group",
@@ -386,75 +387,75 @@
       },
       {
         "type": "group",
-        "id": "container10"
+        "id": "I1_container_1"
       },
       {
         "type": "group",
-        "id": "state-layer12"
+        "id": "I1_state_layer_1"
       },
       {
         "type": "group",
-        "id": "Employee Icon"
-      },
-      {
-        "type": "group",
-        "id": "Icons/account_circle_filled_24px"
+        "id": "Employee Icon 1"
       },
       {
         "type": "text",
-        "id": "Employees1"
+        "id": "Employees_BB_1"
+      },
+      {
+        "type": "group",
+        "id": "I1_Icons_account_circle_filled_24px_1"
       },
       {
         "type": "vector",
-        "id": "icon5"
+        "id": "E_icon_1"
       },
       {
         "type": "group",
-        "id": "container11"
+        "id": "I2_container_1"
       },
       {
         "type": "group",
-        "id": "state-layer13"
+        "id": "I2_state_layer_1"
       },
       {
         "type": "group",
-        "id": "Scheduling Icon"
-      },
-      {
-        "type": "group",
-        "id": "Icons/today_24px"
+        "id": "Scheduling Icon 1"
       },
       {
         "type": "text",
-        "id": "Scheduling"
+        "id": "I2_Scheduling_1"
+      },
+      {
+        "type": "group",
+        "id": "I2_Icons_today_24px_1"
       },
       {
         "type": "vector",
-        "id": "icon6"
+        "id": "S_icon_1"
       },
       {
         "type": "group",
-        "id": "container12"
+        "id": "I3_container_1"
       },
       {
         "type": "group",
-        "id": "state-layer14"
+        "id": "I3_state_layer_!"
       },
       {
         "type": "group",
-        "id": "Settings Icon"
+        "id": "Settings Icon 1"
       },
       {
         "type": "text",
-        "id": "Settings"
+        "id": "I3_Settings_!"
       },
       {
         "type": "group",
-        "id": "Icons/settings_24px"
+        "id": "I3_Icons_settings_24px_1"
       },
       {
         "type": "vector",
-        "id": "icon7"
+        "id": "St_icon_1"
       },
       {
         "type": "group",
@@ -462,15 +463,15 @@
       },
       {
         "type": "group",
-        "id": "state-layer15"
+        "id": "state-layer_NA_1"
       },
       {
         "type": "group",
-        "id": "icon8"
+        "id": "icon_NA_1"
       },
       {
         "type": "vector",
-        "id": "icon9"
+        "id": "icon_NA_1a"
       }
     ],
     "modes": {
@@ -480,8 +481,8 @@
             "id": "top_level",
             "is-structured": false,
             "children": [
-              "List item/List Item: 0 Density",
-              "Employees",
+              "List item Demo 1",
+              "Employees_Header_1",
               "horizontal/middle-inset",
               "Icons/navigate_before",
               "Week Calendar",
@@ -496,7 +497,7 @@
             }
           },
           {
-            "id": "List item/List Item: 0 Density",
+            "id": "List item Demo 1",
             "alignment": {
               "horizontal": {
                 "attachment": "start",
@@ -519,12 +520,12 @@
             "main-axis-align": "start",
             "cross-axis-align": "start",
             "children": [
-              "List item/List Item: 0 Density1"
+              "Layer_1"
             ],
             "clip-content": false
           },
           {
-            "id": "Employees",
+            "id": "Employees_Header_1",
             "alignment": {
               "horizontal": {
                 "attachment": "center",
@@ -581,7 +582,7 @@
             },
             "cross-axis-align": "start",
             "children": [
-              "Divider2"
+              "Divider"
             ],
             "clip-content": false
           },
@@ -609,7 +610,7 @@
             },
             "is-structured": false,
             "children": [
-              "Icons/navigate_before1"
+              "Icons/navigate_before_E"
             ],
             "clip-content": false
           },
@@ -639,11 +640,11 @@
             "children": [
               "S",
               "M",
-              "T",
-              "T1",
+              "Tu_E",
+              "Th_E",
               "W",
               "F",
-              "S1",
+              "Su_1",
               "This Week",
               "Week 2"
             ],
@@ -676,7 +677,7 @@
             "arrangement": "row",
             "main-axis-align": "start",
             "children": [
-              "state-layer8"
+              "state_layer_SB_1"
             ],
             "item-spacing": 4.0,
             "background-color": {
@@ -715,7 +716,7 @@
             "clip-content": false
           },
           {
-            "id": "List item/List Item: 0 Density1",
+            "id": "Layer_1",
             "size-constraints": {
               "width-constraints": {
                 "sizing-mode": "fixed",
@@ -729,14 +730,9 @@
             "is-structured": false,
             "children": [
               "state-layer overlay",
-              "List item/List Item: 0 Density_synth"
+              "Layer_1_synth"
             ],
-            "background-color": {
-              "alpha": 1.0,
-              "hue": 292.5,
-              "saturation": 0.03137254901960784,
-              "value": 1.0
-            },
+            "background-color": "^md.sys.color.surface",
             "clip-content": false
           },
           {
@@ -745,7 +741,7 @@
             "clip-content": false
           },
           {
-            "id": "List item/List Item: 0 Density_synth",
+            "id": "Layer_1_synth",
             "opacity": 100.0,
             "size-constraints": {
               "width-constraints": {
@@ -759,7 +755,7 @@
             },
             "children": [
               "state-layer",
-              "Divider"
+              "Divider_1"
             ],
             "clip-content": false
           },
@@ -783,8 +779,7 @@
             "clip-content": false
           },
           {
-            "id": "Divider",
-            "presence": false,
+            "id": "Divider_1",
             "relative-transform": [
               [
                 1.0,
@@ -808,7 +803,7 @@
             },
             "cross-axis-align": "start",
             "children": [
-              "Divider1"
+              "Divider_1_Object"
             ],
             "clip-content": false
           },
@@ -832,7 +827,7 @@
             "cross-axis-align": "start",
             "children": [
               "Overline",
-              "Headline",
+              "Headline_1_Temp",
               "Supporting text"
             ]
           },
@@ -857,19 +852,15 @@
           {
             "id": "Trailing supporting text",
             "presence": false,
-            "font-weight": 500.0,
-            "color": {
-              "alpha": 1.0,
-              "hue": 263.99999999999994,
-              "saturation": 0.12658227848101275,
-              "value": 0.30980392156862746
-            },
+            "font-weight": "^md.sys.typescale.label-small.weight",
+            "color": "^md.sys.color.on-surface-variant",
             "text-content": "100+",
             "overflow": "visible",
             "text-align": "right",
-            "text-size": 11.0,
-            "letter-spacing": 0.5,
-            "line-height": 1.454545440673828
+            "text-size": "^md.sys.typescale.label-small.size",
+            "letter-spacing": "^md.sys.typescale.label-small.tracking",
+            "line-height": "^md.sys.typescale.label-small.line-height",
+            "typeface": "^md.sys.typescale.label-small.font"
           },
           {
             "id": "Building Blocks/image-Thumbnail",
@@ -918,24 +909,20 @@
                 "sizing-mode": "shrink"
               }
             },
-            "font-weight": 500.0,
-            "color": {
-              "alpha": 1.0,
-              "hue": 263.99999999999994,
-              "saturation": 0.12658227848101275,
-              "value": 0.30980392156862746
-            },
+            "font-weight": "^md.sys.typescale.label-medium.weight",
+            "color": "^md.sys.color.on-surface-variant",
             "text-content": "Overline",
             "overflow": "visible",
             "max-lines": -1,
             "text-align": "left",
             "text-align-vertical": "center",
-            "text-size": 12.0,
-            "letter-spacing": 0.5,
-            "line-height": 1.3333332824707032
+            "text-size": "^md.sys.typescale.label-medium.size",
+            "letter-spacing": "^md.sys.typescale.label-medium.tracking",
+            "line-height": "^md.sys.typescale.label-medium.line-height",
+            "typeface": "^md.sys.typescale.label-medium.font"
           },
           {
-            "id": "Headline",
+            "id": "Headline_1_Temp",
             "size-constraints": {
               "width-constraints": {
                 "sizing-mode": "proportional",
@@ -945,20 +932,17 @@
                 "sizing-mode": "shrink"
               }
             },
-            "color": {
-              "alpha": 1.0,
-              "hue": 264.0,
-              "saturation": 0.15625,
-              "value": 0.12549019607843137
-            },
+            "font-weight": "^md.sys.typescale.body-large.weight",
+            "color": "^md.sys.color.on-surface",
             "text-content": "Employee_Name",
             "overflow": "visible",
             "max-lines": -1,
             "text-align": "left",
             "text-align-vertical": "center",
-            "text-size": 16.0,
-            "letter-spacing": 0.5,
-            "line-height": 1.5
+            "text-size": "^md.sys.typescale.body-large.size",
+            "letter-spacing": "^md.sys.typescale.body-large.tracking",
+            "line-height": "^md.sys.typescale.body-large.line-height",
+            "typeface": "^md.sys.typescale.body-large.font"
           },
           {
             "id": "Supporting text",
@@ -972,18 +956,16 @@
                 "sizing-mode": "shrink"
               }
             },
-            "color": {
-              "alpha": 1.0,
-              "hue": 263.99999999999994,
-              "saturation": 0.12658227848101275,
-              "value": 0.30980392156862746
-            },
+            "font-weight": "^md.sys.typescale.body-medium.weight",
+            "color": "^md.sys.color.on-surface-variant",
             "text-content": "Supporting line text lorem ipsum dolor sit amet, consectetur.",
             "overflow": "visible",
             "max-lines": -1,
             "text-align": "left",
-            "letter-spacing": 0.25,
-            "line-height": 1.4285714721679688
+            "text-size": "^md.sys.typescale.body-medium.size",
+            "letter-spacing": "^md.sys.typescale.body-medium.tracking",
+            "line-height": "^md.sys.typescale.body-medium.line-height",
+            "typeface": "^md.sys.typescale.body-medium.font"
           },
           {
             "id": "icon",
@@ -1006,7 +988,17 @@
             "vector-content": "icon.svg"
           },
           {
-            "id": "Divider1",
+            "id": "Divider_1_Object",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 0.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": -1.0
+              }
+            },
             "size-constraints": {
               "width-constraints": {
                 "sizing-mode": "proportional",
@@ -1016,10 +1008,11 @@
                 "sizing-mode": "fixed",
                 "value": 0.0
               }
-            }
+            },
+            "vector-content": "divider_1_object.svg"
           },
           {
-            "id": "Divider2",
+            "id": "Divider",
             "alignment": {
               "horizontal": {
                 "attachment": "start",
@@ -1043,14 +1036,14 @@
             "vector-content": "divider.svg"
           },
           {
-            "id": "Icons/navigate_before1",
+            "id": "Icons/navigate_before_E",
             "is-structured": false,
             "children": [
-              "icon1"
+              "icon_1"
             ]
           },
           {
-            "id": "icon1",
+            "id": "icon_1",
             "margin": {
               "left": 13.824951171875,
               "top": 12.0,
@@ -1067,7 +1060,7 @@
                 "value": 1.0
               }
             },
-            "vector-content": "icon1.svg"
+            "vector-content": "icon_1.svg"
           },
           {
             "id": "S",
@@ -1122,7 +1115,7 @@
             "letter-spacing": 0.2
           },
           {
-            "id": "T",
+            "id": "Tu_E",
             "margin": {
               "left": 138.0,
               "top": 40.0,
@@ -1148,7 +1141,7 @@
             "letter-spacing": 0.2
           },
           {
-            "id": "T1",
+            "id": "Th_E",
             "margin": {
               "left": 255.0,
               "top": 40.0,
@@ -1226,7 +1219,7 @@
             "letter-spacing": 0.2
           },
           {
-            "id": "S1",
+            "id": "Su_1",
             "margin": {
               "left": 365.0,
               "top": 40.0,
@@ -1308,7 +1301,7 @@
             "id": "Monday",
             "arrangement": "row",
             "children": [
-              "container1"
+              "M_container_1"
             ],
             "item-spacing": 10.0,
             "clip-content": false
@@ -1317,7 +1310,7 @@
             "id": "Tuesday",
             "arrangement": "row",
             "children": [
-              "container2"
+              "Tu_container_1"
             ],
             "item-spacing": 10.0,
             "clip-content": false
@@ -1326,7 +1319,7 @@
             "id": "Wednesday",
             "arrangement": "row",
             "children": [
-              "container3"
+              "W_container_1"
             ],
             "item-spacing": 10.0,
             "clip-content": false
@@ -1335,7 +1328,7 @@
             "id": "Thursday",
             "arrangement": "row",
             "children": [
-              "container4"
+              "Th_container_1"
             ],
             "item-spacing": 10.0,
             "clip-content": false
@@ -1344,7 +1337,7 @@
             "id": "Friday",
             "arrangement": "row",
             "children": [
-              "container5"
+              "F_container_1"
             ],
             "item-spacing": 10.0,
             "clip-content": false
@@ -1353,7 +1346,7 @@
             "id": "Saturday",
             "arrangement": "row",
             "children": [
-              "container6"
+              "Sat_container_1"
             ],
             "item-spacing": 10.0,
             "clip-content": false
@@ -1373,12 +1366,12 @@
             },
             "arrangement": "row",
             "children": [
-              "state-layer1"
+              "Su_state_layer_1"
             ],
             "item-spacing": 10.0
           },
           {
-            "id": "state-layer1",
+            "id": "Su_state_layer_1",
             "size-constraints": {
               "width-constraints": {
                 "sizing-mode": "fixed",
@@ -1391,28 +1384,25 @@
             },
             "arrangement": "row",
             "children": [
-              "Date"
+              "Date_1_Su"
             ],
             "item-spacing": 10.0,
             "clip-content": false
           },
           {
-            "id": "Date",
-            "color": {
-              "alpha": 1.0,
-              "hue": 264.0,
-              "saturation": 0.15625,
-              "value": 0.12549019607843137
-            },
+            "id": "Date_1_Su",
+            "font-weight": "^md.sys.typescale.body-large.weight",
+            "color": "^md.sys.color.on-surface",
             "text-content": "6",
             "overflow": "visible",
             "text-align-vertical": "center",
-            "text-size": 16.0,
-            "letter-spacing": 0.5,
-            "line-height": 1.5
+            "text-size": "^md.sys.typescale.body-large.size",
+            "letter-spacing": "^md.sys.typescale.body-large.tracking",
+            "line-height": "^md.sys.typescale.body-large.line-height",
+            "typeface": "^md.sys.typescale.body-large.font"
           },
           {
-            "id": "container1",
+            "id": "M_container_1",
             "border-radius": 100.0,
             "size-constraints": {
               "width-constraints": {
@@ -1425,20 +1415,16 @@
               }
             },
             "stroke-width": 1.0,
-            "stroke-color": {
-              "alpha": 1.0,
-              "hue": 256.42857142857144,
-              "saturation": 0.5121951219512195,
-              "value": 0.6431372549019608
-            },
+            "stroke-color": "^md.sys.color.primary",
             "arrangement": "row",
             "children": [
-              "state-layer2"
+              "M_state_layer_1"
             ],
-            "item-spacing": 10.0
+            "item-spacing": 10.0,
+            "background-color": "^md.sys.color.primary"
           },
           {
-            "id": "state-layer2",
+            "id": "M_state_layer_1",
             "padding": 10.0,
             "size-constraints": {
               "width-constraints": {
@@ -1452,28 +1438,25 @@
             },
             "arrangement": "row",
             "children": [
-              "Date1"
+              "Date_1_M"
             ],
             "item-spacing": 10.0,
             "clip-content": false
           },
           {
-            "id": "Date1",
-            "color": {
-              "alpha": 1.0,
-              "hue": 256.42857142857144,
-              "saturation": 0.5121951219512195,
-              "value": 0.6431372549019608
-            },
+            "id": "Date_1_M",
+            "font-weight": "^md.sys.typescale.body-large.weight",
+            "color": "^md.sys.color.primary",
             "text-content": "7",
             "overflow": "visible",
             "text-align-vertical": "center",
-            "text-size": 16.0,
-            "letter-spacing": 0.5,
-            "line-height": 1.5
+            "text-size": "^md.sys.typescale.body-large.size",
+            "letter-spacing": "^md.sys.typescale.body-large.tracking",
+            "line-height": "^md.sys.typescale.body-large.line-height",
+            "typeface": "^md.sys.typescale.body-large.font"
           },
           {
-            "id": "container2",
+            "id": "Tu_container_1",
             "border-radius": 100.0,
             "size-constraints": {
               "width-constraints": {
@@ -1487,12 +1470,12 @@
             },
             "arrangement": "row",
             "children": [
-              "state-layer3"
+              "Tu_state_layer_1"
             ],
             "item-spacing": 10.0
           },
           {
-            "id": "state-layer3",
+            "id": "Tu_state_layer_1",
             "size-constraints": {
               "width-constraints": {
                 "sizing-mode": "fixed",
@@ -1505,28 +1488,25 @@
             },
             "arrangement": "row",
             "children": [
-              "Date2"
+              "Date_1_Tu"
             ],
             "item-spacing": 10.0,
             "clip-content": false
           },
           {
-            "id": "Date2",
-            "color": {
-              "alpha": 1.0,
-              "hue": 264.0,
-              "saturation": 0.15625,
-              "value": 0.12549019607843137
-            },
+            "id": "Date_1_Tu",
+            "font-weight": "^md.sys.typescale.body-large.weight",
+            "color": "^md.sys.color.on-surface",
             "text-content": "8",
             "overflow": "visible",
             "text-align-vertical": "center",
-            "text-size": 16.0,
-            "letter-spacing": 0.5,
-            "line-height": 1.5
+            "text-size": "^md.sys.typescale.body-large.size",
+            "letter-spacing": "^md.sys.typescale.body-large.tracking",
+            "line-height": "^md.sys.typescale.body-large.line-height",
+            "typeface": "^md.sys.typescale.body-large.font"
           },
           {
-            "id": "container3",
+            "id": "W_container_1",
             "border-radius": 100.0,
             "size-constraints": {
               "width-constraints": {
@@ -1540,12 +1520,12 @@
             },
             "arrangement": "row",
             "children": [
-              "state-layer4"
+              "W_state_layer_1"
             ],
             "item-spacing": 10.0
           },
           {
-            "id": "state-layer4",
+            "id": "W_state_layer_1",
             "size-constraints": {
               "width-constraints": {
                 "sizing-mode": "fixed",
@@ -1558,28 +1538,25 @@
             },
             "arrangement": "row",
             "children": [
-              "Date3"
+              "Date_1_W"
             ],
             "item-spacing": 10.0,
             "clip-content": false
           },
           {
-            "id": "Date3",
-            "color": {
-              "alpha": 1.0,
-              "hue": 264.0,
-              "saturation": 0.15625,
-              "value": 0.12549019607843137
-            },
+            "id": "Date_1_W",
+            "font-weight": "^md.sys.typescale.body-large.weight",
+            "color": "^md.sys.color.on-surface",
             "text-content": "9",
             "overflow": "visible",
             "text-align-vertical": "center",
-            "text-size": 16.0,
-            "letter-spacing": 0.5,
-            "line-height": 1.5
+            "text-size": "^md.sys.typescale.body-large.size",
+            "letter-spacing": "^md.sys.typescale.body-large.tracking",
+            "line-height": "^md.sys.typescale.body-large.line-height",
+            "typeface": "^md.sys.typescale.body-large.font"
           },
           {
-            "id": "container4",
+            "id": "Th_container_1",
             "border-radius": 100.0,
             "size-constraints": {
               "width-constraints": {
@@ -1593,12 +1570,12 @@
             },
             "arrangement": "row",
             "children": [
-              "state-layer5"
+              "Th_state_layer_1"
             ],
             "item-spacing": 10.0
           },
           {
-            "id": "state-layer5",
+            "id": "Th_state_layer_1",
             "size-constraints": {
               "width-constraints": {
                 "sizing-mode": "fixed",
@@ -1611,28 +1588,25 @@
             },
             "arrangement": "row",
             "children": [
-              "Date4"
+              "Date_1_Th"
             ],
             "item-spacing": 10.0,
             "clip-content": false
           },
           {
-            "id": "Date4",
-            "color": {
-              "alpha": 1.0,
-              "hue": 264.0,
-              "saturation": 0.15625,
-              "value": 0.12549019607843137
-            },
+            "id": "Date_1_Th",
+            "font-weight": "^md.sys.typescale.body-large.weight",
+            "color": "^md.sys.color.on-surface",
             "text-content": "10",
             "overflow": "visible",
             "text-align-vertical": "center",
-            "text-size": 16.0,
-            "letter-spacing": 0.5,
-            "line-height": 1.5
+            "text-size": "^md.sys.typescale.body-large.size",
+            "letter-spacing": "^md.sys.typescale.body-large.tracking",
+            "line-height": "^md.sys.typescale.body-large.line-height",
+            "typeface": "^md.sys.typescale.body-large.font"
           },
           {
-            "id": "container5",
+            "id": "F_container_1",
             "border-radius": 100.0,
             "size-constraints": {
               "width-constraints": {
@@ -1646,12 +1620,12 @@
             },
             "arrangement": "row",
             "children": [
-              "state-layer6"
+              "F_state_layer_1"
             ],
             "item-spacing": 10.0
           },
           {
-            "id": "state-layer6",
+            "id": "F_state_layer_1",
             "size-constraints": {
               "width-constraints": {
                 "sizing-mode": "fixed",
@@ -1664,28 +1638,25 @@
             },
             "arrangement": "row",
             "children": [
-              "Date5"
+              "Date_1_F"
             ],
             "item-spacing": 10.0,
             "clip-content": false
           },
           {
-            "id": "Date5",
-            "color": {
-              "alpha": 1.0,
-              "hue": 264.0,
-              "saturation": 0.15625,
-              "value": 0.12549019607843137
-            },
+            "id": "Date_1_F",
+            "font-weight": "^md.sys.typescale.body-large.weight",
+            "color": "^md.sys.color.on-surface",
             "text-content": "11",
             "overflow": "visible",
             "text-align-vertical": "center",
-            "text-size": 16.0,
-            "letter-spacing": 0.5,
-            "line-height": 1.5
+            "text-size": "^md.sys.typescale.body-large.size",
+            "letter-spacing": "^md.sys.typescale.body-large.tracking",
+            "line-height": "^md.sys.typescale.body-large.line-height",
+            "typeface": "^md.sys.typescale.body-large.font"
           },
           {
-            "id": "container6",
+            "id": "Sat_container_1",
             "border-radius": 100.0,
             "size-constraints": {
               "width-constraints": {
@@ -1699,12 +1670,12 @@
             },
             "arrangement": "row",
             "children": [
-              "state-layer7"
+              "Sat_state_layer_1"
             ],
             "item-spacing": 10.0
           },
           {
-            "id": "state-layer7",
+            "id": "Sat_state_layer_1",
             "size-constraints": {
               "width-constraints": {
                 "sizing-mode": "fixed",
@@ -1717,32 +1688,29 @@
             },
             "arrangement": "row",
             "children": [
-              "Date6"
+              "Date_1_Sat"
             ],
             "item-spacing": 10.0,
             "clip-content": false
           },
           {
-            "id": "Date6",
-            "color": {
-              "alpha": 1.0,
-              "hue": 264.0,
-              "saturation": 0.15625,
-              "value": 0.12549019607843137
-            },
+            "id": "Date_1_Sat",
+            "font-weight": "^md.sys.typescale.body-large.weight",
+            "color": "^md.sys.color.on-surface",
             "text-content": "12",
             "overflow": "visible",
             "text-align-vertical": "center",
-            "text-size": 16.0,
-            "letter-spacing": 0.5,
-            "line-height": 1.5
+            "text-size": "^md.sys.typescale.body-large.size",
+            "letter-spacing": "^md.sys.typescale.body-large.tracking",
+            "line-height": "^md.sys.typescale.body-large.line-height",
+            "typeface": "^md.sys.typescale.body-large.font"
           },
           {
-            "id": "state-layer8",
+            "id": "state_layer_SB_1",
             "is-structured": false,
             "children": [
               "Ripple",
-              "state-layer_synth"
+              "state_layer_SB_1_synth"
             ],
             "background-color": {
               "alpha": 0.0784313725490196,
@@ -1777,7 +1745,7 @@
             }
           },
           {
-            "id": "state-layer_synth",
+            "id": "state_layer_SB_1_synth",
             "opacity": 100.0,
             "padding": 4.0,
             "size-constraints": {
@@ -1793,15 +1761,15 @@
             "arrangement": "row",
             "main-axis-align": "start",
             "children": [
-              "Leading-icon",
-              "Content1",
+              "Leading_icon_SB_1",
+              "SB_Content_!",
               "Trailing-Elements"
             ],
             "item-spacing": 4.0,
             "clip-content": false
           },
           {
-            "id": "Leading-icon",
+            "id": "Leading_icon_SB_1",
             "opacity": 0.3799999952316284,
             "size-constraints": {
               "width-constraints": {
@@ -1814,13 +1782,13 @@
               }
             },
             "children": [
-              "container7"
+              "Li_container_1"
             ],
             "item-spacing": 10.0,
             "clip-content": false
           },
           {
-            "id": "Content1",
+            "id": "SB_Content_!",
             "arrangement": "row",
             "main-axis-align": "start",
             "children": [
@@ -1848,7 +1816,7 @@
             "clip-content": false
           },
           {
-            "id": "container7",
+            "id": "Li_container_1",
             "border-radius": 100.0,
             "size-constraints": {
               "width-constraints": {
@@ -1860,12 +1828,12 @@
             },
             "arrangement": "row",
             "children": [
-              "state-layer9"
+              "Li_state_layer_1"
             ],
             "item-spacing": 10.0
           },
           {
-            "id": "state-layer9",
+            "id": "Li_state_layer_1",
             "padding": 8.0,
             "size-constraints": {
               "width-constraints": {
@@ -1877,13 +1845,13 @@
             },
             "arrangement": "row",
             "children": [
-              "Icon"
+              "Li_Icon_1"
             ],
             "item-spacing": 10.0,
             "clip-content": false
           },
           {
-            "id": "Icon",
+            "id": "Li_Icon_1",
             "size-constraints": {
               "width-constraints": {
                 "sizing-mode": "fixed",
@@ -1896,20 +1864,20 @@
             },
             "is-structured": false,
             "children": [
-              "Icons/search_24px"
+              "Li_Icons_search_24px_1"
             ],
             "clip-content": false
           },
           {
-            "id": "Icons/search_24px",
+            "id": "Li_Icons_search_24px_1",
             "is-structured": false,
             "children": [
-              "icon2"
+              "Li_icon_1"
             ],
             "clip-content": false
           },
           {
-            "id": "icon2",
+            "id": "Li_icon_1",
             "margin": {
               "left": 3.0,
               "top": 3.0,
@@ -1926,23 +1894,20 @@
                 "value": 1.0
               }
             },
-            "vector-content": "icon2.svg"
+            "vector-content": "li_icon_1.svg"
           },
           {
             "id": "supporting-text",
-            "color": {
-              "alpha": 1.0,
-              "hue": 263.99999999999994,
-              "saturation": 0.12658227848101275,
-              "value": 0.30980392156862746
-            },
+            "font-weight": "^md.sys.typescale.body-large.weight",
+            "color": "^md.sys.color.on-surface-variant",
             "text-content": "Search",
             "overflow": "visible",
             "text-align": "left",
             "text-align-vertical": "center",
-            "text-size": 16.0,
-            "letter-spacing": 0.5,
-            "line-height": 1.5
+            "text-size": "^md.sys.typescale.body-large.size",
+            "letter-spacing": "^md.sys.typescale.body-large.tracking",
+            "line-height": "^md.sys.typescale.body-large.line-height",
+            "typeface": "^md.sys.typescale.body-large.font"
           },
           {
             "id": "1st trailing-icon",
@@ -1958,7 +1923,7 @@
               }
             },
             "children": [
-              "container8"
+              "Ti_container_1"
             ],
             "item-spacing": 10.0,
             "clip-content": false
@@ -1977,13 +1942,13 @@
               }
             },
             "children": [
-              "container9"
+              "2Ti_container_1"
             ],
             "item-spacing": 10.0,
             "clip-content": false
           },
           {
-            "id": "container8",
+            "id": "Ti_container_1",
             "border-radius": 100.0,
             "size-constraints": {
               "width-constraints": {
@@ -1995,12 +1960,12 @@
             },
             "arrangement": "row",
             "children": [
-              "state-layer10"
+              "Ti_state_layer_1"
             ],
             "item-spacing": 10.0
           },
           {
-            "id": "state-layer10",
+            "id": "Ti_state_layer_1",
             "padding": 8.0,
             "size-constraints": {
               "width-constraints": {
@@ -2012,13 +1977,13 @@
             },
             "arrangement": "row",
             "children": [
-              "Icon1"
+              "Ti_Icon_1"
             ],
             "item-spacing": 10.0,
             "clip-content": false
           },
           {
-            "id": "Icon1",
+            "id": "Ti_Icon_1",
             "size-constraints": {
               "width-constraints": {
                 "sizing-mode": "fixed",
@@ -2031,12 +1996,12 @@
             },
             "is-structured": false,
             "children": [
-              "icon3"
+              "Ti_icon_1a"
             ],
             "clip-content": false
           },
           {
-            "id": "icon3",
+            "id": "Ti_icon_1a",
             "margin": {
               "left": 3.0,
               "top": 3.0,
@@ -2055,7 +2020,7 @@
             }
           },
           {
-            "id": "container9",
+            "id": "2Ti_container_1",
             "border-radius": 100.0,
             "size-constraints": {
               "width-constraints": {
@@ -2067,12 +2032,12 @@
             },
             "arrangement": "row",
             "children": [
-              "state-layer11"
+              "2Ti_state_layer_1"
             ],
             "item-spacing": 10.0
           },
           {
-            "id": "state-layer11",
+            "id": "2Ti_state_layer_1",
             "padding": 8.0,
             "size-constraints": {
               "width-constraints": {
@@ -2084,13 +2049,13 @@
             },
             "arrangement": "row",
             "children": [
-              "Icon2"
+              "2Ti_Icon_1"
             ],
             "item-spacing": 10.0,
             "clip-content": false
           },
           {
-            "id": "Icon2",
+            "id": "2Ti_Icon_1",
             "size-constraints": {
               "width-constraints": {
                 "sizing-mode": "fixed",
@@ -2103,12 +2068,12 @@
             },
             "is-structured": false,
             "children": [
-              "icon4"
+              "2Ti_icon_1a"
             ],
             "clip-content": false
           },
           {
-            "id": "icon4",
+            "id": "2Ti_icon_1a",
             "margin": {
               "left": 10.0,
               "top": 4.0,
@@ -2171,7 +2136,7 @@
             "arrangement": "row",
             "main-axis-align": "start",
             "children": [
-              "leading-icon"
+              "leading_icon_E1"
             ],
             "item-spacing": 164.0,
             "clip-content": false
@@ -2207,7 +2172,7 @@
             "item-spacing": 10.0
           },
           {
-            "id": "leading-icon",
+            "id": "leading_icon_E1",
             "padding": {
               "left": 56.0,
               "right": 56.0
@@ -2243,7 +2208,7 @@
               }
             },
             "children": [
-              "container10"
+              "I1_container_1"
             ],
             "item-spacing": 10.0,
             "clip-content": false
@@ -2261,7 +2226,7 @@
               }
             },
             "children": [
-              "container11"
+              "I2_container_1"
             ],
             "item-spacing": 10.0,
             "clip-content": false
@@ -2279,13 +2244,13 @@
               }
             },
             "children": [
-              "container12"
+              "I3_container_1"
             ],
             "item-spacing": 10.0,
             "clip-content": false
           },
           {
-            "id": "container10",
+            "id": "I1_container_1",
             "border-radius": 100.0,
             "size-constraints": {
               "width-constraints": {
@@ -2297,13 +2262,13 @@
             },
             "arrangement": "row",
             "children": [
-              "state-layer12"
+              "I1_state_layer_1"
             ],
             "item-spacing": 10.0,
             "clip-content": false
           },
           {
-            "id": "state-layer12",
+            "id": "I1_state_layer_1",
             "padding": 8.0,
             "size-constraints": {
               "width-constraints": {
@@ -2314,13 +2279,13 @@
               }
             },
             "children": [
-              "Employee Icon"
+              "Employee Icon 1"
             ],
             "item-spacing": 10.0,
             "clip-content": false
           },
           {
-            "id": "Employee Icon",
+            "id": "Employee Icon 1",
             "size-constraints": {
               "width-constraints": {
                 "sizing-mode": "fixed",
@@ -2333,29 +2298,18 @@
             },
             "is-structured": false,
             "children": [
-              "Icons/account_circle_filled_24px",
-              "Employees1"
+              "Employees_BB_1",
+              "I1_Icons_account_circle_filled_24px_1"
             ],
             "clip-content": false
           },
           {
-            "id": "Icons/account_circle_filled_24px",
+            "id": "Employees_BB_1",
             "margin": {
-              "left": 14.0,
-              "top": 5.0,
-              "right": 14.0,
-              "bottom": 12.0
-            },
-            "is-structured": false,
-            "children": [
-              "icon5"
-            ],
-            "clip-content": false
-          },
-          {
-            "id": "Employees1",
-            "margin": {
-              "top": 21.0
+              "left": 1.857177734375,
+              "top": 33.0,
+              "right": 1.8571090698242188,
+              "bottom": 8.0
             },
             "size-constraints": {
               "width-constraints": {
@@ -2370,14 +2324,34 @@
             "font-weight": 100.0,
             "text-content": "Employees",
             "overflow": "visible",
+            "max-lines": -1,
             "text-align-vertical": "center",
             "text-size": 10.0,
             "letter-spacing": 0.5,
-            "line-height": 2.4
+            "line-height": 0.0
           },
           {
-            "id": "icon5",
-            "margin": 2.0,
+            "id": "I1_Icons_account_circle_filled_24px_1",
+            "margin": {
+              "left": 14.857177734375,
+              "top": 5.0,
+              "right": 14.857109069824219,
+              "bottom": 12.0
+            },
+            "is-structured": false,
+            "children": [
+              "E_icon_1"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "E_icon_1",
+            "margin": {
+              "left": 1.857177734375,
+              "top": 2.0,
+              "right": 1.8571090698242188,
+              "bottom": 2.0
+            },
             "size-constraints": {
               "width-constraints": {
                 "sizing-mode": "proportional",
@@ -2388,10 +2362,10 @@
                 "value": 1.0
               }
             },
-            "vector-content": "icon3.svg"
+            "vector-content": "e_icon_1.svg"
           },
           {
-            "id": "container11",
+            "id": "I2_container_1",
             "border-radius": 100.0,
             "size-constraints": {
               "width-constraints": {
@@ -2405,12 +2379,12 @@
             },
             "arrangement": "row",
             "children": [
-              "state-layer13"
+              "I2_state_layer_1"
             ],
             "item-spacing": 10.0
           },
           {
-            "id": "state-layer13",
+            "id": "I2_state_layer_1",
             "padding": 8.0,
             "size-constraints": {
               "width-constraints": {
@@ -2424,13 +2398,13 @@
             },
             "arrangement": "row",
             "children": [
-              "Scheduling Icon"
+              "Scheduling Icon 1"
             ],
             "item-spacing": 10.0,
             "clip-content": false
           },
           {
-            "id": "Scheduling Icon",
+            "id": "Scheduling Icon 1",
             "size-constraints": {
               "width-constraints": {
                 "sizing-mode": "fixed",
@@ -2443,29 +2417,18 @@
             },
             "is-structured": false,
             "children": [
-              "Icons/today_24px",
-              "Scheduling"
+              "I2_Scheduling_1",
+              "I2_Icons_today_24px_1"
             ],
             "clip-content": false
           },
           {
-            "id": "Icons/today_24px",
+            "id": "I2_Scheduling_1",
             "margin": {
-              "left": 14.717041015625,
-              "top": 3.90478515625,
-              "right": 13.735788345336914,
-              "bottom": 13.666643142700195
-            },
-            "is-structured": false,
-            "children": [
-              "icon6"
-            ],
-            "clip-content": false
-          },
-          {
-            "id": "Scheduling",
-            "margin": {
-              "top": 9.0
+              "left": 1.857177734375,
+              "top": 29.0,
+              "right": 1.8571090698242188,
+              "bottom": 9.0
             },
             "size-constraints": {
               "width-constraints": {
@@ -2484,14 +2447,28 @@
             "text-align-vertical": "center",
             "text-size": 9.0,
             "letter-spacing": 0.5,
-            "line-height": 2.6666665649414063
+            "line-height": 0.0
           },
           {
-            "id": "icon6",
+            "id": "I2_Icons_today_24px_1",
             "margin": {
-              "left": 2.943359375,
+              "left": 14.857177734375,
+              "top": 4.0,
+              "right": 15.277591705322266,
+              "bottom": 13.571428298950195
+            },
+            "is-structured": false,
+            "children": [
+              "S_icon_1"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "S_icon_1",
+            "margin": {
+              "left": 2.733154296875,
               "top": 1.9521484375,
-              "right": 2.943431854248047,
+              "right": 2.733152389526367,
               "bottom": 1.9526138305664062
             },
             "size-constraints": {
@@ -2504,10 +2481,10 @@
                 "value": 1.0
               }
             },
-            "vector-content": "icon4.svg"
+            "vector-content": "s_icon_1.svg"
           },
           {
-            "id": "container12",
+            "id": "I3_container_1",
             "border-radius": 100.0,
             "size-constraints": {
               "width-constraints": {
@@ -2521,12 +2498,12 @@
             },
             "arrangement": "row",
             "children": [
-              "state-layer14"
+              "I3_state_layer_!"
             ],
             "item-spacing": 10.0
           },
           {
-            "id": "state-layer14",
+            "id": "I3_state_layer_!",
             "padding": 8.0,
             "size-constraints": {
               "width-constraints": {
@@ -2540,13 +2517,13 @@
             },
             "arrangement": "row",
             "children": [
-              "Settings Icon"
+              "Settings Icon 1"
             ],
             "item-spacing": 10.0,
             "clip-content": false
           },
           {
-            "id": "Settings Icon",
+            "id": "Settings Icon 1",
             "size-constraints": {
               "width-constraints": {
                 "sizing-mode": "fixed",
@@ -2559,15 +2536,18 @@
             },
             "is-structured": false,
             "children": [
-              "Settings",
-              "Icons/settings_24px"
+              "I3_Settings_!",
+              "I3_Icons_settings_24px_1"
             ],
             "clip-content": false
           },
           {
-            "id": "Settings",
+            "id": "I3_Settings_!",
             "margin": {
-              "top": 21.0
+              "left": 1.857177734375,
+              "top": 33.0,
+              "right": 1.8571090698242188,
+              "bottom": 8.0
             },
             "size-constraints": {
               "width-constraints": {
@@ -2586,28 +2566,28 @@
             "text-align-vertical": "center",
             "text-size": 9.0,
             "letter-spacing": 0.5,
-            "line-height": 2.6666665649414063
+            "line-height": 0.0
           },
           {
-            "id": "Icons/settings_24px",
+            "id": "I3_Icons_settings_24px_1",
             "margin": {
-              "left": 14.0,
+              "left": 14.857177734375,
               "top": 4.0,
-              "right": 14.0,
+              "right": 14.857109069824219,
               "bottom": 13.0
             },
             "is-structured": false,
             "children": [
-              "icon7"
+              "St_icon_1"
             ],
             "clip-content": false
           },
           {
-            "id": "icon7",
+            "id": "St_icon_1",
             "margin": {
-              "left": 1.998779296875,
+              "left": 1.85595703125,
               "top": 1.759765625,
-              "right": 1.9951515197753906,
+              "right": 1.852691650390625,
               "bottom": 1.750234603881836
             },
             "size-constraints": {
@@ -2620,7 +2600,7 @@
                 "value": 1.0
               }
             },
-            "vector-content": "icon5.svg"
+            "vector-content": "st_icon_1.svg"
           },
           {
             "id": "FAB",
@@ -2648,17 +2628,12 @@
             },
             "arrangement": "row",
             "children": [
-              "state-layer15"
+              "state-layer_NA_1"
             ],
-            "background-color": {
-              "alpha": 1.0,
-              "hue": 263.07692307692304,
-              "saturation": 0.10483870967741933,
-              "value": 0.9725490196078431
-            }
+            "background-color": "^md.sys.color.secondary-container"
           },
           {
-            "id": "state-layer15",
+            "id": "state-layer_NA_1",
             "padding": 16.0,
             "size-constraints": {
               "width-constraints": {
@@ -2670,12 +2645,12 @@
             },
             "arrangement": "row",
             "children": [
-              "icon8"
+              "icon_NA_1"
             ],
             "clip-content": false
           },
           {
-            "id": "icon8",
+            "id": "icon_NA_1",
             "size-constraints": {
               "width-constraints": {
                 "sizing-mode": "fixed",
@@ -2688,12 +2663,12 @@
             },
             "is-structured": false,
             "children": [
-              "icon9"
+              "icon_NA_1a"
             ],
             "clip-content": false
           },
           {
-            "id": "icon9",
+            "id": "icon_NA_1a",
             "margin": 4.0,
             "size-constraints": {
               "width-constraints": {
@@ -2710,12 +2685,162 @@
       }
     }
   },
+  "ambients": {
+    "md.sys.color.surface": {
+      "data-type": "color",
+      "description": null
+    },
+    "md.sys.color.on-surface-variant": {
+      "data-type": "color",
+      "description": null
+    },
+    "md.sys.typescale.label-small.font": {
+      "data-type": "typeface",
+      "description": null
+    },
+    "md.sys.typescale.label-small.weight": {
+      "data-type": "double",
+      "description": null
+    },
+    "md.sys.typescale.label-small.size": {
+      "data-type": "double",
+      "description": null
+    },
+    "md.sys.typescale.label-small.tracking": {
+      "data-type": "double",
+      "description": null
+    },
+    "md.sys.typescale.label-small.line-height": {
+      "data-type": "double",
+      "description": null
+    },
+    "md.sys.typescale.label-medium.font": {
+      "data-type": "typeface",
+      "description": null
+    },
+    "md.sys.typescale.label-medium.weight": {
+      "data-type": "double",
+      "description": null
+    },
+    "md.sys.typescale.label-medium.size": {
+      "data-type": "double",
+      "description": null
+    },
+    "md.sys.typescale.label-medium.tracking": {
+      "data-type": "double",
+      "description": null
+    },
+    "md.sys.typescale.label-medium.line-height": {
+      "data-type": "double",
+      "description": null
+    },
+    "md.sys.color.on-surface": {
+      "data-type": "color",
+      "description": null
+    },
+    "md.sys.typescale.body-large.font": {
+      "data-type": "typeface",
+      "description": null
+    },
+    "md.sys.typescale.body-large.weight": {
+      "data-type": "double",
+      "description": null
+    },
+    "md.sys.typescale.body-large.size": {
+      "data-type": "double",
+      "description": null
+    },
+    "md.sys.typescale.body-large.tracking": {
+      "data-type": "double",
+      "description": null
+    },
+    "md.sys.typescale.body-large.line-height": {
+      "data-type": "double",
+      "description": null
+    },
+    "md.sys.typescale.body-medium.font": {
+      "data-type": "typeface",
+      "description": null
+    },
+    "md.sys.typescale.body-medium.weight": {
+      "data-type": "double",
+      "description": null
+    },
+    "md.sys.typescale.body-medium.size": {
+      "data-type": "double",
+      "description": null
+    },
+    "md.sys.typescale.body-medium.tracking": {
+      "data-type": "double",
+      "description": null
+    },
+    "md.sys.typescale.body-medium.line-height": {
+      "data-type": "double",
+      "description": null
+    },
+    "md.sys.color.primary": {
+      "data-type": "color",
+      "description": null
+    },
+    "md.sys.color.secondary-container": {
+      "data-type": "color",
+      "description": null
+    }
+  },
   "previews": [
     {
       "design": "Employees",
       "size": {
         "width": 412.0,
         "height": 800.0
+      },
+      "ambients": {
+        "md.sys.color.surface": {
+          "alpha": 1.0,
+          "hue": 292.5,
+          "saturation": 0.03137254901960784,
+          "value": 1.0
+        },
+        "md.sys.color.on-surface-variant": {
+          "alpha": 1.0,
+          "hue": 263.99999999999994,
+          "saturation": 0.12658227848101275,
+          "value": 0.30980392156862746
+        },
+        "md.sys.typescale.label-small.weight": 500.0,
+        "md.sys.typescale.label-small.size": 11.0,
+        "md.sys.typescale.label-small.tracking": 0.5,
+        "md.sys.typescale.label-small.line-height": 1.454545440673828,
+        "md.sys.typescale.label-medium.weight": 500.0,
+        "md.sys.typescale.label-medium.size": 12.0,
+        "md.sys.typescale.label-medium.tracking": 0.5,
+        "md.sys.typescale.label-medium.line-height": 1.3333332824707032,
+        "md.sys.color.on-surface": {
+          "alpha": 1.0,
+          "hue": 264.0,
+          "saturation": 0.15625,
+          "value": 0.12549019607843137
+        },
+        "md.sys.typescale.body-large.weight": 400.0,
+        "md.sys.typescale.body-large.size": 16.0,
+        "md.sys.typescale.body-large.tracking": 0.5,
+        "md.sys.typescale.body-large.line-height": 1.5,
+        "md.sys.typescale.body-medium.weight": 400.0,
+        "md.sys.typescale.body-medium.size": 14.0,
+        "md.sys.typescale.body-medium.tracking": 0.25,
+        "md.sys.typescale.body-medium.line-height": 1.4285714721679688,
+        "md.sys.color.primary": {
+          "alpha": 1.0,
+          "hue": 256.42857142857144,
+          "saturation": 0.5121951219512195,
+          "value": 0.6431372549019608
+        },
+        "md.sys.color.secondary-container": {
+          "alpha": 1.0,
+          "hue": 263.07692307692304,
+          "saturation": 0.10483870967741933,
+          "value": 0.9725490196078431
+        }
       }
     }
   ],
