@@ -44,17 +44,4 @@
         app:layout_constraintTop_toBottomOf="@+id/calendarView"
         tools:layout_width="301dp" />
 
-    <Button
-        android:id="@+id/schedulingBackButton"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="69dp"
-        android:layout_height="34dp"
-        android:text="Back"
-        android:onClick="goToSplash"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textColor="#0C0C0C"
-        android:textSize="8sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
