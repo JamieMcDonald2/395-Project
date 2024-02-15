@@ -1,15 +1,15 @@
 {
-  "name": "employee",
+  "name": "bottom_app_bar_final",
   "version": 33,
   "source-key": {
     "type": "figma",
     "file": "sjYPI6UptLTQ1tIf73pxSn",
-    "node": "237:11219",
-    "version": "5143589612",
-    "component-id": "22024eee68df2b93550c57a0c974dfcb7ec93559"
+    "node": "372:7304",
+    "version": "5155551185",
+    "component-id": "e9d6dfe7b0a8b00c9295c13558d56d5da345d3fa"
   },
-  "default": "Employee",
-  "documentation": "Employee Page",
+  "default": "Bottom app bar Final",
+  "documentation": "This is the bottom navigation bar for the app. \nv1.00\n-Employees\n-Scheduling\n-Settings",
   "design": {
     "atoms": [
       {
@@ -18,44 +18,12 @@
         "root": "true"
       },
       {
-        "type": "text",
-        "id": "Employees"
-      },
-      {
-        "type": "group",
-        "id": "horizontal/middle-inset"
-      },
-      {
-        "type": "group",
-        "id": "Bottom app bar Final"
-      },
-      {
-        "type": "group",
-        "id": "Icons/navigate_before"
-      },
-      {
-        "type": "text",
-        "id": "Test_Update_item_temp"
-      },
-      {
-        "type": "vector",
-        "id": "Divider"
-      },
-      {
         "type": "group",
         "id": "Bottom app bar"
       },
       {
         "type": "group",
-        "id": "Bottom app bar_synth"
-      },
-      {
-        "type": "group",
-        "id": "FAB elevation-override"
-      },
-      {
-        "type": "group",
-        "id": "leading_icon_E3"
+        "id": "leading-icon-main"
       },
       {
         "type": "group",
@@ -71,11 +39,11 @@
       },
       {
         "type": "group",
-        "id": "container"
+        "id": "container_Icon1_BB"
       },
       {
         "type": "group",
-        "id": "state-layer"
+        "id": "state-layer_Icon1"
       },
       {
         "type": "group",
@@ -83,7 +51,7 @@
       },
       {
         "type": "text",
-        "id": "Employees_BB_3"
+        "id": "Employees"
       },
       {
         "type": "group",
@@ -91,19 +59,19 @@
       },
       {
         "type": "vector",
-        "id": "icon"
+        "id": "icon_employees"
       },
       {
         "type": "group",
-        "id": "I2_container_3"
+        "id": "container_Icon2_BB"
       },
       {
         "type": "group",
-        "id": "I2_state_layer_3"
+        "id": "state-layer_Icon2"
       },
       {
         "type": "group",
-        "id": "Scheduling_Icon"
+        "id": "Scheduling Icon"
       },
       {
         "type": "text",
@@ -111,23 +79,23 @@
       },
       {
         "type": "group",
-        "id": "I2_Icons_today_24px_3"
+        "id": "Icons/today_24px"
       },
       {
         "type": "vector",
-        "id": "I2_icon_3"
+        "id": "icon_scheduling"
       },
       {
         "type": "group",
-        "id": "I3_container_3"
+        "id": "container_Icon3_BB"
       },
       {
         "type": "group",
-        "id": "I3_state_layer_3"
+        "id": "state-layer_Icon3"
       },
       {
         "type": "group",
-        "id": "Settings_Icon"
+        "id": "Settings Icon"
       },
       {
         "type": "text",
@@ -139,127 +107,14 @@
       },
       {
         "type": "vector",
-        "id": "I3_icon_3"
-      },
-      {
-        "type": "group",
-        "id": "FAB"
-      },
-      {
-        "type": "group",
-        "id": "state-layer_NA_3"
-      },
-      {
-        "type": "group",
-        "id": "icon_NA_3"
-      },
-      {
-        "type": "vector",
-        "id": "icon_NA_3a"
-      },
-      {
-        "type": "group",
-        "id": "E_Icons_navigate_before_3"
-      },
-      {
-        "type": "vector",
-        "id": "icon_Eb_3"
+        "id": "icon_settings"
       }
     ],
     "modes": {
-      "Employee": {
+      "Bottom app bar Final": {
         "rules": [
           {
             "id": "top_level",
-            "is-structured": false,
-            "children": [
-              "Employees",
-              "horizontal/middle-inset",
-              "Bottom app bar Final",
-              "Icons/navigate_before",
-              "Test_Update_item_temp"
-            ],
-            "background-color": {
-              "alpha": 1.0,
-              "hue": 0.0,
-              "saturation": 0.0,
-              "value": 1.0
-            }
-          },
-          {
-            "id": "Employees",
-            "alignment": {
-              "horizontal": {
-                "attachment": "start",
-                "offset": 120.0
-              },
-              "vertical": {
-                "attachment": "start",
-                "offset": 30.0
-              }
-            },
-            "font-weight": 500.0,
-            "text-content": "[Employee_Name]",
-            "overflow": "visible",
-            "text-align-vertical": "center",
-            "text-size": 20.0,
-            "letter-spacing": 0.2
-          },
-          {
-            "id": "horizontal/middle-inset",
-            "padding": {
-              "left": 16.0,
-              "right": 16.0
-            },
-            "alignment": {
-              "horizontal": {
-                "attachment": "start",
-                "offset": -22.000000043710145
-              },
-              "vertical": {
-                "attachment": "start",
-                "offset": 73.00001967012473
-              }
-            },
-            "relative-transform": [
-              [
-                1.0,
-                -8.742277657347586e-8,
-                0.0
-              ],
-              [
-                8.742277657347586e-8,
-                1.0,
-                0.0
-              ]
-            ],
-            "size-constraints": {
-              "width-constraints": {
-                "sizing-mode": "fixed",
-                "value": 450.0
-              },
-              "height-constraints": {
-                "sizing-mode": "shrink"
-              }
-            },
-            "cross-axis-align": "start",
-            "children": [
-              "Divider"
-            ],
-            "clip-content": false
-          },
-          {
-            "id": "Bottom app bar Final",
-            "alignment": {
-              "horizontal": {
-                "attachment": "start",
-                "offset": 0.0
-              },
-              "vertical": {
-                "attachment": "start",
-                "offset": 720.0
-              }
-            },
             "size-constraints": {
               "width-constraints": {
                 "sizing-mode": "shrink"
@@ -277,104 +132,7 @@
             "clip-content": false
           },
           {
-            "id": "Icons/navigate_before",
-            "alignment": {
-              "horizontal": {
-                "attachment": "start",
-                "offset": 13.0
-              },
-              "vertical": {
-                "attachment": "start",
-                "offset": 16.0
-              }
-            },
-            "size-constraints": {
-              "width-constraints": {
-                "sizing-mode": "fixed",
-                "value": 40.0
-              },
-              "height-constraints": {
-                "sizing-mode": "fixed",
-                "value": 48.0
-              }
-            },
-            "is-structured": false,
-            "children": [
-              "E_Icons_navigate_before_3"
-            ],
-            "clip-content": false
-          },
-          {
-            "id": "Test_Update_item_temp",
-            "alignment": {
-              "horizontal": {
-                "attachment": "start",
-                "offset": 18.0
-              },
-              "vertical": {
-                "attachment": "start",
-                "offset": 191.0
-              }
-            },
-            "text-content": "Test_Update_item_temp\n",
-            "overflow": "visible",
-            "text-align-vertical": "center",
-            "text-size": 16.0,
-            "letter-spacing": 0.5,
-            "line-height": 1.5
-          },
-          {
-            "id": "Divider",
-            "alignment": {
-              "horizontal": {
-                "attachment": "start",
-                "offset": 6.0
-              },
-              "vertical": {
-                "attachment": "start",
-                "offset": -1.0
-              }
-            },
-            "size-constraints": {
-              "width-constraints": {
-                "sizing-mode": "proportional",
-                "value": 1.0
-              },
-              "height-constraints": {
-                "sizing-mode": "fixed",
-                "value": 0.0
-              }
-            },
-            "vector-content": "divider.svg"
-          },
-          {
             "id": "Bottom app bar",
-            "size-constraints": {
-              "width-constraints": {
-                "sizing-mode": "fixed",
-                "value": 412.0
-              },
-              "height-constraints": {
-                "sizing-mode": "fixed",
-                "value": 80.0
-              }
-            },
-            "is-structured": false,
-            "children": [
-              "Bottom app bar_synth",
-              "FAB elevation-override"
-            ],
-            "background-color": {
-              "alpha": 1.0,
-              "hue": 275.9999999999999,
-              "saturation": 0.04048582995951414,
-              "value": 0.9686274509803922
-            },
-            "clip-content": false
-          },
-          {
-            "id": "Bottom app bar_synth",
-            "opacity": 100.0,
             "padding": {
               "left": 4.0,
               "right": 16.0
@@ -392,43 +150,19 @@
             "arrangement": "row",
             "main-axis-align": "start",
             "children": [
-              "leading_icon_E3"
+              "leading-icon-main"
             ],
             "item-spacing": 164.0,
+            "background-color": {
+              "alpha": 1.0,
+              "hue": 275.9999999999999,
+              "saturation": 0.04048582995951414,
+              "value": 0.9686274509803922
+            },
             "clip-content": false
           },
           {
-            "id": "FAB elevation-override",
-            "presence": false,
-            "border-radius": 16.0,
-            "alignment": {
-              "horizontal": {
-                "attachment": "end",
-                "offset": -16.0
-              },
-              "vertical": {
-                "attachment": "center",
-                "offset": 0.0
-              }
-            },
-            "size-constraints": {
-              "width-constraints": {
-                "sizing-mode": "shrink"
-              },
-              "height-constraints": {
-                "sizing-mode": "shrink"
-              }
-            },
-            "arrangement": "row",
-            "main-axis-align": "start",
-            "cross-axis-align": "start",
-            "children": [
-              "FAB"
-            ],
-            "item-spacing": 10.0
-          },
-          {
-            "id": "leading_icon_E3",
+            "id": "leading-icon-main",
             "padding": {
               "left": 56.0,
               "right": 56.0
@@ -464,7 +198,7 @@
               }
             },
             "children": [
-              "container"
+              "container_Icon1_BB"
             ],
             "item-spacing": 10.0,
             "clip-content": false
@@ -482,7 +216,7 @@
               }
             },
             "children": [
-              "I2_container_3"
+              "container_Icon2_BB"
             ],
             "item-spacing": 10.0,
             "clip-content": false
@@ -500,13 +234,13 @@
               }
             },
             "children": [
-              "I3_container_3"
+              "container_Icon3_BB"
             ],
             "item-spacing": 10.0,
             "clip-content": false
           },
           {
-            "id": "container",
+            "id": "container_Icon1_BB",
             "border-radius": 100.0,
             "size-constraints": {
               "width-constraints": {
@@ -518,13 +252,13 @@
             },
             "arrangement": "row",
             "children": [
-              "state-layer"
+              "state-layer_Icon1"
             ],
             "item-spacing": 10.0,
             "clip-content": false
           },
           {
-            "id": "state-layer",
+            "id": "state-layer_Icon1",
             "padding": 8.0,
             "size-constraints": {
               "width-constraints": {
@@ -554,13 +288,13 @@
             },
             "is-structured": false,
             "children": [
-              "Employees_BB_3",
+              "Employees",
               "Icons/account_circle_filled_24px"
             ],
             "clip-content": false
           },
           {
-            "id": "Employees_BB_3",
+            "id": "Employees",
             "margin": {
               "left": 1.857177734375,
               "top": 33.0,
@@ -582,7 +316,7 @@
             "overflow": "visible",
             "max-lines": -1,
             "text-align-vertical": "center",
-            "text-size": 10.0,
+            "text-size": 9.0,
             "letter-spacing": 0.5,
             "line-height": 0.0
           },
@@ -596,12 +330,12 @@
             },
             "is-structured": false,
             "children": [
-              "icon"
+              "icon_employees"
             ],
             "clip-content": false
           },
           {
-            "id": "icon",
+            "id": "icon_employees",
             "margin": {
               "left": 1.857177734375,
               "top": 2.0,
@@ -618,10 +352,10 @@
                 "value": 1.0
               }
             },
-            "vector-content": "icon.svg"
+            "vector-content": "icon_employees.svg"
           },
           {
-            "id": "I2_container_3",
+            "id": "container_Icon2_BB",
             "border-radius": 100.0,
             "size-constraints": {
               "width-constraints": {
@@ -635,12 +369,12 @@
             },
             "arrangement": "row",
             "children": [
-              "I2_state_layer_3"
+              "state-layer_Icon2"
             ],
             "item-spacing": 10.0
           },
           {
-            "id": "I2_state_layer_3",
+            "id": "state-layer_Icon2",
             "padding": 8.0,
             "size-constraints": {
               "width-constraints": {
@@ -654,13 +388,13 @@
             },
             "arrangement": "row",
             "children": [
-              "Scheduling_Icon"
+              "Scheduling Icon"
             ],
             "item-spacing": 10.0,
             "clip-content": false
           },
           {
-            "id": "Scheduling_Icon",
+            "id": "Scheduling Icon",
             "size-constraints": {
               "width-constraints": {
                 "sizing-mode": "fixed",
@@ -674,16 +408,16 @@
             "is-structured": false,
             "children": [
               "Scheduling",
-              "I2_Icons_today_24px_3"
+              "Icons/today_24px"
             ],
             "clip-content": false
           },
           {
             "id": "Scheduling",
             "margin": {
-              "left": 1.857177734375,
+              "left": 1.85693359375,
               "top": 29.0,
-              "right": 1.8571090698242188,
+              "right": 1.8573532104492188,
               "bottom": 9.0
             },
             "size-constraints": {
@@ -706,25 +440,25 @@
             "line-height": 0.0
           },
           {
-            "id": "I2_Icons_today_24px_3",
+            "id": "Icons/today_24px",
             "margin": {
-              "left": 14.857177734375,
+              "left": 14.85693359375,
               "top": 4.0,
-              "right": 15.277591705322266,
+              "right": 15.277835845947266,
               "bottom": 13.571428298950195
             },
             "is-structured": false,
             "children": [
-              "I2_icon_3"
+              "icon_scheduling"
             ],
             "clip-content": false
           },
           {
-            "id": "I2_icon_3",
+            "id": "icon_scheduling",
             "margin": {
-              "left": 2.733154296875,
+              "left": 2.73291015625,
               "top": 1.9521484375,
-              "right": 2.733152389526367,
+              "right": 2.733396530151367,
               "bottom": 1.9526138305664062
             },
             "size-constraints": {
@@ -737,10 +471,10 @@
                 "value": 1.0
               }
             },
-            "vector-content": "i2_icon_3.svg"
+            "vector-content": "icon_scheduling.svg"
           },
           {
-            "id": "I3_container_3",
+            "id": "container_Icon3_BB",
             "border-radius": 100.0,
             "size-constraints": {
               "width-constraints": {
@@ -754,12 +488,12 @@
             },
             "arrangement": "row",
             "children": [
-              "I3_state_layer_3"
+              "state-layer_Icon3"
             ],
             "item-spacing": 10.0
           },
           {
-            "id": "I3_state_layer_3",
+            "id": "state-layer_Icon3",
             "padding": 8.0,
             "size-constraints": {
               "width-constraints": {
@@ -773,13 +507,13 @@
             },
             "arrangement": "row",
             "children": [
-              "Settings_Icon"
+              "Settings Icon"
             ],
             "item-spacing": 10.0,
             "clip-content": false
           },
           {
-            "id": "Settings_Icon",
+            "id": "Settings Icon",
             "size-constraints": {
               "width-constraints": {
                 "sizing-mode": "fixed",
@@ -800,9 +534,9 @@
           {
             "id": "Settings",
             "margin": {
-              "left": 1.857177734375,
+              "left": 1.85693359375,
               "top": 33.0,
-              "right": 1.8571090698242188,
+              "right": 1.8573532104492188,
               "bottom": 8.0
             },
             "size-constraints": {
@@ -827,23 +561,23 @@
           {
             "id": "Icons/settings_24px",
             "margin": {
-              "left": 14.857177734375,
+              "left": 14.85693359375,
               "top": 4.0,
-              "right": 14.857109069824219,
+              "right": 14.857353210449219,
               "bottom": 13.0
             },
             "is-structured": false,
             "children": [
-              "I3_icon_3"
+              "icon_settings"
             ],
             "clip-content": false
           },
           {
-            "id": "I3_icon_3",
+            "id": "icon_settings",
             "margin": {
-              "left": 1.8560791015625,
+              "left": 1.85595703125,
               "top": 1.759765625,
-              "right": 1.852569580078125,
+              "right": 1.852691650390625,
               "bottom": 1.750234603881836
             },
             "size-constraints": {
@@ -856,138 +590,18 @@
                 "value": 1.0
               }
             },
-            "vector-content": "i3_icon_3.svg"
-          },
-          {
-            "id": "FAB",
-            "border-radius": 16.0,
-            "drop-shadow": {
-              "color": {
-                "alpha": 0.2980392156862745,
-                "hue": 0.0,
-                "saturation": 0.0,
-                "value": 0.0
-              },
-              "blur": 3.0,
-              "offset-x": 0.0,
-              "offset-y": 1.0,
-              "spread": 0.0,
-              "blend-mode": "normal"
-            },
-            "size-constraints": {
-              "width-constraints": {
-                "sizing-mode": "shrink"
-              },
-              "height-constraints": {
-                "sizing-mode": "shrink"
-              }
-            },
-            "arrangement": "row",
-            "children": [
-              "state-layer_NA_3"
-            ],
-            "background-color": "^md.sys.color.secondary-container"
-          },
-          {
-            "id": "state-layer_NA_3",
-            "padding": 16.0,
-            "size-constraints": {
-              "width-constraints": {
-                "sizing-mode": "shrink"
-              },
-              "height-constraints": {
-                "sizing-mode": "shrink"
-              }
-            },
-            "arrangement": "row",
-            "children": [
-              "icon_NA_3"
-            ],
-            "clip-content": false
-          },
-          {
-            "id": "icon_NA_3",
-            "size-constraints": {
-              "width-constraints": {
-                "sizing-mode": "fixed",
-                "value": 24.0
-              },
-              "height-constraints": {
-                "sizing-mode": "fixed",
-                "value": 24.0
-              }
-            },
-            "is-structured": false,
-            "children": [
-              "icon_NA_3a"
-            ],
-            "clip-content": false
-          },
-          {
-            "id": "icon_NA_3a",
-            "margin": 4.0,
-            "size-constraints": {
-              "width-constraints": {
-                "sizing-mode": "proportional",
-                "value": 1.0
-              },
-              "height-constraints": {
-                "sizing-mode": "proportional",
-                "value": 1.0
-              }
-            }
-          },
-          {
-            "id": "E_Icons_navigate_before_3",
-            "is-structured": false,
-            "children": [
-              "icon_Eb_3"
-            ]
-          },
-          {
-            "id": "icon_Eb_3",
-            "margin": {
-              "left": 13.824951171875,
-              "top": 12.0,
-              "right": 13.82504940032959,
-              "bottom": 12.0
-            },
-            "size-constraints": {
-              "width-constraints": {
-                "sizing-mode": "proportional",
-                "value": 1.0
-              },
-              "height-constraints": {
-                "sizing-mode": "proportional",
-                "value": 1.0
-              }
-            },
-            "vector-content": "icon_eb_3.svg"
+            "vector-content": "icon_settings.svg"
           }
         ]
       }
     }
   },
-  "ambients": {
-    "md.sys.color.secondary-container": {
-      "data-type": "color",
-      "description": null
-    }
-  },
   "previews": [
     {
-      "design": "Employee",
+      "design": "Bottom app bar Final",
       "size": {
         "width": 412.0,
-        "height": 800.0
-      },
-      "ambients": {
-        "md.sys.color.secondary-container": {
-          "alpha": 1.0,
-          "hue": 263.07692307692304,
-          "saturation": 0.10483870967741933,
-          "value": 0.9725490196078431
-        }
+        "height": 80.0
       }
     }
   ],
