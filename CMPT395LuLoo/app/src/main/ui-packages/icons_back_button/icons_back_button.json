@@ -1,0 +1,95 @@
+{
+  "name": "icons_back_button",
+  "version": 33,
+  "source-key": {
+    "type": "figma",
+    "file": "sjYPI6UptLTQ1tIf73pxSn",
+    "node": "491:3316",
+    "version": "5201865357",
+    "component-id": "0d13850ae28b7c018d263e0ab6679edb0046698d"
+  },
+  "default": "Icons/BackButton",
+  "documentation": "Back Button\nv1.00",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "group",
+        "id": "Icons/BackButton_"
+      },
+      {
+        "type": "group",
+        "id": "Icons/navigate_before"
+      },
+      {
+        "type": "vector",
+        "id": "icon"
+      }
+    ],
+    "modes": {
+      "Icons/BackButton": {
+        "rules": [
+          {
+            "id": "top_level",
+            "is-structured": false,
+            "children": [
+              "Icons/BackButton_"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "Icons/BackButton_",
+            "is-structured": false,
+            "children": [
+              "Icons/navigate_before"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "Icons/navigate_before",
+            "is-structured": false,
+            "children": [
+              "icon"
+            ]
+          },
+          {
+            "id": "icon",
+            "margin": {
+              "left": 13.8251953125,
+              "top": 12.0,
+              "right": 13.82480525970459,
+              "bottom": 12.0
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "icon.svg"
+          }
+        ]
+      }
+    }
+  },
+  "previews": [
+    {
+      "design": "Icons/BackButton",
+      "size": {
+        "width": 40.0,
+        "height": 48.0
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}
