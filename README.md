@@ -17,9 +17,14 @@ Jamie McDonald (JamieMcDonald2)
     - Our first version of the final build v1.00-alpha
     - Use to learn the structure and kotlin
 
+    https://www.figma.com/file/sjYPI6UptLTQ1tIf73pxSn/Team-Goldwasser?type=design&node-id=0%3A1&mode=design&t=fMP7wjXgZehaZBbw-1
+
 ## Getting Started
 
 https://github.com/macewanCS/w24goldwasser.git
+
+https://developer.android.com/design
+https://m3.material.io/
 
 ## Prerequisites
 
