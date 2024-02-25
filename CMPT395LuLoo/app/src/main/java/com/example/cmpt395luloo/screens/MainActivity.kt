@@ -1,8 +1,14 @@
 /**
  *   Main page
- *   v1.00
+ *   v1.02
  *      - to implement weekly calendar from prototype would like to test implementing complicated
  *        figma components, if i have time, but it is not necessary at all - Jamie
+ *
+ *        - https://developer.android.com/jetpack/compose/navigation
+ *        - https://developer.android.com/codelabs/jetpack-compose-navigation
+ *        - https://developer.android.com/codelabs/basic-android-kotlin-compose-navigation
+ *        - https://saurabhjadhavblogs.com/ultimate-guide-to-jetpack-compose-navigation
+ *        - https://developer.android.com/jetpack/compose/components/scaffold
  */
 
 package com.example.cmpt395luloo.screens
@@ -10,10 +16,9 @@ package com.example.cmpt395luloo.screens
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.example.cmpt395luloo.ComponentFunctions.NavigationBar
@@ -28,19 +33,14 @@ class MainActivity : ComponentActivity() {
             CMPT395LuLooTheme {
                 // Create a NavController
                 val navController = rememberNavController()
-                Navigation(navController)
 
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.Top
-                    // more stuff here ? probably, maybe above too though still working out
-                    // but this is essentially how everything is added!
-                ) {
-                    // add the top bar for the entire app
-                    TopBar(navController)
-                    Spacer(modifier = Modifier.weight(1f))
-                    // add the navigation bar for the entire app
-                    NavigationBar(navController)
+                Scaffold(
+                    topBar = { TopBar(navController) },
+                    bottomBar = { NavigationBar(navController) }
+                ) { paddingValues ->
+                    Box(modifier = Modifier.padding(paddingValues)) {
+                        Navigation(navController)
+                    }
                 }
             }
         }

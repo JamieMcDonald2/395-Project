@@ -1,9 +1,3 @@
-/**
- *   Employee Main page
- *   v1.00
- *   This is likely where database should start
- */
-
 package com.example.cmpt395luloo.screens
 
 import androidx.compose.foundation.layout.Arrangement
@@ -16,14 +10,13 @@ import androidx.compose.ui.Modifier
 
 @Composable
 // possibly need navController (navController: NavController) later depending
-fun EmployeeMain() {
-    // add list, alphabetical by default that accesses database using employee list icon component
-    // will be hard will need to meet probably
+fun HomeScreen() {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "Employee Main Screen")
+        Text(text = "Welcome to the Home Screen!")
+        Text(text = "Maybe put relevant stuff here?")
+        }
     }
-}

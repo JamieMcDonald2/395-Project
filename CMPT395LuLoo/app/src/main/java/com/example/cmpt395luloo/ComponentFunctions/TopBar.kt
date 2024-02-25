@@ -3,9 +3,6 @@
  *     - New logic to allow back button to use transitions - Jamie
  */
 
-// popUpTo is Deprecated
-@file:Suppress("DEPRECATION")
-
 package com.example.cmpt395luloo.ComponentFunctions
 
 import androidx.compose.foundation.background
@@ -19,39 +16,25 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.cmpt395luloo.iconsbackbutton.IconsBackButton
 
 @Composable
 fun TopBar(navController: NavController) {
-    // custom back stack for back button transitions don't worry too much about this :D
-    val backStack = remember { mutableStateListOf("home") }
-
     // Observe the NavController back stack
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
-    // Update back stack when the current route changes
-    LaunchedEffect(currentRoute) {
-        if (currentRoute != null && currentRoute != backStack.last()) {
-            backStack.add(currentRoute)
-        }
-    }
-
     Column {
         Row(
-            // back button logic w/ transitions
+            // back button logic
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Start,
             verticalAlignment = Alignment.CenterVertically
@@ -59,18 +42,24 @@ fun TopBar(navController: NavController) {
             // Check if the current destination is not the home page
             if (currentRoute != "home") {
                 IconButton(onClick = {
-                    // Pop the current destination off back stack
-                    backStack.removeLastOrNull()
+                    // Get the previous destination from NavController's back stack
+                    val previousDestination = navController.previousBackStackEntry?.destination
 
-                    // Navigate to the new top destination
-                    val previousRoute = backStack.lastOrNull()
-                    if (previousRoute != null) {
-                        navController.navigate(previousRoute) {
-                            popUpTo = navController.graph.findStartDestination().id
-                            launchSingleTop = true
+                    if (previousDestination != null) {
+                        // Navigate to the previous destination
+                        previousDestination.route?.let { route ->
+                            navController.navigate(route) {
+                                // Pop up to the previous destination, inclusive
+                                popUpTo(route) { inclusive = true }
+                                // Reuse the previous destination if it's in the back stack
+                                launchSingleTop = true
+                            }
                         }
+                    } else {
+                        // If there's no previous destination, simply pop the back stack
+                        navController.popBackStack()
                     }
-                }) {
+                }){
                     IconsBackButton() // back button icon
                 }
             } else {
@@ -84,8 +73,7 @@ fun TopBar(navController: NavController) {
     }
 }
 
-// Simple components don't need their own file, or figma relay connections
-
+// Simple components don't need their own file, or figma relay connections, such as this divider
 @Composable
 fun Divider(color: Color = Color.LightGray, thickness: Dp = 1.dp) {
     Box(

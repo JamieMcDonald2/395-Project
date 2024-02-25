@@ -17,7 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.example.cmpt395luloo.screens.EmployeeMain
-import com.example.cmpt395luloo.screens.MainActivity
+import com.example.cmpt395luloo.screens.HomeScreen
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 
 @OptIn(ExperimentalAnimationApi::class)
@@ -27,12 +27,13 @@ fun Navigation(navController: NavHostController) {
         composable(
             "home",
             exitTransition = {
+                // custom transitions
                 slideOutHorizontally(
                     targetOffsetX = { -1000 },
                     animationSpec = tween(500)
                 )
             }) {
-            MainActivity()
+            HomeScreen()
         }
         composable(
             "employee1",
