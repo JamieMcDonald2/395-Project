@@ -12,10 +12,10 @@ Jamie McDonald (JamieMcDonald2)
 
 # Project Name TBD
 
-### Release build "LuLoo" v1.00-alpha
+### Release build "LuLoo" v1.01-alpha
 
-    - Our first version of the final build v1.00-alpha
-    - Use to learn the structure and kotlin
+    - Our first version of the final build v1.01-alpha
+    - Fixed transitions in this version
 
     https://www.figma.com/file/sjYPI6UptLTQ1tIf73pxSn/Team-Goldwasser?type=design&node-id=0%3A1&mode=design&t=fMP7wjXgZehaZBbw-1
 
@@ -48,8 +48,8 @@ as required!
 
 ## Known Issues
 
-1.0 - Transition from employee screen to main screen is default - should be using custom ones
 1.5 - ripple effect for icon is off, doesn't include text and is too small
+1.6 - icon disables when selected tab correctly, should use active/focused effect instead (new update in UI)
 
 ## License
 
