@@ -1,6 +1,6 @@
 /**
  *   Main page
- *   v1.00
+ *   v1.02
  *      - to implement weekly calendar from prototype would like to test implementing complicated
  *        figma components, if i have time, but it is not necessary at all - Jamie
  *
@@ -8,6 +8,7 @@
  *        - https://developer.android.com/codelabs/jetpack-compose-navigation
  *        - https://developer.android.com/codelabs/basic-android-kotlin-compose-navigation
  *        - https://saurabhjadhavblogs.com/ultimate-guide-to-jetpack-compose-navigation
+ *        - https://developer.android.com/jetpack/compose/components/scaffold
  */
 
 package com.example.cmpt395luloo.screens
@@ -15,7 +16,10 @@ package com.example.cmpt395luloo.screens
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.example.cmpt395luloo.ComponentFunctions.NavigationBar
 import com.example.cmpt395luloo.ComponentFunctions.TopBar
@@ -33,8 +37,10 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     topBar = { TopBar(navController) },
                     bottomBar = { NavigationBar(navController) }
-                ) {
-                    Navigation(navController)
+                ) { paddingValues ->
+                    Box(modifier = Modifier.padding(paddingValues)) {
+                        Navigation(navController)
+                    }
                 }
             }
         }
