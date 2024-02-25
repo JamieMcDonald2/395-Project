@@ -57,8 +57,8 @@ fun CustomIcon1a(navController: NavController) {
             .columnWeight(1.0f)
             .clip(CircleShape)
             .clickable(
-                // will disable when page is reached
-                // has ripple effect
+                // will disable when page is reached but label doesn't disable needs work
+                // has ripple effect but only default, doesnt cover label, looks wrong
                 enabled = !isEmployeePage,
             ) {
                 // might need to clean this up sorry

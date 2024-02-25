@@ -13,9 +13,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
 
 @Composable
-fun EmployeeMain() {
+fun EmployeeMain(navController: NavController) {
     // add list, alphabetical by default that accesses database using employee list icon component
     // will be hard will need to meet probably
     Column(
