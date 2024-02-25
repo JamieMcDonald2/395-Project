@@ -3,9 +3,6 @@
  *     - New logic to allow back button to use transitions - Jamie
  */
 
-// popUpTo is Deprecated
-@file:Suppress("DEPRECATION")
-
 package com.example.cmpt395luloo.ComponentFunctions
 
 import androidx.compose.foundation.background

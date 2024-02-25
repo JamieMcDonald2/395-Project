@@ -33,7 +33,7 @@ fun Navigation(navController: NavHostController) {
                     animationSpec = tween(500)
                 )
             }) {
-            HomeScreen(navController)
+            HomeScreen()
         }
         composable(
             "employee1",
@@ -43,7 +43,7 @@ fun Navigation(navController: NavHostController) {
                     animationSpec = tween(500)
                 )
             }) {
-            EmployeeMain(navController)
+            EmployeeMain()
         }
     }
 }
