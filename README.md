@@ -12,9 +12,9 @@ Jamie McDonald (JamieMcDonald2)
 
 # Project Name TBD
 
-### Release build "LuLoo" v1.00-alpha
+### Release build "LuLoo" v1.02-alpha
 
-    - Our first version of the final build v1.00-alpha
+    - Our first version of the final build v1.02-alpha
     - Use to learn the structure and kotlin
 
 ## Getting Started

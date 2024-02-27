@@ -6,6 +6,7 @@
 package com.example.cmpt395luloo.ComponentFunctions
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,17 +15,26 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.cmpt395luloo.iconsbackbutton.IconsBackButton
+import com.google.relay.compose.BoxScopeInstance.columnWeight
+import com.google.relay.compose.BoxScopeInstance.rowWeight
 
 @Composable
 fun TopBar(navController: NavController) {
@@ -36,7 +46,7 @@ fun TopBar(navController: NavController) {
         Row(
             // back button logic
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Start,
+            horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
             // Check if the current destination is not the home page
@@ -60,7 +70,14 @@ fun TopBar(navController: NavController) {
                         navController.popBackStack()
                     }
                 }){
-                    IconsBackButton() // back button icon
+                    IconsBackButton()// back button icon
+                }
+
+                IconButton(onClick = {
+                }){
+
+                    CustomIconHome(navController = navController)// back button icon
+
                 }
             } else {
                 Spacer(modifier = Modifier.size(48.dp)) // for home page
@@ -71,6 +88,7 @@ fun TopBar(navController: NavController) {
         Spacer(modifier = Modifier.height(4.dp)) // Add space above the divider for balanced look
         Divider()
     }
+
 }
 
 // Simple components don't need their own file, or figma relay connections, such as this divider
@@ -81,5 +99,33 @@ fun Divider(color: Color = Color.LightGray, thickness: Dp = 1.dp) {
             .fillMaxWidth()
             .height(thickness)
             .background(color)
+    )
+}
+
+@Composable
+fun CustomIconHome(navController: NavController) {
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
+    val isEmployeePage = currentRoute == "home"
+
+    Icon(
+        imageVector = Icons.Default.Home,
+        contentDescription = "Home",
+        modifier = Modifier
+            .rowWeight(1.0f)
+            .columnWeight(1.0f)
+            .clip(CircleShape)
+            .clickable(
+                // will disable when page is reached but label doesn't disable needs work
+                // has ripple effect but only default, doesnt cover label, looks wrong
+                enabled = !isEmployeePage,
+            ) {
+                // might need to clean this up sorry
+                if (!isEmployeePage) {
+                    navController.navigate("home")
+                }
+            },
+        //disable the button once your on the page
+        tint = if (isEmployeePage) Color.Gray else Color.Unspecified
     )
 }
