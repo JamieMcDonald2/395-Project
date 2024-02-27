@@ -18,6 +18,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.example.cmpt395luloo.screens.EmployeeMain
 import com.example.cmpt395luloo.screens.HomeScreen
+import com.example.cmpt395luloo.screens.ScheduleMain
+import com.example.cmpt395luloo.screens.SettingsMain
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 
 @OptIn(ExperimentalAnimationApi::class)
@@ -44,6 +46,26 @@ fun Navigation(navController: NavHostController) {
                 )
             }) {
             EmployeeMain()
+        }
+        composable(
+            "schedule1",
+            enterTransition = {
+                slideInHorizontally(
+                    initialOffsetX = { 1000 },
+                    animationSpec = tween(500)
+                )
+            }) {
+            ScheduleMain()
+        }
+        composable(
+            "setting1",
+            enterTransition = {
+                slideInHorizontally(
+                    initialOffsetX = { 1000 },
+                    animationSpec = tween(500)
+                )
+            }) {
+            SettingsMain()
         }
     }
 }
