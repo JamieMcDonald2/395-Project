@@ -1,10 +1,15 @@
 /**
- *   Navigation Graph v1.0
+ *   Navigation Graph v1.4
  *
  *   Animated Navigation Host is experimental apparently?
  *   can change these transitions to make our app look cooler!
+ *
+ *   - 1.2 - Grant added screens
+ *   - 1.3 - Jamie added add employee screen
+ *   - 1.4 - navcontroller updates for database
  */
 
+// some imported packages are obsolete but needed
 @file:Suppress("DEPRECATION")
 
 package com.example.cmpt395luloo
@@ -14,8 +19,11 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
+import com.example.cmpt395luloo.database.employees.EmployeeViewModel
+import com.example.cmpt395luloo.screens.AddEmployeeScreen
 import com.example.cmpt395luloo.screens.EmployeeMain
 import com.example.cmpt395luloo.screens.HomeScreen
 import com.example.cmpt395luloo.screens.ScheduleMain
@@ -25,7 +33,9 @@ import com.google.accompanist.navigation.animation.AnimatedNavHost
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun Navigation(navController: NavHostController) {
+    val viewModel: EmployeeViewModel = viewModel()
     AnimatedNavHost(navController, startDestination = "home") {
+        //home screen
         composable(
             "home",
             exitTransition = {
@@ -35,8 +45,9 @@ fun Navigation(navController: NavHostController) {
                     animationSpec = tween(500)
                 )
             }) {
-            HomeScreen()
+            HomeScreen(navController)
         }
+        //employee main screen
         composable(
             "employee1",
             enterTransition = {
@@ -45,7 +56,18 @@ fun Navigation(navController: NavHostController) {
                     animationSpec = tween(500)
                 )
             }) {
-            EmployeeMain()
+            EmployeeMain(navController, viewModel)
+        }
+        //add employee screen
+        composable(
+            "employee2",
+            enterTransition = {
+                slideInHorizontally(
+                    initialOffsetX = { 1000 },
+                    animationSpec = tween(500)
+                )
+            }) {
+            AddEmployeeScreen(viewModel)
         }
         composable(
             "schedule1",
