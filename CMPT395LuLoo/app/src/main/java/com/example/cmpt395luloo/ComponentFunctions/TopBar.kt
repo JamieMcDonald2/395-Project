@@ -1,6 +1,7 @@
 /**
- * top bar v1.3
+ * top bar v1.4
  *     - New logic to allow back button to use transitions - Jamie
+ *     - New home button - Grant
  */
 
 package com.example.cmpt395luloo.ComponentFunctions
@@ -15,11 +16,9 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
