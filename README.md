@@ -51,7 +51,7 @@ as required!
 1.7 - transitions not working quite right for home/back buttons in top bar  
 
 
-2.1 - no way to delete employee data once added yet
+2.1 - no way to delete employee data once added yet  
 2.2 - UI not added for employee screen
 
 ## License
