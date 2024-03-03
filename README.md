@@ -21,7 +21,7 @@ Jamie McDonald (JamieMcDonald2)
 
 ## Getting Started
 
-https://github.com/macewanCS/w24goldwasser.git
+https://github.com/macewanCS/w24goldwasser.git  
 https://www.figma.com/file/sjYPI6UptLTQ1tIf73pxSn/Team-Goldwasser?type=design&node-id=0%3A1&mode=design&t=DPM6oQKMJKvnJGry-1
 
 ## Prerequisites
@@ -46,9 +46,10 @@ as required!
 
 ## Known Issues
 
-1.5 - ripple effect for icon is off, doesn't include text and is too small
-1.6 - change selected icon from disabled (grey) to selected/focused state like figma design
-1.7 - transitions not working quite right for home/back buttons in top bar
+1.5 - ripple effect for icon is off, doesn't include text and is too small  
+1.6 - change selected icon from disabled (grey) to selected/focused state like figma design  
+1.7 - transitions not working quite right for home/back buttons in top bar  
+
 
 2.1 - no way to delete employee data once added yet
 2.2 - UI not added for employee screen
