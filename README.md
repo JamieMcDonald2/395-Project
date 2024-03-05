@@ -1,5 +1,5 @@
 # w24goldwasser
-# Team goldwasser
+# Team Goldwasser
 ## Team Members
 
 Jameel Bsata (Jamster187)
@@ -12,7 +12,7 @@ Jamie McDonald (JamieMcDonald2)
 
 # Project Name TBD
 
-### Release build "LuLoo" v1.04-alpha
+### Release build "LuLoo" v1.051-alpha
     
     1.03:
     - Added new database structure
@@ -25,6 +25,8 @@ Jamie McDonald (JamieMcDonald2)
     
     1.05:
     - New icons states for the rest of the nav bar
+    1.051:
+    - modifiers for icons to align them better
 
 ## Getting Started
 
@@ -57,7 +59,7 @@ as required!
 1.7 - transitions not working quite right for home/back buttons in top bar
 
 2.1 - no way to delete employee data once added yet  
-2.2 - UI not added for employee screen
+2.2 - UI not added for employee screen, scheduling screen
 
 ## License
 
