@@ -22,6 +22,9 @@ Jamie McDonald (JamieMcDonald2)
 
     1.04:
     - New icon states for nav bar (employee icon only for now)
+    
+    1.05:
+    - New icons states for the rest of the nav bar
 
 ## Getting Started
 
