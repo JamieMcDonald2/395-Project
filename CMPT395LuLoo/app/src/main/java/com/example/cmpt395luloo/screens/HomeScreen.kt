@@ -44,8 +44,8 @@ fun HomeScreen(navController: NavHostController) {
             modifier = Modifier
                 .align(Alignment.BottomCenter)
 //                .offset(y = -25.dp) // Adjust this to move the box higher
-                .size(width = 300.dp, height = 250.dp) // Adjust this to change the size of the box
-                .padding(bottom = 48.dp) // Add padding to the bottom of the box
+                .size(width = 350.dp, height = 250.dp) // Adjust this to change the size of the box
+//                .padding(bottom = 48.dp) // Add padding to the bottom of the box
                 .border(1.dp, Color.LightGray, RoundedCornerShape(16.dp)) // This adds a border to the box
         ) {
             // Button
@@ -53,10 +53,10 @@ fun HomeScreen(navController: NavHostController) {
                 onClick = { navController.navigate("employee2") },
                 modifier = Modifier
                     .align(Alignment.Center) // Align the button to the center of the box
-                    .size(175.dp, 40.dp) // Specify the size of the button
+                    .size(210.dp, 40.dp) // Specify the size of the button
             ) {
                 val text1 = "+"
-                val text2 = "Add Employee"
+                val text2 = "Add New Employee"
                 Text(text = "\u0020" + text1 + "\u0020\u0020\u0020\u0020\u0020" + text2 + "\u0020")
             }
         }

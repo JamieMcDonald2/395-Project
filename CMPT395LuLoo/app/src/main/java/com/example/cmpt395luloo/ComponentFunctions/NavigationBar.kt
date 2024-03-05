@@ -1,23 +1,24 @@
 /**
- * navigation bar v1.5
+ * navigation bar v1.6
  *
- * - new focused/selected state for icons (imported from figma)
+ * - focused/selected state for icons (imported from figma) (1.4)
+ * - Removed native components in favor of full relay imports from previous versions (1.5)
+ * - Added modifiers to adjust position of icons (1.6)
+ *
+ * - Refs:
+ *      - https://developer.android.com/jetpack/compose/modifiers
  */
 
 package com.example.cmpt395luloo.ComponentFunctions
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material3.Icon
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.cmpt395luloo.navigationbarfinal.Icon1aProperty1Default
@@ -49,6 +50,7 @@ import com.example.cmpt395luloo.navigationbarfinal.Segment1Property1Variant2
 import com.example.cmpt395luloo.navigationbarfinal.Segment2Property1Default
 import com.example.cmpt395luloo.navigationbarfinal.Segment2Property1Variant2
 import com.example.cmpt395luloo.navigationbarfinal.Segment3Property1Default
+import com.example.cmpt395luloo.navigationbarfinal.Segment3Property1Variant2
 import com.example.cmpt395luloo.navigationbarfinal.StateLayer1aProperty1Default
 import com.example.cmpt395luloo.navigationbarfinal.StateLayer1bProperty1Default
 import com.example.cmpt395luloo.navigationbarfinal.StateLayer1cProperty1Default
@@ -56,8 +58,6 @@ import com.example.cmpt395luloo.navigationbarfinal.StateLayer2aProperty1Variant2
 import com.example.cmpt395luloo.navigationbarfinal.StateLayer2bProperty1Variant2
 import com.example.cmpt395luloo.navigationbarfinal.StateLayer2cProperty1Variant2
 import com.example.cmpt395luloo.navigationbarfinal.TopLevelProperty1Default
-import com.google.relay.compose.BoxScopeInstance.columnWeight
-import com.google.relay.compose.BoxScopeInstance.rowWeight
 
 @Composable
 fun NavigationBar(navController: NavController) {
@@ -85,6 +85,8 @@ fun EmployeeIcon(navController: NavController) {
     if (currentRoute == "employee1") {
         Box(
             modifier = Modifier.clickable { /* No action needed if already on the page */ }
+            .padding(0.dp) // Adjust padding as needed
+            .size(65.dp) // Adjust size as needed
         ) {
             Segment1Property1Variant2(modifier = Modifier) {
                 IconContainer2aProperty1Variant2 {
@@ -102,6 +104,8 @@ fun EmployeeIcon(navController: NavController) {
     } else {
         Box(
             modifier = Modifier.clickable { navController.navigate("employee1") }
+            .padding(0.dp) // Adjust padding as needed
+            .size(65.dp) // Adjust size as needed
         ) {
             Segment1Property1Default(modifier = Modifier) {
                 IconContainer1aProperty1Default {
@@ -127,8 +131,10 @@ fun ScheduleIcon(navController: NavController) {
     if (currentRoute == "schedule1") {
         Box(
             modifier = Modifier.clickable { /* No action needed if already on the page */ }
+            .padding(0.dp) // Adjust padding as needed
+            .size(65.dp) // Adjust size as needed
         ) {
-            Segment1Property1Variant2(modifier = Modifier) {
+            Segment2Property1Variant2(modifier = Modifier) {
                 IconContainer2bProperty1Variant2 {
                     StateLayer2bProperty1Variant2 {
                         Icon2bProperty1Variant2 {
@@ -144,8 +150,10 @@ fun ScheduleIcon(navController: NavController) {
     } else {
         Box(
             modifier = Modifier.clickable { navController.navigate("schedule1") }
+            .padding(0.dp) // Adjust padding as needed
+            .size(65.dp) // Adjust size as needed
         ) {
-            Segment1Property1Default(modifier = Modifier) {
+            Segment2Property1Default(modifier = Modifier) {
                 IconContainer1bProperty1Default {
                     StateLayer1bProperty1Default {
                         Icon1bProperty1Default {
@@ -171,8 +179,10 @@ fun SettingIcon(navController: NavController) {
     if (currentRoute == "setting1") {
         Box(
             modifier = Modifier.clickable { /* No action needed if already on the page */ }
+            .padding(0.dp) // Adjust padding as needed
+            .size(65.dp) // Adjust size as needed
         ) {
-            Segment1Property1Variant2(modifier = Modifier) {
+            Segment3Property1Variant2(modifier = Modifier) {
                 IconContainer2cProperty1Variant2 {
                     StateLayer2cProperty1Variant2 {
                         Icon2cProperty1Variant2 {
@@ -188,8 +198,10 @@ fun SettingIcon(navController: NavController) {
     } else {
         Box(
             modifier = Modifier.clickable { navController.navigate("setting1") }
+            .padding(0.dp) // Adjust padding as needed
+            .size(65.dp) // Adjust size as needed
         ) {
-            Segment1Property1Default(modifier = Modifier) {
+            Segment3Property1Default(modifier = Modifier) {
                 IconContainer1cProperty1Default {
                     StateLayer1cProperty1Default {
                         Icon1cProperty1Default {
