@@ -69,6 +69,7 @@ fun Navigation(navController: NavHostController) {
             }) {
             AddEmployeeScreen(viewModel)
         }
+        //schedule main
         composable(
             "schedule1",
             enterTransition = {
@@ -79,6 +80,7 @@ fun Navigation(navController: NavHostController) {
             }) {
             ScheduleMain()
         }
+        //settings page
         composable(
             "setting1",
             enterTransition = {

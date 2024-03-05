@@ -12,16 +12,21 @@ Jamie McDonald (JamieMcDonald2)
 
 # Project Name TBD
 
-### Release build "LuLoo" v1.03-alpha
+### Release build "LuLoo" v1.04-alpha
     
+    1.03:
     - Added new database structure
         - lacking way to delete data as of this build - will delete employees from list on
           employee main screen eventually
         - basic UI for add employee screen our UI not added yet
 
+    1.04:
+    - New icon states for nav bar (employee icon only for now)
+
 ## Getting Started
 
-https://github.com/macewanCS/w24goldwasser.git  
+https://github.com/macewanCS/w24goldwasser.git
+
 https://www.figma.com/file/sjYPI6UptLTQ1tIf73pxSn/Team-Goldwasser?type=design&node-id=0%3A1&mode=design&t=DPM6oQKMJKvnJGry-1
 
 ## Prerequisites
@@ -46,10 +51,7 @@ as required!
 
 ## Known Issues
 
-1.5 - ripple effect for icon is off, doesn't include text and is too small  
-1.6 - change selected icon from disabled (grey) to selected/focused state like figma design  
-1.7 - transitions not working quite right for home/back buttons in top bar  
-
+1.7 - transitions not working quite right for home/back buttons in top bar
 
 2.1 - no way to delete employee data once added yet  
 2.2 - UI not added for employee screen

@@ -1,6 +1,5 @@
 /**
  *  database helper v1.0
- *
  *  some ref's used in the creation of our database:
  *  - https://developer.android.com/training/data-storage/sqlite
  *  - https://abhiandroid.com/database/sqlite
@@ -18,7 +17,9 @@ import com.example.cmpt395luloo.database.employees.Employee
 
 class DatabaseHelper(context: Context) :
     SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
-
+    /**
+     * EMPLOYEE DATABASE
+     */
     companion object {
         private const val DATABASE_NAME = "EmployeeDatabase"
         private const val DATABASE_VERSION = 1
