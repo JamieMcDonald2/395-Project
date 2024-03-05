@@ -22,26 +22,39 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.cmpt395luloo.navigationbarfinal.Icon1aProperty1Default
 import com.example.cmpt395luloo.navigationbarfinal.Icon1aProperty1Variant2
+import com.example.cmpt395luloo.navigationbarfinal.Icon1bProperty1Default
+import com.example.cmpt395luloo.navigationbarfinal.Icon1bProperty1Variant2
+import com.example.cmpt395luloo.navigationbarfinal.Icon1cProperty1Default
+import com.example.cmpt395luloo.navigationbarfinal.Icon1cProperty1Variant2
 import com.example.cmpt395luloo.navigationbarfinal.Icon2aProperty1Variant2
+import com.example.cmpt395luloo.navigationbarfinal.Icon2bProperty1Variant2
+import com.example.cmpt395luloo.navigationbarfinal.Icon2cProperty1Variant2
 import com.example.cmpt395luloo.navigationbarfinal.IconContainer1aProperty1Default
 import com.example.cmpt395luloo.navigationbarfinal.IconContainer1bProperty1Default
 import com.example.cmpt395luloo.navigationbarfinal.IconContainer1cProperty1Default
 import com.example.cmpt395luloo.navigationbarfinal.IconContainer2aProperty1Variant2
+import com.example.cmpt395luloo.navigationbarfinal.IconContainer2bProperty1Variant2
+import com.example.cmpt395luloo.navigationbarfinal.IconContainer2cProperty1Variant2
 import com.example.cmpt395luloo.navigationbarfinal.IconsAccountCircleFilled24pxProperty1Default
 import com.example.cmpt395luloo.navigationbarfinal.IconsAccountCircleFilled24pxProperty1Variant2
 import com.example.cmpt395luloo.navigationbarfinal.LabelText1aProperty1Default
 import com.example.cmpt395luloo.navigationbarfinal.LabelText1aProperty1Variant2
 import com.example.cmpt395luloo.navigationbarfinal.LabelText1bProperty1Default
+import com.example.cmpt395luloo.navigationbarfinal.LabelText1bProperty1Variant2
 import com.example.cmpt395luloo.navigationbarfinal.LabelText1cProperty1Default
+import com.example.cmpt395luloo.navigationbarfinal.LabelText1cProperty1Variant2
 import com.example.cmpt395luloo.navigationbarfinal.NavigationBarFinal1Property1Default
 import com.example.cmpt395luloo.navigationbarfinal.Segment1Property1Default
 import com.example.cmpt395luloo.navigationbarfinal.Segment1Property1Variant2
 import com.example.cmpt395luloo.navigationbarfinal.Segment2Property1Default
+import com.example.cmpt395luloo.navigationbarfinal.Segment2Property1Variant2
 import com.example.cmpt395luloo.navigationbarfinal.Segment3Property1Default
 import com.example.cmpt395luloo.navigationbarfinal.StateLayer1aProperty1Default
 import com.example.cmpt395luloo.navigationbarfinal.StateLayer1bProperty1Default
 import com.example.cmpt395luloo.navigationbarfinal.StateLayer1cProperty1Default
 import com.example.cmpt395luloo.navigationbarfinal.StateLayer2aProperty1Variant2
+import com.example.cmpt395luloo.navigationbarfinal.StateLayer2bProperty1Variant2
+import com.example.cmpt395luloo.navigationbarfinal.StateLayer2cProperty1Variant2
 import com.example.cmpt395luloo.navigationbarfinal.TopLevelProperty1Default
 import com.google.relay.compose.BoxScopeInstance.columnWeight
 import com.google.relay.compose.BoxScopeInstance.rowWeight
@@ -51,26 +64,13 @@ fun NavigationBar(navController: NavController) {
     TopLevelProperty1Default {
         NavigationBarFinal1Property1Default {
             Segment1Property1Default(Modifier.rowWeight(1.0f)) {
-                    EmployeeIcon(navController)
+                EmployeeIcon(navController)
             }
             Segment2Property1Default(Modifier.rowWeight(1.0f)) {
-                IconContainer1bProperty1Default {
-                    StateLayer1bProperty1Default {
-                        CustomIcon1b(navController)
-
-                    }
-                }
-                LabelText1bProperty1Default(Modifier.rowWeight(1.0f))
-                // Add the rest of the nav icons later same layout but need to space the icons evenly, should be automatic as added
+                ScheduleIcon(navController)
             }
             Segment3Property1Default(Modifier.rowWeight(1.0f)) {
-                IconContainer1cProperty1Default {
-                    StateLayer1cProperty1Default {
-                        CustomIcon1c(navController)
-
-                    }
-                }
-                LabelText1cProperty1Default(Modifier.rowWeight(1.0f))
+                SettingIcon(navController)
             }
         }
     }
@@ -120,60 +120,145 @@ fun EmployeeIcon(navController: NavController) {
 }
 
 @Composable
-fun CustomIcon1b(navController: NavController) {
+fun ScheduleIcon(navController: NavController) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
-    val isSchedulePage = currentRoute == "schedule1"
 
-    Icon(
-        imageVector = Icons.Default.DateRange,
-        contentDescription = "Scheduling",
-        modifier = Modifier
-            .rowWeight(1.0f)
-            .columnWeight(1.0f)
-            .clip(CircleShape)
-            .clickable(
-                // will disable when page is reached but label doesn't disable needs work
-                // has ripple effect but only default, doesnt cover label, looks wrong
-                enabled = !isSchedulePage,
-            ) {
-                // might need to clean this up sorry
-                if (!isSchedulePage) {
-                    navController.navigate("schedule1")
+    if (currentRoute == "schedule1") {
+        Box(
+            modifier = Modifier.clickable { /* No action needed if already on the page */ }
+        ) {
+            Segment1Property1Variant2(modifier = Modifier) {
+                IconContainer2bProperty1Variant2 {
+                    StateLayer2bProperty1Variant2 {
+                        Icon2bProperty1Variant2 {
+                            IconsAccountCircleFilled24pxProperty1Variant2 {
+                                Icon1bProperty1Variant2()
+                            }
+                        }
+                    }
                 }
-            },
-        //disable the button once your on the page
-        tint = if (isSchedulePage) Color.Gray else Color.Unspecified
-    )
+                LabelText1bProperty1Variant2()
+            }
+        }
+    } else {
+        Box(
+            modifier = Modifier.clickable { navController.navigate("schedule1") }
+        ) {
+            Segment1Property1Default(modifier = Modifier) {
+                IconContainer1bProperty1Default {
+                    StateLayer1bProperty1Default {
+                        Icon1bProperty1Default {
+                            IconsAccountCircleFilled24pxProperty1Default {
+                                Icon1bProperty1Default()
+                            }
+                        }
+                    }
+                }
+                LabelText1bProperty1Default()
+            }
+        }
+    }
 }
+
+
 
 @Composable
-fun CustomIcon1c(navController: NavController) {
+fun SettingIcon(navController: NavController) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
-    val isSettingPage = currentRoute == "setting1"
 
-    Icon(
-        imageVector = Icons.Default.Settings,
-        contentDescription = "Settings",
-        modifier = Modifier
-            .rowWeight(1.0f)
-            .columnWeight(1.0f)
-            .clip(CircleShape)
-            .clickable(
-                // will disable when page is reached but label doesn't disable needs work
-                // has ripple effect but only default, doesnt cover label, looks wrong
-                enabled = !isSettingPage,
-            ) {
-                // might need to clean this up sorry
-                if (!isSettingPage) {
-                    navController.navigate("setting1")
+    if (currentRoute == "setting1") {
+        Box(
+            modifier = Modifier.clickable { /* No action needed if already on the page */ }
+        ) {
+            Segment1Property1Variant2(modifier = Modifier) {
+                IconContainer2cProperty1Variant2 {
+                    StateLayer2cProperty1Variant2 {
+                        Icon2cProperty1Variant2 {
+                            IconsAccountCircleFilled24pxProperty1Variant2 {
+                                Icon1cProperty1Variant2()
+                            }
+                        }
+                    }
                 }
-            },
-        //disable the button once your on the page
-        tint = if (isSettingPage) Color.Gray else Color.Unspecified
-    )
+                LabelText1cProperty1Variant2()
+            }
+        }
+    } else {
+        Box(
+            modifier = Modifier.clickable { navController.navigate("setting1") }
+        ) {
+            Segment1Property1Default(modifier = Modifier) {
+                IconContainer1cProperty1Default {
+                    StateLayer1cProperty1Default {
+                        Icon1cProperty1Default {
+                            IconsAccountCircleFilled24pxProperty1Default {
+                                Icon1cProperty1Default()
+                            }
+                        }
+                    }
+                }
+                LabelText1cProperty1Default()
+            }
+        }
+    }
 }
+//@Composable
+//fun CustomIcon1b(navController: NavController) {
+//    val navBackStackEntry by navController.currentBackStackEntryAsState()
+//    val currentRoute = navBackStackEntry?.destination?.route
+//    val isSchedulePage = currentRoute == "schedule1"
+//
+//    Icon(
+//        imageVector = Icons.Default.DateRange,
+//        contentDescription = "Scheduling",
+//        modifier = Modifier
+//            .rowWeight(1.0f)
+//            .columnWeight(1.0f)
+//            .clip(CircleShape)
+//            .clickable(
+//                // will disable when page is reached but label doesn't disable needs work
+//                // has ripple effect but only default, doesnt cover label, looks wrong
+//                enabled = !isSchedulePage,
+//            ) {
+//                // might need to clean this up sorry
+//                if (!isSchedulePage) {
+//                    navController.navigate("schedule1")
+//                }
+//            },
+//        //disable the button once your on the page
+//        tint = if (isSchedulePage) Color.Gray else Color.Unspecified
+//    )
+//}
+
+//@Composable
+//fun CustomIcon1c(navController: NavController) {
+//    val navBackStackEntry by navController.currentBackStackEntryAsState()
+//    val currentRoute = navBackStackEntry?.destination?.route
+//    val isSettingPage = currentRoute == "setting1"
+//
+//    Icon(
+//        imageVector = Icons.Default.Settings,
+//        contentDescription = "Settings",
+//        modifier = Modifier
+//            .rowWeight(1.0f)
+//            .columnWeight(1.0f)
+//            .clip(CircleShape)
+//            .clickable(
+//                // will disable when page is reached but label doesn't disable needs work
+//                // has ripple effect but only default, doesnt cover label, looks wrong
+//                enabled = !isSettingPage,
+//            ) {
+//                // might need to clean this up sorry
+//                if (!isSettingPage) {
+//                    navController.navigate("setting1")
+//                }
+//            },
+//        //disable the button once your on the page
+//        tint = if (isSettingPage) Color.Gray else Color.Unspecified
+//    )
+//}
 
 /**
  * Get rid of this later, retained for now during testing in case we need to revert to these
