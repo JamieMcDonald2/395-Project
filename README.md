@@ -12,7 +12,7 @@ Jamie McDonald (JamieMcDonald2)
 
 # Project Name TBD
 
-### Release build "LuLoo" v1.051-alpha
+### Release build "Aurora" v2.00-alpha
     
     1.03:
     - Added new database structure
@@ -27,6 +27,11 @@ Jamie McDonald (JamieMcDonald2)
     - New icons states for the rest of the nav bar
     1.051:
     - modifiers for icons to align them better
+
+    2.00:
+    - New build, new employee page features:
+        - scrollable list with list items
+        - FAB for adding employees on employee page (WIP as of this release)
 
 ## Getting Started
 
@@ -58,8 +63,8 @@ as required!
 
 1.7 - transitions not working quite right for home/back buttons in top bar
 
-2.1 - no way to delete employee data once added yet  
-2.2 - UI not added for employee screen, scheduling screen
+2.1 - no way to delete employee data once added yet
+2.3 - no way to add employees now (removed button to implement FAB on employee screen)
 
 ## License
 
