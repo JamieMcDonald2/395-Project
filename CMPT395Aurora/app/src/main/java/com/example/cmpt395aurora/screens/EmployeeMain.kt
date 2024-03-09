@@ -32,7 +32,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.FloatingActionButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -40,6 +39,12 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.cmpt395aurora.ComponentFunctions.Divider
 import com.example.cmpt395aurora.ComponentFunctions.EmployeeListItem
+import com.example.cmpt395aurora.addemployeefab.AddFAB
+import com.example.cmpt395aurora.addemployeefab.Icon
+import com.example.cmpt395aurora.addemployeefab.IconsAdd24px
+import com.example.cmpt395aurora.addemployeefab.PlusIcon
+import com.example.cmpt395aurora.addemployeefab.StateLayer
+import com.example.cmpt395aurora.addemployeefab.TopLevel
 import com.example.cmpt395aurora.database.employees.EmployeeViewModel
 import com.example.cmpt395aurora.searchbar.SearchBar
 
@@ -69,7 +74,7 @@ fun EmployeeMain(navController: NavHostController, viewModel: EmployeeViewModel)
             }
         }
         // Add the FAB here
-//        AddEmployeeFab(navController)
+        AddEmployeeFab()
         }
     }
 
@@ -83,12 +88,16 @@ fun EmployeeSearchBar() {
 }
 
 @Composable
-fun AddEmployeeFab(navController: NavHostController, modifier: Modifier = Modifier) {
-    FloatingActionButton(
-        onClick = { navController.navigate("addEmployee") },
-        modifier = modifier,
-        content = {
-//            Icon(imageVector = Icons.Default.Add, contentDescription = "Add Employee")
+fun AddEmployeeFab(modifier: Modifier = Modifier) {
+    TopLevel(modifier = modifier) {
+        AddFAB {
+            StateLayer {
+                Icon {
+                    IconsAdd24px(modifier = Modifier.rowWeight(1.0f).columnWeight(1.0f)) {
+                        PlusIcon(modifier = Modifier.rowWeight(1.0f).columnWeight(1.0f))
+                    }
+                }
+            }
         }
-    )
+    }
 }

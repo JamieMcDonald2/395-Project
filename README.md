@@ -12,7 +12,7 @@ Jamie McDonald (JamieMcDonald2)
 
 # Project Name TBD
 
-### Release build "Aurora" v2.00-alpha
+### Release build "Aurora" v2.01-alpha
     
     1.03:
     - Added new database structure
@@ -32,6 +32,9 @@ Jamie McDonald (JamieMcDonald2)
     - New build, new employee page features:
         - scrollable list with list items
         - FAB for adding employees on employee page (WIP as of this release)
+
+    2.01:
+    - new FAB logic for employee screen (WIP still)
 
 ## Getting Started
 
