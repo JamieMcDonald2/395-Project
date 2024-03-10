@@ -24,13 +24,13 @@ import androidx.navigation.compose.rememberNavController
 import com.example.cmpt395aurora.ComponentFunctions.NavigationBar
 import com.example.cmpt395aurora.ComponentFunctions.TopBar
 import com.example.cmpt395aurora.Navigation
-import com.example.cmpt395aurora.ui.theme.CMPT395LuLooTheme
+import com.example.cmpt395aurora.ui.theme.CMPT395AuroraTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            CMPT395LuLooTheme {
+            CMPT395AuroraTheme {
                 // Create a NavController
                 val navController = rememberNavController()
 

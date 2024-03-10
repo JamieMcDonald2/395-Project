@@ -1,3 +1,8 @@
+/**
+ * UI Theme v1.01
+ * - found build release name refactor issues
+ */
+
 package com.example.cmpt395aurora.ui.theme
 
 import android.app.Activity
@@ -38,7 +43,7 @@ private val LightColorScheme = lightColorScheme(
 )
 
 @Composable
-fun CMPT395LuLooTheme(
+fun CMPT395AuroraTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,
