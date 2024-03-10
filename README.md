@@ -12,7 +12,7 @@ Jamie McDonald (JamieMcDonald2)
 
 # Project Name TBD
 
-### Release build "Aurora" v2.11-alpha
+### Release build "Aurora" v2.12-alpha
 # See Release Notes at Bottom
 
 ## Getting Started
@@ -82,3 +82,6 @@ https://github.com/macewanCS/w24goldwasser/blob/main/LICENSE
 
     2.11
     - imported name field component for Add employee/Edit employee screens
+
+    2.12
+    - added database seed for testing
