@@ -26,6 +26,7 @@
 package com.example.cmpt395aurora.screens
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -35,16 +36,12 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.cmpt395aurora.ComponentFunctions.AddEmployeeFab
 import com.example.cmpt395aurora.ComponentFunctions.Divider
 import com.example.cmpt395aurora.ComponentFunctions.EmployeeListItem
-import com.example.cmpt395aurora.addemployeefab.AddFAB
-import com.example.cmpt395aurora.addemployeefab.Icon
-import com.example.cmpt395aurora.addemployeefab.IconsAdd24px
-import com.example.cmpt395aurora.addemployeefab.PlusIcon
-import com.example.cmpt395aurora.addemployeefab.StateLayer
-import com.example.cmpt395aurora.addemployeefab.TopLevel
 import com.example.cmpt395aurora.database.employees.EmployeeViewModel
 import com.example.cmpt395aurora.searchbar.SearchBar
 
@@ -53,30 +50,36 @@ fun EmployeeMain(navController: NavHostController, viewModel: EmployeeViewModel)
     // Use the ViewModel to get the data
     val employees = viewModel.getAllEmployees().sortedBy { it.name }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(top = 32.dp, start =  0.dp, end = 0.dp),
-        verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        EmployeeSearchBar()
+    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.BottomEnd) { // Box to allow layering of composables
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(top = 24.dp, start =  0.dp, end = 0.dp),
+            verticalArrangement = Arrangement.Top,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            EmployeeSearchBar()
 
-        Spacer(modifier = Modifier.height(42.dp)) // space
+            Spacer(modifier = Modifier.height(24.dp)) // space
 
-        Divider()
+            Divider()
 
-        // Display our employees here with this loop over list of employees
-        // new "LazyList" for scrolling!
-        LazyColumn {
-            items(employees.size) { index ->
-                EmployeeListItem(employees[index])
+            // Display our employees here with this loop over list of employees
+            // new "LazyList" for scrolling!
+            LazyColumn {
+                items(employees.size) { index ->
+                    EmployeeListItem(employees[index])
+                }
             }
         }
         // Add the FAB here
-        AddEmployeeFab()
-        }
+        AddEmployeeFab(
+            navController,
+            modifier = Modifier
+                .padding(16.dp) // Add some padding from the end and bottom
+        )
     }
+}
 
 /**
  * wrapper so we can add functionality to the search bar -
@@ -84,20 +87,6 @@ fun EmployeeMain(navController: NavHostController, viewModel: EmployeeViewModel)
 */
 @Composable
 fun EmployeeSearchBar() {
-    SearchBar()
+    SearchBar(modifier = Modifier.scale(0.8f))
 }
 
-@Composable
-fun AddEmployeeFab(modifier: Modifier = Modifier) {
-    TopLevel(modifier = modifier) {
-        AddFAB {
-            StateLayer {
-                Icon {
-                    IconsAdd24px(modifier = Modifier.rowWeight(1.0f).columnWeight(1.0f)) {
-                        PlusIcon(modifier = Modifier.rowWeight(1.0f).columnWeight(1.0f))
-                    }
-                }
-            }
-        }
-    }
-}
