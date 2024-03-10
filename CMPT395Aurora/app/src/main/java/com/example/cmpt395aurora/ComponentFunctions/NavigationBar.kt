@@ -1,5 +1,5 @@
 /**
- * navigation bar v1.8
+ * navigation bar v2.0
  *
  * - focused/selected state for icons (imported from figma) (1.4)
  * - Removed native components in favor of full relay imports from previous versions (1.5)
@@ -7,6 +7,10 @@
  * - Added modifiers to adjust size of navigation bar box (1.7)
  * - Removed imported Bar toplevel because of unalterable padding around icons, replaced
  *   with native nav bar and placed imported icons/states inside of it for more control (1.8)
+ *
+ * 2.0:
+ *  - new column/box layout to have proper ripple/focused effects
+ *  - Employee icon only in this version - need to do other two icons
  *
  * - Refs:
  *      - https://developer.android.com/jetpack/compose/modifiers
@@ -23,10 +27,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -89,11 +96,18 @@ fun EmployeeIcon(navController: NavController) {
 
     if (currentRoute == "employee1") {
         Box(
-            modifier = Modifier.clickable { /* No action needed if already on the page */ }
+            modifier = Modifier
                 .padding(0.dp) // Adjust padding as needed
                 .size(65.dp) // Adjust size as needed
         ) {
-            Segment1Property1Variant2(modifier = Modifier) {
+            Box(
+                modifier = Modifier
+                    .matchParentSize()
+                    .clip(CircleShape)
+                    .clickable { /* No action needed if already on the page */ }
+                    .align(Alignment.Center) // Align to center
+            )
+            Segment1Property1Variant2(modifier = Modifier.align(Alignment.Center)) { // Align to center
                 IconContainer2aProperty1Variant2 {
                     StateLayer2aProperty1Variant2 {
                         Icon2aProperty1Variant2 {
@@ -108,11 +122,18 @@ fun EmployeeIcon(navController: NavController) {
         }
     } else {
         Box(
-            modifier = Modifier.clickable { navController.navigate("employee1") }
-                .padding(0.dp) // Adjust padding as needed
-                .size(65.dp) // Adjust size as needed
+            modifier = Modifier
+                .padding(0.dp) // Adjust padding if needed
+                .size(65.dp) // Adjust size if needed
         ) {
-            Segment1Property1Default(modifier = Modifier) {
+            Box(
+                modifier = Modifier
+                    .matchParentSize()
+                    .clip(CircleShape)
+                    .clickable { navController.navigate("employee1") }
+                    .align(Alignment.Center) // tried to make it bigger no joy
+            )
+            Segment1Property1Default(modifier = Modifier.align(Alignment.Center)) { // Align to center
                 IconContainer1aProperty1Default {
                     StateLayer1aProperty1Default {
                         Icon1aProperty1Default {
@@ -173,7 +194,6 @@ fun ScheduleIcon(navController: NavController) {
         }
     }
 }
-
 
 @Composable
 fun SettingIcon(navController: NavController) {

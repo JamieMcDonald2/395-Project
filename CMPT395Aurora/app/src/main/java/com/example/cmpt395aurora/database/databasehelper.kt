@@ -1,10 +1,13 @@
 /**
- *  database helper v1.0
+ *  database helper v1.1
  *  some ref's used in the creation of our database:
  *  - https://developer.android.com/training/data-storage/sqlite
  *  - https://abhiandroid.com/database/sqlite
  *  - https://www.freecodecamp.org/news/how-to-use-sqlite-database-with-android-studio/
  *  - https://www.androidauthority.com/sqlite-primer-for-android-811987/
+ *
+ *  v1.1:
+ *      - added clear for seed testing
  */
 
 package com.example.cmpt395aurora.database
@@ -47,7 +50,7 @@ class DatabaseHelper(context: Context) :
         db.close()
         return result != -1L
     }
-    // get all employees for list
+    // get all employees for list (maybe obsolete)
     fun getAllEmployees(): List<Employee> {
         val employees = ArrayList<Employee>()
         val db = this.readableDatabase
@@ -70,5 +73,11 @@ class DatabaseHelper(context: Context) :
         val result = db.delete("employees", "id = ?", arrayOf(id.toString())).toLong()
         db.close()
         return result != -1L
+    }
+    // clear database for seed testing
+    fun clearDatabase() {
+        val db = this.writableDatabase
+        db.delete("employees", null, null)
+        db.close()
     }
 }
