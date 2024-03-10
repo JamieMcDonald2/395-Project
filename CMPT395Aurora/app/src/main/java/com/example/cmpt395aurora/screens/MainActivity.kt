@@ -1,6 +1,6 @@
 /**
- *   Main page
- *   v1.02
+ *   Main page v1.03
+ *
  *      - to implement weekly calendar from prototype would like to test implementing complicated
  *        figma components, if i have time, but it is not necessary at all - Jamie
  *
@@ -9,7 +9,11 @@
  *        - https://developer.android.com/codelabs/basic-android-kotlin-compose-navigation
  *        - https://saurabhjadhavblogs.com/ultimate-guide-to-jetpack-compose-navigation
  *        - https://developer.android.com/jetpack/compose/components/scaffold
+ *
+ *   v1.04
+ *      - added seed logic, for testing
  */
+
 
 package com.example.cmpt395aurora.screens
 
@@ -24,6 +28,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.cmpt395aurora.ComponentFunctions.NavigationBar
 import com.example.cmpt395aurora.ComponentFunctions.TopBar
 import com.example.cmpt395aurora.Navigation
+import com.example.cmpt395aurora.database.employees.seedDatabase
 import com.example.cmpt395aurora.ui.theme.CMPT395AuroraTheme
 
 class MainActivity : ComponentActivity() {
@@ -44,6 +49,7 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+        seedDatabase(this)
     }
 }
 

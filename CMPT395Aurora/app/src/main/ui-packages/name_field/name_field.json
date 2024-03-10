@@ -5,11 +5,11 @@
     "type": "figma",
     "file": "sjYPI6UptLTQ1tIf73pxSn",
     "node": "824:27304",
-    "version": "5313520845",
+    "version": "5313582041",
     "component-id": "87abfa342bbe92948a8d7586f8c64f2b733d294b"
   },
   "default": "Property 1=Default",
-  "documentation": "Name Field v1.00\n\n- Mostly for it's subcomponents to build wrapper",
+  "documentation": "Name Field v1.01\n\n- Attempting to resolve some formatting issues - boxes fill and some elements exceed size and don't show",
   "design": {
     "atoms": [
       {
@@ -487,11 +487,11 @@
                 "sizing-mode": "shrink"
               },
               "height-constraints": {
-                "sizing-mode": "shrink"
+                "sizing-mode": "proportional",
+                "value": 1.0
               }
             },
-            "main-axis-align": "start",
-            "cross-axis-align": "start",
+            "main-axis-align": "end",
             "children": [
               "Text field_b"
             ],
@@ -506,12 +506,11 @@
               },
               "height-constraints": {
                 "sizing-mode": "fixed",
-                "value": 56.0
+                "value": 66.0
               }
             },
             "stroke-alignment": "center",
-            "main-axis-align": "start",
-            "cross-axis-align": "start",
+            "main-axis-align": "end",
             "children": [
               "text_field_2b",
               "supporting-text_2b"
@@ -848,11 +847,11 @@
                 "sizing-mode": "shrink"
               },
               "height-constraints": {
-                "sizing-mode": "shrink"
+                "sizing-mode": "proportional",
+                "value": 1.0
               }
             },
-            "main-axis-align": "start",
-            "cross-axis-align": "start",
+            "main-axis-align": "end",
             "children": [
               "Text_field_a"
             ],
@@ -1319,7 +1318,7 @@
       "design": "Property 1=Variant2",
       "size": {
         "width": 349.0,
-        "height": 56.0
+        "height": 64.0
       },
       "ambients": {
         "md.sys.color.on-surface-variant": {
@@ -1365,7 +1364,7 @@
       "design": "Property 1=Variant3",
       "size": {
         "width": 349.0,
-        "height": 56.0
+        "height": 64.0
       },
       "ambients": {
         "md.sys.color.on-surface-variant": {
