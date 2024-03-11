@@ -48,7 +48,7 @@ import com.example.cmpt395aurora.searchbar.SearchBar
 @Composable
 fun EmployeeMain(navController: NavHostController, viewModel: EmployeeViewModel) {
     // Use the ViewModel to get the data
-    val employees = viewModel.getAllEmployees().sortedBy { it.name }
+    val employees = viewModel.getAllEmployees().sortedBy { it.fname }
 
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.BottomEnd) { // Box to allow layering of composables
         Column(

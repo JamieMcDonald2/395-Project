@@ -17,6 +17,7 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.example.cmpt395aurora.database.employees.Employee
+import android.util.Log
 
 class DatabaseHelper(context: Context) :
     SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
@@ -25,13 +26,19 @@ class DatabaseHelper(context: Context) :
      */
     companion object {
         private const val DATABASE_NAME = "EmployeeDatabase"
-        private const val DATABASE_VERSION = 1
+        private const val DATABASE_VERSION = 2
     }
     // new table
     override fun onCreate(db: SQLiteDatabase) {
         val CREATE_EMPLOYEE_TABLE = ("CREATE TABLE employees ( "
                 + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + "name TEXT, "
+                + "fname TEXT, "
+                + "lname TEXT, "
+                + "nname TEXT, "
+                + "email TEXT, "
+                + "isActive TEXT, "
+                + "opening TEXT, "
+                + "closing TEXT, "
                 + "position TEXT )")
         db.execSQL(CREATE_EMPLOYEE_TABLE)
     }
@@ -41,14 +48,27 @@ class DatabaseHelper(context: Context) :
         onCreate(db)
     }
     // add employee
-    fun addEmployee(name: String, position: String): Boolean {
+    fun addEmployee(fname: String, lname: String, nname: String, email: String, isActive: String, opening: String, closing: String, position: String): Boolean {
         val db = this.writableDatabase
         val contentValues = ContentValues()
-        contentValues.put("name", name)
+        contentValues.put("fname", fname)
+        contentValues.put("lname", lname)
+        contentValues.put("nname", nname)
+        contentValues.put("email", email)
+        contentValues.put("isActive", isActive)
+        contentValues.put("opening", opening)
+        contentValues.put("closing", closing)
         contentValues.put("position", position)
-        val result = db.insert("employees", null, contentValues)
-        db.close()
-        return result != -1L
+
+        try {
+            val result = db.insert("employees", null, contentValues)
+            db.close()
+            return result != -1L
+        } catch (e: Exception) {
+            Log.e("DatabaseHelper", "Error adding employee: ${e.message}")
+            db.close()
+            return false
+        }
     }
     // get all employees for list (maybe obsolete)
     fun getAllEmployees(): List<Employee> {
@@ -58,9 +78,15 @@ class DatabaseHelper(context: Context) :
         if (cursor.moveToFirst()) {
             do {
                 val id = cursor.getInt(0)
-                val name = cursor.getString(1)
-                val position = cursor.getString(2)
-                employees.add(Employee(id, name, position))
+                val fname = cursor.getString(1)
+                val lname = cursor.getString(2)
+                val nname = cursor.getString(3)
+                val email = cursor.getString(4)
+                val isActive = cursor.getString(5)
+                val opening = cursor.getString(6)
+                val closing = cursor.getString(7)
+                val position = cursor.getString(8)
+                employees.add(Employee(id, fname, lname, nname, email, isActive, opening, closing, position))
             } while (cursor.moveToNext())
         }
         cursor.close()
@@ -80,4 +106,19 @@ class DatabaseHelper(context: Context) :
         db.delete("employees", null, null)
         db.close()
     }
+
+    /*fun modifyEmployee(id: Int, newName: String, newPosition: String): Boolean {
+        val db = this.writableDatabase
+        val contentValues = ContentValues().apply {
+            put("name", newName)
+            put("position", newPosition)
+        }
+
+        val selection = "id = ?"
+        val selectionArgs = arrayOf(id.toString())
+
+        val result = db.update("employees", contentValues, selection, selectionArgs).toLong()
+        db.close()
+        return result != -1L
+    }*/
 }
