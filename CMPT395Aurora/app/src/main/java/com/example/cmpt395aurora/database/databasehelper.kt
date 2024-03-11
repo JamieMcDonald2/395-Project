@@ -26,7 +26,7 @@ class DatabaseHelper(context: Context) :
      */
     companion object {
         private const val DATABASE_NAME = "EmployeeDatabase"
-        private const val DATABASE_VERSION = 2
+        private const val DATABASE_VERSION = 4
     }
     // new table
     override fun onCreate(db: SQLiteDatabase) {
@@ -41,10 +41,29 @@ class DatabaseHelper(context: Context) :
                 + "closing TEXT, "
                 + "position TEXT )")
         db.execSQL(CREATE_EMPLOYEE_TABLE)
+
+        val CREATE_DAYSCHEDULE_TABLE = ("CREATE TABLE dayschedule ( "
+                + "dsdate TEXT PRIMARY KEY, "
+                + "employee1 TEXT, "
+                + "employee2 TEXT, "
+                + "employee3 TEXT) ")
+        db.execSQL(CREATE_DAYSCHEDULE_TABLE)
+
+        val CREATE_EMPAVAIL_TABLE = ("CREATE TABLE empavail ( "
+                + "eadate TEXT PRIMARY KEY, "
+                + "employeeid TEXT, "
+                + "amAvailability TEXT, "
+                + "pmAvailability TEXT, "
+                + "adAvailability TEXT) ")
+        db.execSQL(CREATE_EMPAVAIL_TABLE)
     }
+
+
     // upgrade table
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.execSQL("DROP TABLE IF EXISTS employees")
+        db.execSQL("DROP TABLE IF EXISTS dayschedule")
+        db.execSQL("DROP TABLE IF EXISTS empavail")
         onCreate(db)
     }
     // add employee
@@ -121,4 +140,64 @@ class DatabaseHelper(context: Context) :
         db.close()
         return result != -1L
     }*/
+
+    fun addAvailability(eadate: String, employeeid: String, amAvailability: String, pmAvailability: String, adAvailability: String): Boolean {
+        val db = this.writableDatabase
+        val contentValues = ContentValues()
+        contentValues.put("eadate", eadate)
+        contentValues.put("employeeid", employeeid)
+        contentValues.put("amAvailability", amAvailability)
+        contentValues.put("pmAvailability", pmAvailability)
+        contentValues.put("adAvailability", adAvailability)
+
+        try {
+            val result = db.insert("empavail", null, contentValues)
+            db.close()
+            return result != -1L
+        } catch (e: Exception) {
+            Log.e("DatabaseHelper", "Error adding availability: ${e.message}")
+            db.close()
+            return false
+        }
+    }
+
+    fun deleteAvailability(eadate: String, employeeid: String): Boolean {
+        val db = this.writableDatabase
+        val whereClause = "employeeid = ? AND eadate = ?"
+        val whereArgs = arrayOf(employeeid.toString(), eadate)
+        val result = db.delete("employeeavailability", whereClause, whereArgs).toLong()
+        db.close()
+        return result != -1L
+    }
+
+    fun addShift(dsdate: String, employeeid: String, amAvailability: String, pmAvailability: String, adAvailability: String): Boolean {
+        val db = this.writableDatabase
+        val contentValues = ContentValues()
+        contentValues.put("dsdate", dsdate)
+        contentValues.put("employee1", employeeid)
+        contentValues.put("employee2", amAvailability)
+        contentValues.put("employee3", pmAvailability)
+
+
+        try {
+            val result = db.insert("dayschedule", null, contentValues)
+            db.close()
+            return result != -1L
+        } catch (e: Exception) {
+            Log.e("DatabaseHelper", "Error adding availability: ${e.message}")
+            db.close()
+            return false
+
+        }
+    }
+
+    fun deleteShift(dsdate: String, employeeid: String): Boolean {
+        val db = this.writableDatabase
+        val whereClause = "employeeid = ? AND dsdate = ?"
+        val whereArgs = arrayOf(employeeid.toString(), dsdate)
+        val result = db.delete("dayschedule", whereClause, whereArgs).toLong()
+        db.close()
+        return result != -1L
+    }
+
 }
