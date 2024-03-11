@@ -26,7 +26,7 @@ class EmployeeViewModel(application: Application) : AndroidViewModel(application
         dbHelper.deleteEmployee(id)
     }
 
-    fun modifyEmployee(id: Int, newName: String, newPosition: String) {
+    /*fun modifyEmployee(id: Int, newName: String, newPosition: String) {
         dbHelper.modifyEmployee(id, newName, newPosition)
-    }
+    }*/
 }
