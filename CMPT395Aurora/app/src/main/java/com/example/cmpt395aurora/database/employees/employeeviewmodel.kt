@@ -14,8 +14,8 @@ import com.example.cmpt395aurora.database.DatabaseHelper
 class EmployeeViewModel(application: Application) : AndroidViewModel(application) {
     private val dbHelper = DatabaseHelper(application)
 
-    fun addEmployee(name: String, position: String) {
-        dbHelper.addEmployee(name, position)
+    fun addEmployee(fname: String, lname: String, nname: String, email: String, isActive: String, opening: String, closing: String, position: String) {
+        dbHelper.addEmployee(fname, lname, nname, email, isActive, opening, closing, position)
     }
 
     fun getAllEmployees(): List<Employee> {
@@ -24,5 +24,9 @@ class EmployeeViewModel(application: Application) : AndroidViewModel(application
 
     fun deleteEmployee(id: Int) {
         dbHelper.deleteEmployee(id)
+    }
+
+    fun modifyEmployee(id: Int, newName: String, newPosition: String) {
+        dbHelper.modifyEmployee(id, newName, newPosition)
     }
 }

@@ -71,7 +71,7 @@ fun EmployeeListItem(employee: Employee) {
                 )
             )
             RelayText(
-                content = employee.name,
+                content = employee.fname,
                 fontSize = MaterialTheme.typography.bodyLarge.fontSize,
                 fontFamily = MaterialTheme.typography.bodyLarge.fontFamily,
                 color = MaterialTheme.colorScheme.onSurface,
@@ -106,7 +106,7 @@ fun EmployeeMonogram(employee: Employee) {
     ) {
         BuildingBlocksMonogram {}
         Text(
-            text = employee.name.first().toString(),
+            text = employee.fname.first().toString(),
             modifier = Modifier.align(Alignment.Center)
         )
     }
