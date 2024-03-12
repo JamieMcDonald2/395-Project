@@ -18,6 +18,7 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
@@ -30,7 +31,7 @@ import com.example.cmpt395aurora.screens.ScheduleMain
 import com.example.cmpt395aurora.screens.SettingsMain
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 
-@OptIn(ExperimentalAnimationApi::class)
+@OptIn(ExperimentalAnimationApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun Navigation(navController: NavHostController) {
     val viewModel: EmployeeViewModel = viewModel()
