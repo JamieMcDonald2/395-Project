@@ -71,7 +71,7 @@ fun EmployeeListItem(employee: Employee) {
                 )
             )
             RelayText(
-                content = employee.fname,
+                content = employee.fname + " " + employee.lname,
                 fontSize = MaterialTheme.typography.bodyLarge.fontSize,
                 fontFamily = MaterialTheme.typography.bodyLarge.fontFamily,
                 color = MaterialTheme.colorScheme.onSurface,

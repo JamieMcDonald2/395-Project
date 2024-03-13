@@ -12,14 +12,15 @@ Jamie McDonald (JamieMcDonald2)
 
 # Project Name TBD
 
-### Release build "Aurora" v2.12-alpha
-# See Release Notes at Bottom
+## Release build "Aurora" v2.16-alpha
+
+### See Release Notes at Bottom
 
 ## Getting Started
 
-https://github.com/macewanCS/w24goldwasser.git
+!https://github.com/macewanCS/w24goldwasser.git
 
-https://www.figma.com/file/sjYPI6UptLTQ1tIf73pxSn/Team-Goldwasser?type=design&node-id=0%3A1&mode=design&t=DPM6oQKMJKvnJGry-1
+!https://www.figma.com/file/sjYPI6UptLTQ1tIf73pxSn/Team-Goldwasser?type=design&node-id=0%3A1&mode=design&t=DPM6oQKMJKvnJGry-1
 
 ## Prerequisites
 
@@ -45,7 +46,10 @@ as required!
 
 1.7 - transitions not working quite right for home/back buttons in top bar
 
-2.1 - no way to delete employee data once added yet
+2.1 - no way to delete employee data once added yet on frontend (query exists) (only because
+      edit employee screen not implemented)
+
+2.2 - Selected state for Employee icon on navbar is lost when moving to add employee screen
 
 ## License
 
@@ -85,3 +89,17 @@ https://github.com/macewanCS/w24goldwasser/blob/main/LICENSE
 
     2.12
     - added database seed for testing
+
+    2.13
+    - added new fields for database
+    - added UI components to add employee screen
+
+    2.14
+    - No update from contributor (database updates)
+
+    2.15
+    - UI calendar for schedule screen
+
+    2.16
+    - finished UI for add employee screen
+    - fixed database - variable types

@@ -1,5 +1,5 @@
 /**
- *  database helper v1.1
+ *  database helper v1.3
  *  some ref's used in the creation of our database:
  *  - https://developer.android.com/training/data-storage/sqlite
  *  - https://abhiandroid.com/database/sqlite
@@ -8,6 +8,12 @@
  *
  *  v1.1:
  *      - added clear for seed testing
+ *
+ *  v1.2:
+ *      - new database fields as per specs
+ *
+ *  v1.3:
+ *      - major bug fixes (boolean vs string)
  */
 
 package com.example.cmpt395aurora.database
@@ -16,8 +22,8 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.example.cmpt395aurora.database.employees.Employee
 import android.util.Log
+import com.example.cmpt395aurora.database.employees.Employee
 
 class DatabaseHelper(context: Context) :
     SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
@@ -26,20 +32,20 @@ class DatabaseHelper(context: Context) :
      */
     companion object {
         private const val DATABASE_NAME = "EmployeeDatabase"
-        private const val DATABASE_VERSION = 4
+        private const val DATABASE_VERSION = 5
     }
     // new table
     override fun onCreate(db: SQLiteDatabase) {
         val CREATE_EMPLOYEE_TABLE = ("CREATE TABLE employees ( "
-                + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + "fname TEXT, "
-                + "lname TEXT, "
-                + "nname TEXT, "
-                + "email TEXT, "
-                + "isActive TEXT, "
-                + "opening TEXT, "
-                + "closing TEXT, "
-                + "position TEXT )")
+            + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + "fname TEXT, "
+            + "lname TEXT, "
+            + "nname TEXT, "
+            + "email TEXT, "
+            + "position TEXT, "
+            + "isActive INTEGER, "
+            + "opening INTEGER, "
+            + "closing INTEGER ")
         db.execSQL(CREATE_EMPLOYEE_TABLE)
 
         val CREATE_DAYSCHEDULE_TABLE = ("CREATE TABLE dayschedule ( "
@@ -67,17 +73,17 @@ class DatabaseHelper(context: Context) :
         onCreate(db)
     }
     // add employee
-    fun addEmployee(fname: String, lname: String, nname: String, email: String, isActive: String, opening: String, closing: String, position: String): Boolean {
+    fun addEmployee(fname: String, lname: String, nname: String, email: String, isActive: String, opening: Boolean, closing: Boolean, position: Boolean): Boolean {
         val db = this.writableDatabase
         val contentValues = ContentValues()
         contentValues.put("fname", fname)
         contentValues.put("lname", lname)
         contentValues.put("nname", nname)
         contentValues.put("email", email)
+        contentValues.put("position", position)
         contentValues.put("isActive", isActive)
         contentValues.put("opening", opening)
         contentValues.put("closing", closing)
-        contentValues.put("position", position)
 
         try {
             val result = db.insert("employees", null, contentValues)
@@ -101,11 +107,11 @@ class DatabaseHelper(context: Context) :
                 val lname = cursor.getString(2)
                 val nname = cursor.getString(3)
                 val email = cursor.getString(4)
-                val isActive = cursor.getString(5)
-                val opening = cursor.getString(6)
-                val closing = cursor.getString(7)
-                val position = cursor.getString(8)
-                employees.add(Employee(id, fname, lname, nname, email, isActive, opening, closing, position))
+                val position = cursor.getString(5)
+                val isActive = cursor.getInt(6) != 0  //Boolean
+                val opening = cursor.getInt(7) != 0   //Boolean
+                val closing = cursor.getInt(8) != 0   //Boolean
+                employees.add(Employee(id, fname, lname, nname, email, position, isActive, opening, closing))
             } while (cursor.moveToNext())
         }
         cursor.close()

@@ -1,19 +1,16 @@
 /**
  *   Main page v1.03
  *
- *      - to implement weekly calendar from prototype would like to test implementing complicated
- *        figma components, if i have time, but it is not necessary at all - Jamie
- *
  *        - https://developer.android.com/jetpack/compose/navigation
  *        - https://developer.android.com/codelabs/jetpack-compose-navigation
  *        - https://developer.android.com/codelabs/basic-android-kotlin-compose-navigation
  *        - https://saurabhjadhavblogs.com/ultimate-guide-to-jetpack-compose-navigation
  *        - https://developer.android.com/jetpack/compose/components/scaffold
+ *        - https://developer.android.com/reference/android/graphics/Paint
  *
  *   v1.04
  *      - added seed logic, for testing
  */
-
 
 package com.example.cmpt395aurora.screens
 
@@ -31,6 +28,9 @@ import com.example.cmpt395aurora.Navigation
 import com.example.cmpt395aurora.database.employees.seedDatabase
 import com.example.cmpt395aurora.ui.theme.CMPT395AuroraTheme
 
+/**
+ * Contains database seeder we need to remove later!
+ */
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +49,7 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-        seedDatabase(this)
+        seedDatabase(this) // remove this when testing is over
     }
 }
 
