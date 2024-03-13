@@ -80,6 +80,7 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.7.7")
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
     implementation("com.google.accompanist:accompanist-navigation-animation:0.35.0-alpha")
+//    implementation("androidx.wear.compose:compose-material:1.3.0")
     testImplementation("junit:junit:4.13.2")
 //    androidTestImplementation("org.mockito.kotlin:mockito-kotlin:5.3.0")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

@@ -3,19 +3,55 @@ package com.example.cmpt395aurora.database.employees
 import android.content.Context
 import com.example.cmpt395aurora.database.DatabaseHelper
 
-// seed database
+// seed database - made random generator for fun and practice
 fun seedDatabase(context: Context) {
     val dbHelper = DatabaseHelper(context)
     dbHelper.clearDatabase()
-    dbHelper.addEmployee("Justin", "Time", "JDawg", "jdawg@hotmail.com", "1", "1", "1", "General Staff")
-    dbHelper.addEmployee("Justine", "Timee", "JFlower", "jflower@hotmail.com", "1", "1", "1", "Time Management Coach")
-    dbHelper.addEmployee("Brittany", "Thompson", "Taylor", "emartin@yahoo.com", "1", "1", "1", "Sales Representative")
-    dbHelper.addEmployee("Joshua", "Dean", "Andrew", "ashleymartinez@gmail.com", "1", "1", "1", "Data Analyst")
-    dbHelper.addEmployee("Carol", "Hunt", "Brett", "hokatelyn@bautista.com", "1", "1", "1", "Project Manager")
-    dbHelper.addEmployee("Shawna", "Jones", "Mark", "bonillahannah@stone.info", "1", "1", "1", "UX Designer")
-    dbHelper.addEmployee("Alec", "Zhang", "Michael", "norma78@scott.com", "1", "1", "1", "Software Engineer")
-    dbHelper.addEmployee("Laura", "Morales", "James", "jason96@gmail.com", "1", "1", "1", "UX Designer")
-    dbHelper.addEmployee("Wesley", "Johnston", "Andrew", "vlutz@gmail.com", "1", "1", "1", "Product Manager")
-    dbHelper.addEmployee("Steven", "Wise", "Linda", "benjamin05@hotmail.com", "1", "1", "1", "Graphic Designer")
-    dbHelper.addEmployee("Nancy", "Calderon", "Heather", "conleymatthew@bowen.net", "1", "1", "1", "Software Engineer")
+
+    val names = listOf(
+        "Bugs Bunny",
+        "Daffy Duck",
+        "Elmer Fudd",
+        "Foghorn Leghorn",
+        "Sylvester Cat",
+        "Tweety Bird",
+        "Yosemite Sam",
+        "Wile Coyote",
+        "Road Runner",
+        "Porky Pig",
+        "Speedy Gonzales"
+    )
+    val emails = listOf(
+        "bugs.bunny@example.com",
+        "daffy.duck@example.com",
+        "elmer.fudd@example.com",
+        "foghorn.leghorn@example.com",
+        "sylvester.cat@example.com",
+        "tweety.bird@example.com",
+        "yosemite.sam@example.com",
+        "wile.e.coyote@example.com",
+        "road.runner@example.com",
+        "porky.pig@example.com",
+        "speedy.gonzales@example.com"
+    )
+    val positions = listOf(
+        "Ambassador of Buzz",
+        "Aspiring Novelist",
+        "Brand Warrior",
+        "Colon Lover",
+        "Conversation Architect",
+        "Conversion Optimization Wrangler",
+        "Copy Cruncher"
+    )
+
+    for (i in names.indices) {
+        val nameParts = names[i].split(" ")
+        val email = emails[i]
+        val position = positions.random()
+        val isActive = (i % 2 == 0)
+        val opening = (i % 3 == 0)
+        val closing = (i % 5 == 0)
+
+        dbHelper.addEmployee(nameParts[0], nameParts[1], nameParts[0], email, position, isActive, opening, closing)
+    }
 }
