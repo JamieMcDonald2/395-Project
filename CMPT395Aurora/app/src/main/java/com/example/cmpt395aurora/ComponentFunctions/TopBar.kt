@@ -89,7 +89,7 @@ fun TopBar(navController: NavController) {
             // Add other content for the top bar here such as page title or the 'hi, [manager name]'
             // will depend which page you are on in app so be careful!
         }
-        Spacer(modifier = Modifier.height(4.dp)) // Add space above the divider for balanced look
+        Spacer(modifier = Modifier.height(2.dp)) // Add space above the divider for balanced look
         Divider()
     }
 

@@ -23,6 +23,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -78,9 +79,11 @@ fun NavigationBar(navController: NavController) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .height(82.dp)
+            .height(66.dp)
             .background(MaterialTheme.colorScheme.inverseOnSurface),
+        verticalAlignment = Alignment.Top,
         horizontalArrangement = Arrangement.SpaceEvenly
+
     ) {
         EmployeeIcon(navController)
         ScheduleIcon(navController)
@@ -125,15 +128,16 @@ fun EmployeeIcon(navController: NavController) {
             modifier = Modifier
                 .padding(0.dp) // Adjust padding if needed
                 .size(65.dp) // Adjust size if needed
+
         ) {
             Box(
                 modifier = Modifier
                     .matchParentSize()
                     .clip(CircleShape)
                     .clickable { navController.navigate("employee1") }
-                    .align(Alignment.Center) // tried to make it bigger no joy
+                    .align(Alignment.TopCenter) // tried to make it bigger no joy
             )
-            Segment1Property1Default(modifier = Modifier.align(Alignment.Center)) { // Align to center
+            Segment1Property1Default(modifier = Modifier.align(Alignment.TopCenter)) { // Align to center
                 IconContainer1aProperty1Default {
                     StateLayer1aProperty1Default {
                         Icon1aProperty1Default {
@@ -156,7 +160,8 @@ fun ScheduleIcon(navController: NavController) {
 
     if (currentRoute == "schedule1") {
         Box(
-            modifier = Modifier.clickable { /* No action needed if already on the page */ }
+            modifier = Modifier
+                .clickable { /* No action needed if already on the page */ }
                 .padding(0.dp) // Adjust padding as needed
                 .size(65.dp) // Adjust size as needed
         ) {
@@ -175,7 +180,8 @@ fun ScheduleIcon(navController: NavController) {
         }
     } else {
         Box(
-            modifier = Modifier.clickable { navController.navigate("schedule1") }
+            modifier = Modifier
+                .clickable { navController.navigate("schedule1") }
                 .padding(0.dp) // Adjust padding as needed
                 .size(65.dp) // Adjust size as needed
         ) {
@@ -202,7 +208,8 @@ fun SettingIcon(navController: NavController) {
 
     if (currentRoute == "setting1") {
         Box(
-            modifier = Modifier.clickable { /* No action needed if already on the page */ }
+            modifier = Modifier
+                .clickable { /* No action needed if already on the page */ }
                 .padding(0.dp) // Adjust padding as needed
                 .size(65.dp) // Adjust size as needed
         ) {
@@ -221,7 +228,8 @@ fun SettingIcon(navController: NavController) {
         }
     } else {
         Box(
-            modifier = Modifier.clickable { navController.navigate("setting1") }
+            modifier = Modifier
+                .clickable { navController.navigate("setting1") }
                 .padding(0.dp) // Adjust padding as needed
                 .size(65.dp) // Adjust size as needed
         ) {
