@@ -13,7 +13,7 @@ data class Employee(
     val lname: String,
     val nname: String,
     val email: String,
-    val position: String,
+    val pnumber: String,
     val isActive: Boolean,
     val opening: Boolean,
     val closing: Boolean,

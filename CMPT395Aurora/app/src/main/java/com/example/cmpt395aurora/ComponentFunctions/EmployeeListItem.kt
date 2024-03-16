@@ -7,6 +7,9 @@
  *
  *  v1.01
  *  - added proper dividers, initials to monogram, color to list items
+ *
+ *   *  v2.17
+ *  *  - changed position field to phone number
  */
 
 package com.example.cmpt395aurora.ComponentFunctions
@@ -38,6 +41,15 @@ import com.google.relay.compose.RelayText
 
 @Composable
 fun EmployeeListItem(employee: Employee) {
+    var overlineString = ""
+
+    if(employee.opening){
+        overlineString += " Opening "
+    }
+    if(employee.closing){
+        overlineString += " Closing "
+    }
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -56,7 +68,7 @@ fun EmployeeListItem(employee: Employee) {
             modifier = Modifier.weight(2f)
         ) {
             RelayText(
-                content = employee.position,
+                content = overlineString,
                 fontSize = MaterialTheme.typography.labelMedium.fontSize,
                 fontFamily = MaterialTheme.typography.labelMedium.fontFamily,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -87,13 +99,13 @@ fun EmployeeListItem(employee: Employee) {
             )
         }
 
-        Row(modifier = Modifier.weight(0.3f)) {
-            Icons1 {
-                Icons1a {
-                    Icon()
-                }
-            }
-        }
+//        Row(modifier = Modifier.weight(0.3f)) {
+//            Icons1 {
+//                Icons1a {
+//                    Icon()
+//                }
+//            }
+//        }
     }
     ListItemDivider()
 }

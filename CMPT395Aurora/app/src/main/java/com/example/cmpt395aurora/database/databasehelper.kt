@@ -42,10 +42,10 @@ class DatabaseHelper(context: Context) :
             + "lname TEXT, "
             + "nname TEXT, "
             + "email TEXT, "
-            + "position TEXT, "
+            + "pnumber TEXT, "
             + "isActive INTEGER, "
             + "opening INTEGER, "
-            + "closing INTEGER ")
+            + "closing INTEGER )")
         db.execSQL(CREATE_EMPLOYEE_TABLE)
 
         val CREATE_DAYSCHEDULE_TABLE = ("CREATE TABLE dayschedule ( "
@@ -73,14 +73,14 @@ class DatabaseHelper(context: Context) :
         onCreate(db)
     }
     // add employee
-    fun addEmployee(fname: String, lname: String, nname: String, email: String, isActive: String, opening: Boolean, closing: Boolean, position: Boolean): Boolean {
+    fun addEmployee(fname: String, lname: String, nname: String, email: String, pnumber: String, isActive: Boolean, opening: Boolean, closing: Boolean): Boolean {
         val db = this.writableDatabase
         val contentValues = ContentValues()
         contentValues.put("fname", fname)
         contentValues.put("lname", lname)
         contentValues.put("nname", nname)
         contentValues.put("email", email)
-        contentValues.put("position", position)
+        contentValues.put("pnumber", pnumber)
         contentValues.put("isActive", isActive)
         contentValues.put("opening", opening)
         contentValues.put("closing", closing)
@@ -107,11 +107,11 @@ class DatabaseHelper(context: Context) :
                 val lname = cursor.getString(2)
                 val nname = cursor.getString(3)
                 val email = cursor.getString(4)
-                val position = cursor.getString(5)
+                val pnumber = cursor.getString(5)
                 val isActive = cursor.getInt(6) != 0  //Boolean
                 val opening = cursor.getInt(7) != 0   //Boolean
                 val closing = cursor.getInt(8) != 0   //Boolean
-                employees.add(Employee(id, fname, lname, nname, email, position, isActive, opening, closing))
+                employees.add(Employee(id, fname, lname, nname, email, pnumber, isActive, opening, closing))
             } while (cursor.moveToNext())
         }
         cursor.close()

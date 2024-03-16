@@ -12,7 +12,7 @@ Jamie McDonald (JamieMcDonald2)
 
 # Project Name TBD
 
-## Release build "Aurora" v2.16-alpha
+## Release build "Aurora" v2.17-alpha
 
 ### See Release Notes at Bottom
 
@@ -103,3 +103,10 @@ https://github.com/macewanCS/w24goldwasser/blob/main/LICENSE
     2.16
     - finished UI for add employee screen
     - fixed database - variable types
+
+    2.17
+    - Added missing ")" to the database creation line
+    - Removed some padding around search bar on employee screen so more employees are visable
+    - Replaced position field with phone number field
+    - Removed edit icon from employee list on employee screen
+    - Changed the overline on the employee list to show whether or not the employee is open or closed trained
