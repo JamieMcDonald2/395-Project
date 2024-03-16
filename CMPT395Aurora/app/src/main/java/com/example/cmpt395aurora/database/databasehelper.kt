@@ -45,7 +45,7 @@ class DatabaseHelper(context: Context) :
             + "position TEXT, "
             + "isActive INTEGER, "
             + "opening INTEGER, "
-            + "closing INTEGER ")
+            + "closing INTEGER )")
         db.execSQL(CREATE_EMPLOYEE_TABLE)
 
         val CREATE_DAYSCHEDULE_TABLE = ("CREATE TABLE dayschedule ( "
