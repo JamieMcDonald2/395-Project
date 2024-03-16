@@ -12,7 +12,7 @@ Jamie McDonald (JamieMcDonald2)
 
 # Project Name TBD
 
-## Release build "Aurora" v2.16-alpha
+## Release build "Aurora" v2.17-alpha
 
 ### See Release Notes at Bottom
 
