@@ -103,7 +103,7 @@ fun FormWrapper(viewModel: EmployeeViewModel) {
         "Last Name",
         "Nick Name",
         "Email",
-        "Position",
+        "Phone Number",
         "Is Active?",
         "Trained for Opening?",
         "Trained for Closing?"
@@ -120,13 +120,13 @@ fun FormWrapper(viewModel: EmployeeViewModel) {
         */
         items(fields) { field ->
             when (field) {
-                "First Name", "Last Name", "Nick Name", "Email", "Position" -> {
+                "First Name", "Last Name", "Nick Name", "Email", "Phone Number" -> {
                     val text = when (field) {
                         "First Name" -> viewModel.fname
                         "Last Name" -> viewModel.lname
                         "Nick Name" -> viewModel.nname
                         "Email" -> viewModel.email
-                        "Position" -> viewModel.position
+                        "Phone Number" -> viewModel.pnumber
                         else -> remember { mutableStateOf("") }
                     }
                     val isError = remember { mutableStateOf(false) }
@@ -174,7 +174,7 @@ fun FormWrapper(viewModel: EmployeeViewModel) {
                                 lname = viewModel.lname.value,
                                 nname = viewModel.nname.value,
                                 email = viewModel.email.value,
-                                position = viewModel.position.value,
+                                pnumber = viewModel.pnumber.value,
                                 isActive = viewModel.isActive.value,
                                 opening = viewModel.opening.value,
                                 closing = viewModel.closing.value
@@ -184,7 +184,7 @@ fun FormWrapper(viewModel: EmployeeViewModel) {
                             viewModel.lname.value = ""
                             viewModel.nname.value = ""
                             viewModel.email.value = ""
-                            viewModel.position.value = ""
+                            viewModel.pnumber.value = ""
                             viewModel.isActive.value = false
                             viewModel.opening.value = false
                             viewModel.closing.value = false

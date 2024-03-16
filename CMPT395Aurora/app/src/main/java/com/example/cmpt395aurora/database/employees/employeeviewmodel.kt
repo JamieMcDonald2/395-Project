@@ -5,6 +5,9 @@
  *
  * v1.02
  *  - corrected variable types, added new validate function for text fields - to be updated later?
+ *
+ *  v2.17
+ *  - changed position field to phone number
  */
 
 package com.example.cmpt395aurora.database.employees
@@ -19,15 +22,15 @@ class EmployeeViewModel(application: Application) : AndroidViewModel(application
     val lname = mutableStateOf("")
     val nname = mutableStateOf("")
     val email = mutableStateOf("")
-    val position = mutableStateOf("")
+    val pnumber = mutableStateOf("")
     val isActive = mutableStateOf(false)
     val opening = mutableStateOf(false)
     val closing = mutableStateOf(false)
 
     private val dbHelper = DatabaseHelper(application)
 
-    fun addEmployee(fname: String, lname: String, nname: String, email: String, position: String, isActive: Boolean, opening: Boolean, closing: Boolean) {
-        dbHelper.addEmployee(fname, lname, nname, email, position, isActive, opening, closing)
+    fun addEmployee(fname: String, lname: String, nname: String, email: String, pnumber: String, isActive: Boolean, opening: Boolean, closing: Boolean) {
+        dbHelper.addEmployee(fname, lname, nname, email, pnumber, isActive, opening, closing)
     }
 
     fun getAllEmployees(): List<Employee> {
@@ -48,6 +51,6 @@ class EmployeeViewModel(application: Application) : AndroidViewModel(application
             lname.value.isNotEmpty() &&
             nname.value.isNotEmpty() &&
             email.value.isNotEmpty() &&
-            position.value.isNotEmpty()
+            pnumber.value.isNotEmpty()
     }
 }

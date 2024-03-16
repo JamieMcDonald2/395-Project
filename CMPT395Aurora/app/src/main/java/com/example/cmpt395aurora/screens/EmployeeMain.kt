@@ -54,13 +54,13 @@ fun EmployeeMain(navController: NavHostController, viewModel: EmployeeViewModel)
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = 24.dp, start =  0.dp, end = 0.dp),
+                .padding(top = 8.dp, start =  0.dp, end = 0.dp),
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             EmployeeSearchBar()
 
-            Spacer(modifier = Modifier.height(24.dp)) // space
+            Spacer(modifier = Modifier.height(8.dp)) // space
 
             Divider()
 

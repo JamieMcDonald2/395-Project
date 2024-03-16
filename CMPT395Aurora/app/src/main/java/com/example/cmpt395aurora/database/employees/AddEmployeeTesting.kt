@@ -24,11 +24,11 @@ class AddEmployeeTesting {
             "Ralph Wolf",
             "Sam Sheepdog"
         )
-        val positions = listOf(
-            "Digital Dynamo",
-            "Dream Alchemist",
-            "Idea Ignitor",
-            "Pixel Wrangler"
+        val pnumbers = listOf(
+            "7805551234",
+            "7805551234",
+            "7805551234",
+            "7805551234"
         )
 
         // Select a full name from the names list
@@ -43,7 +43,7 @@ class AddEmployeeTesting {
 
         viewModel.email.value =
             "${viewModel.fname.value.lowercase()}.${viewModel.lname.value.lowercase()}@example.com"
-        viewModel.position.value = positions.random()
+        viewModel.pnumber.value = pnumbers.random()
         viewModel.isActive.value = Random.nextBoolean()
         viewModel.opening.value = Random.nextBoolean()
         viewModel.closing.value = Random.nextBoolean()

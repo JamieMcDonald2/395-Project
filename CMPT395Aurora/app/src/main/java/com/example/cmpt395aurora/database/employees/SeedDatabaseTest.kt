@@ -34,24 +34,24 @@ fun seedDatabase(context: Context) {
         "porky.pig@example.com",
         "speedy.gonzales@example.com"
     )
-    val positions = listOf(
-        "Ambassador of Buzz",
-        "Aspiring Novelist",
-        "Brand Warrior",
-        "Colon Lover",
-        "Conversation Architect",
-        "Conversion Optimization Wrangler",
-        "Copy Cruncher"
+    val pnumbers = listOf(
+        "7805551234",
+        "7805551234",
+        "7805551234",
+        "7805551234",
+        "7805551234",
+        "7805551234",
+        "7805551234"
     )
 
     for (i in names.indices) {
         val nameParts = names[i].split(" ")
         val email = emails[i]
-        val position = positions.random()
+        val pnumber = pnumbers.random()
         val isActive = (i % 2 == 0)
         val opening = (i % 3 == 0)
         val closing = (i % 5 == 0)
 
-        dbHelper.addEmployee(nameParts[0], nameParts[1], nameParts[0], email, position, isActive, opening, closing)
+        dbHelper.addEmployee(nameParts[0], nameParts[1], nameParts[0], email, pnumber, isActive, opening, closing)
     }
 }
