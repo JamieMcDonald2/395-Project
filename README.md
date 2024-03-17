@@ -18,9 +18,7 @@ Jamie McDonald (JamieMcDonald2)
 
 ## Getting Started
 
-!https://github.com/macewanCS/w24goldwasser.git
-
-!https://www.figma.com/file/sjYPI6UptLTQ1tIf73pxSn/Team-Goldwasser?type=design&node-id=0%3A1&mode=design&t=DPM6oQKMJKvnJGry-1
+<a href="https://github.com/macewanCS/w24goldwasser.git"><img src="https://s18955.pcdn.co/wp-content/uploads/2018/02/github.png" width="50"></a> <a href="https://github.com/macewanCS/w24goldwasser.git"><img src="https://brandlogos.net/wp-content/uploads/2022/05/figma-logo_brandlogos.net_6n1pb.png" width="50"></a>
 
 ## Prerequisites
 
@@ -50,6 +48,8 @@ as required!
       edit employee screen not implemented)
 
 2.2 - Selected state for Employee icon on navbar is lost when moving to add employee screen
+
+2.3 - Sometimes generate random test employee data button crashes app (won't matter after testing - low priority)
 
 ## License
 
