@@ -12,7 +12,7 @@ Jamie McDonald (JamieMcDonald2)
 
 # Project Name TBD
 
-## Release build "Aurora" v2.18-alpha
+## Release build "Aurora" v2.19-alpha
 
 ### See Release Notes at Bottom
 
@@ -116,3 +116,8 @@ https://github.com/macewanCS/w24goldwasser/blob/main/LICENSE
     to the schedule employee screen (not implemented yet). 
     - Fixed spacings and paddings for top bar and bottom bar. 
     - Created the Schedule Employee Screen
+
+    2.19
+    - Started an employee information screen
+    - Created the navagation that takes the user to an employee information screen if they click the employee
+    on the employee screen
