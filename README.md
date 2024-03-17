@@ -12,7 +12,7 @@ Jamie McDonald (JamieMcDonald2)
 
 # Project Name TBD
 
-## Release build "Aurora" v2.17-alpha
+## Release build "Aurora" v2.18-alpha
 
 ### See Release Notes at Bottom
 
@@ -110,3 +110,9 @@ https://github.com/macewanCS/w24goldwasser/blob/main/LICENSE
     - Replaced position field with phone number field
     - Removed edit icon from employee list on employee screen
     - Changed the overline on the employee list to show whether or not the employee is open or closed trained
+
+    2.18
+    - Added navigation to the Schedule screen so now when selecting any date it will navigate
+    to the schedule employee screen (not implemented yet). 
+    - Fixed spacings and paddings for top bar and bottom bar. 
+    - Created the Schedule Employee Screen

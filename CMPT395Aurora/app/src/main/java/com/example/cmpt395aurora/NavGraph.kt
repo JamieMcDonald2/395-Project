@@ -28,6 +28,7 @@ import com.example.cmpt395aurora.screens.AddEmployeeScreen
 import com.example.cmpt395aurora.screens.EmployeeInfoScreen
 import com.example.cmpt395aurora.screens.EmployeeMain
 import com.example.cmpt395aurora.screens.HomeScreen
+import com.example.cmpt395aurora.screens.ScheduleEmployeeScreen
 import com.example.cmpt395aurora.screens.ScheduleMain
 import com.example.cmpt395aurora.screens.SettingsMain
 import com.google.accompanist.navigation.animation.AnimatedNavHost
@@ -91,7 +92,7 @@ fun Navigation(navController: NavHostController) {
                     animationSpec = tween(500)
                 )
             }) {
-            ScheduleMain()
+            ScheduleMain(navController)
         }
         //settings page
         composable(
@@ -103,6 +104,17 @@ fun Navigation(navController: NavHostController) {
                 )
             }) {
             SettingsMain()
+        }
+        //schedule employee page
+        composable(
+            "schedule2",
+            enterTransition = {
+                slideInHorizontally(
+                    initialOffsetX = { 1000 },
+                    animationSpec = tween(500)
+                )
+            }) {
+            ScheduleEmployeeScreen()
         }
     }
 }
