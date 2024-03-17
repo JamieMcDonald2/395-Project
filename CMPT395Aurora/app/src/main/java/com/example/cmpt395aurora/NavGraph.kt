@@ -25,6 +25,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.example.cmpt395aurora.database.employees.EmployeeViewModel
 import com.example.cmpt395aurora.screens.AddEmployeeScreen
+import com.example.cmpt395aurora.screens.EmployeeInfoScreen
 import com.example.cmpt395aurora.screens.EmployeeMain
 import com.example.cmpt395aurora.screens.HomeScreen
 import com.example.cmpt395aurora.screens.ScheduleEmployeeScreen
@@ -70,6 +71,17 @@ fun Navigation(navController: NavHostController) {
                 )
             }) {
             AddEmployeeScreen(viewModel)
+        }
+        //employee info screen
+        composable(
+            "employee3",
+            enterTransition = {
+                slideInHorizontally(
+                    initialOffsetX = { 1000 },
+                    animationSpec = tween(500)
+                )
+            }) {
+            EmployeeInfoScreen(viewModel)
         }
         //schedule main
         composable(
