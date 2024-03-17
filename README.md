@@ -12,13 +12,13 @@ Jamie McDonald (JamieMcDonald2)
 
 # Project Name TBD
 
-## Release build "Aurora" v2.19-alpha
+## Release build "Aurora" v2.191-alpha
 
 ### See Release Notes at Bottom
 
 ## Getting Started
 
-<a href="https://github.com/macewanCS/w24goldwasser.git"><img src="https://s18955.pcdn.co/wp-content/uploads/2018/02/github.png" width="50"></a> <a href="https://github.com/macewanCS/w24goldwasser.git"><img src="https://brandlogos.net/wp-content/uploads/2022/05/figma-logo_brandlogos.net_6n1pb.png" width="50"></a>
+<a href="https://github.com/macewanCS/w24goldwasser.git"><img src="https://s18955.pcdn.co/wp-content/uploads/2018/02/github.png" width="50" style="background: white; margin-right: 40px;"></a> <a href="https://www.figma.com/file/sjYPI6UptLTQ1tIf73pxSn/Team-Goldwasser?type=design&node-id=0%3A1&mode=design&t=Jnmr05dUMOu4uRa7-1"><img src="https://brandlogos.net/wp-content/uploads/2022/05/figma-logo_brandlogos.net_6n1pb.png" width="50"></a>
 
 ## Prerequisites
 
@@ -44,12 +44,12 @@ as required!
 
 1.7 - transitions not working quite right for home/back buttons in top bar
 
-2.1 - no way to delete employee data once added yet on frontend (query exists) (only because
-      edit employee screen not implemented)
-
 2.2 - Selected state for Employee icon on navbar is lost when moving to add employee screen
 
 2.3 - Sometimes generate random test employee data button crashes app (won't matter after testing - low priority)
+
+Other Problems:
+    - Pulling from repo causes minor syntax errors sometimes - unknown cause (android studio issue - not issue with app)
 
 ## License
 
@@ -121,3 +121,7 @@ https://github.com/macewanCS/w24goldwasser/blob/main/LICENSE
     - Started an employee information screen
     - Created the navagation that takes the user to an employee information screen if they click the employee
     on the employee screen
+    2.191
+    - minor fixes to UI:
+        - Adjusted overline logic on employee list item
+        - adjusted size of nav bar (again)- UI adjustments 
