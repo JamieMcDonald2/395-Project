@@ -68,7 +68,7 @@ fun EmployeeMain(navController: NavHostController, viewModel: EmployeeViewModel)
             // new "LazyList" for scrolling!
             LazyColumn {
                 items(employees.size) { index ->
-                    EmployeeListItem(employees[index])
+                    EmployeeListItem(navController,employees[index], viewModel)
                 }
             }
         }
