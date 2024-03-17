@@ -18,7 +18,7 @@ Jamie McDonald (JamieMcDonald2)
 
 ## Getting Started
 
-<a href="https://github.com/macewanCS/w24goldwasser.git"><img src="https://s18955.pcdn.co/wp-content/uploads/2018/02/github.png" width="50" style="background: white; margin-right: 40px;"></a> <a href="https://www.figma.com/file/sjYPI6UptLTQ1tIf73pxSn/Team-Goldwasser?type=design&node-id=0%3A1&mode=design&t=Jnmr05dUMOu4uRa7-1"><img src="https://brandlogos.net/wp-content/uploads/2022/05/figma-logo_brandlogos.net_6n1pb.png" width="50"></a>
+<a href="https://github.com/macewanCS/w24goldwasser.git"><img src="https://static.vecteezy.com/system/resources/previews/017/119/660/original/github-logo-git-hub-icon-with-text-on-white-and-black-background-free-vector.jpg" width="100" style="background: white; margin-right: 40px;"></a> <a href="https://www.figma.com/file/sjYPI6UptLTQ1tIf73pxSn/Team-Goldwasser?type=design&node-id=0%3A1&mode=design&t=Jnmr05dUMOu4uRa7-1"><img src="https://brandlogos.net/wp-content/uploads/2022/05/figma-logo_brandlogos.net_6n1pb.png" width="50"></a>
 
 ## Prerequisites
 
