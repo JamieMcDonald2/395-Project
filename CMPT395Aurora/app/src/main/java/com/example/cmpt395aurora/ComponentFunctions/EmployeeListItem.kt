@@ -1,6 +1,6 @@
 /**
  * Employee List Item Component
- * v1.01
+ * v1.03
  *
  * - added loop for iterating over database and UI elements from figma component
  *  - https://developer.android.com/jetpack/compose/lists
@@ -8,8 +8,12 @@
  *  v1.01
  *  - added proper dividers, initials to monogram, color to list items
  *
- *  v2.17
+ *  v1.02
  *  - changed position field to phone number
+ *
+ *  v1.03
+ *  - adjusted overline to line up with heading
+ *  - added logic for various possible combinations of training or lack of to display text
  */
 
 package com.example.cmpt395aurora.ComponentFunctions
@@ -36,7 +40,6 @@ import com.example.cmpt395aurora.database.employees.Employee
 import com.example.cmpt395aurora.database.employees.EmployeeViewModel
 import com.example.cmpt395aurora.listitememployee.BuildingBlocksMonogram
 import com.example.cmpt395aurora.listitememployee.Divider1
-import com.example.cmpt395aurora.screens.EmployeeInfoScreen
 import com.google.relay.compose.ColumnScopeInstanceImpl.weight
 import com.google.relay.compose.RelayText
 
@@ -45,10 +48,13 @@ fun EmployeeListItem(navController: NavController, employee: Employee, viewModel
     var overlineString = ""
 
     if(employee.opening){
-        overlineString += " Opening "
+        overlineString += "Opening"
     }
-    if(employee.closing){
-        overlineString += " Closing "
+    if(employee.opening && employee.closing){
+        overlineString += "/Closing"
+    }
+    else if(employee.closing) {
+        overlineString += "Closing"
     }
 
     Box(

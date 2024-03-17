@@ -14,6 +14,10 @@
  *
  * - Refs:
  *      - https://developer.android.com/jetpack/compose/modifiers
+ *
+ * 2.1:
+ *  - padding/space adjustments for UX
+ *  - added circular ripple to all buttons
  */
 
 package com.example.cmpt395aurora.ComponentFunctions
@@ -23,7 +27,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -79,7 +82,7 @@ fun NavigationBar(navController: NavController) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .height(66.dp)
+            .height(72.dp)
             .background(MaterialTheme.colorScheme.inverseOnSurface),
         verticalAlignment = Alignment.Top,
         horizontalArrangement = Arrangement.SpaceEvenly
@@ -108,7 +111,7 @@ fun EmployeeIcon(navController: NavController) {
                     .matchParentSize()
                     .clip(CircleShape)
                     .clickable { /* No action needed if already on the page */ }
-                    .align(Alignment.Center) // Align to center
+                    .align(Alignment.TopCenter) // Align to center
             )
             Segment1Property1Variant2(modifier = Modifier.align(Alignment.Center)) { // Align to center
                 IconContainer2aProperty1Variant2 {
@@ -161,10 +164,16 @@ fun ScheduleIcon(navController: NavController) {
     if (currentRoute == "schedule1") {
         Box(
             modifier = Modifier
-                .clickable { /* No action needed if already on the page */ }
                 .padding(0.dp) // Adjust padding as needed
                 .size(65.dp) // Adjust size as needed
         ) {
+            Box(
+                modifier = Modifier
+                    .matchParentSize()
+                    .clip(CircleShape)
+                    .clickable { /* No action needed if already on the page */ }
+                    .align(Alignment.TopCenter) // Align to center
+            )
             Segment2Property1Variant2(modifier = Modifier) {
                 IconContainer2bProperty1Variant2 {
                     StateLayer2bProperty1Variant2 {
@@ -181,10 +190,17 @@ fun ScheduleIcon(navController: NavController) {
     } else {
         Box(
             modifier = Modifier
-                .clickable { navController.navigate("schedule1") }
-                .padding(0.dp) // Adjust padding as needed
-                .size(65.dp) // Adjust size as needed
+                .padding(0.dp) // Adjust padding if needed
+                .size(65.dp) // Adjust size if needed
+
         ) {
+            Box(
+                modifier = Modifier
+                    .matchParentSize()
+                    .clip(CircleShape)
+                    .clickable { navController.navigate("schedule1") }
+                    .align(Alignment.TopCenter) // tried to make it bigger no joy
+            )
             Segment2Property1Default(modifier = Modifier) {
                 IconContainer1bProperty1Default {
                     StateLayer1bProperty1Default {
@@ -209,10 +225,16 @@ fun SettingIcon(navController: NavController) {
     if (currentRoute == "setting1") {
         Box(
             modifier = Modifier
-                .clickable { /* No action needed if already on the page */ }
                 .padding(0.dp) // Adjust padding as needed
                 .size(65.dp) // Adjust size as needed
         ) {
+            Box(
+                modifier = Modifier
+                    .matchParentSize()
+                    .clip(CircleShape)
+                    .clickable { /* No action needed if already on the page */ }
+                    .align(Alignment.TopCenter) // Align to center
+            )
             Segment3Property1Variant2(modifier = Modifier) {
                 IconContainer2cProperty1Variant2 {
                     StateLayer2cProperty1Variant2 {
@@ -229,10 +251,17 @@ fun SettingIcon(navController: NavController) {
     } else {
         Box(
             modifier = Modifier
-                .clickable { navController.navigate("setting1") }
-                .padding(0.dp) // Adjust padding as needed
-                .size(65.dp) // Adjust size as needed
+                .padding(0.dp) // Adjust padding if needed
+                .size(65.dp) // Adjust size if needed
+
         ) {
+            Box(
+                modifier = Modifier
+                    .matchParentSize()
+                    .clip(CircleShape)
+                    .clickable { navController.navigate("setting1") }
+                    .align(Alignment.TopCenter) // tried to make it bigger no joy
+            )
             Segment3Property1Default(modifier = Modifier) {
                 IconContainer1cProperty1Default {
                     StateLayer1cProperty1Default {
