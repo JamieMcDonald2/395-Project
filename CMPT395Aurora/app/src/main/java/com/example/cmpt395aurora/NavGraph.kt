@@ -35,8 +35,7 @@ import com.google.accompanist.navigation.animation.AnimatedNavHost
 
 @OptIn(ExperimentalAnimationApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun Navigation(navController: NavHostController) {
-    val viewModel: EmployeeViewModel = viewModel()
+fun Navigation(navController: NavHostController, viewModel: EmployeeViewModel) {
     AnimatedNavHost(navController, startDestination = "home") {
         //home screen
         composable(
