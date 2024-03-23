@@ -1,8 +1,14 @@
 /**
- *  build.gradle.kts v1.05
+ *  build.gradle.kts v1.06
+ *
+ *  1.06
+ *  - new test package versions
+ *
+ *  1.05
  *  - added: testImplementation("org.mockito:mockito-core:3.12.4") for unit testing
  *           androidTestImplementation("androidx.compose.ui:ui-test-junit4:")
  *           androidTestImplementation("androidx.compose.ui:ui-test-manifest:")
+ *
  */
 
 plugins {
@@ -35,6 +41,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {
@@ -86,9 +93,9 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     androidTestImplementation(platform("androidx.compose:compose-bom:2023.08.00"))
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.6.2")
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.6.4")
     androidTestImplementation("androidx.test.ext:junit-ktx:1.1.5")
     androidTestImplementation("org.mockito:mockito-core:3.12.4")
-    debugImplementation("androidx.compose.ui:ui-test-manifest:1.6.2")
+    debugImplementation("androidx.compose.ui:ui-test-manifest:1.6.4")
     debugImplementation("androidx.compose.ui:ui-tooling")
 }
