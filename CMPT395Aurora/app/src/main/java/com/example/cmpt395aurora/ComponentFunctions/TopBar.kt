@@ -1,18 +1,23 @@
 /**
- * top bar v1.41
+ * top bar v1.5
+ *
+ *     1.5
+ *     - added padding for icons to line up better and make ripple effect centered/more predominant
+ *
+ *     1.41
+ *     - Adjusted Home Button
  *
  *     1.4
  *     - New logic to allow back button to use transitions - Jamie
  *     - New home button - Grant
  *
- *     1.41
- *     - Adjusted Home Button
  */
 
 package com.example.cmpt395aurora.ComponentFunctions
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -25,11 +30,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -73,14 +81,18 @@ fun TopBar(navController: NavController) {
                         // If there's no previous destination, simply pop the back stack
                         navController.popBackStack()
                     }
-                }){
-                    IconsBackButton()// back button icon
+                }) {
+                    Icon(
+                        imageVector = Icons.Default.ArrowBack,
+                        contentDescription = "Back",
+                        modifier = Modifier.padding(0.dp) // Remove the default padding
+                    )
                 }
 
                 IconButton(
-                    onClick = {},
+                    onClick = { navController.navigate("home") }, // Navigate to home page upon click
                     modifier = Modifier.padding(0.dp) // Remove the default padding
-                ){
+                ) {
                     CustomIconHome(navController = navController) // home icon
                 }
             } else {
@@ -92,8 +104,8 @@ fun TopBar(navController: NavController) {
         Spacer(modifier = Modifier.height(2.dp)) // Add space above the divider for balanced look
         Divider()
     }
-
 }
+
 
 // Simple components don't need their own file, or figma relay connections, such as this divider
 @Composable
@@ -116,15 +128,6 @@ fun CustomIconHome(navController: NavController) {
         imageVector = Icons.Default.Home,
         contentDescription = "Home",
         modifier = Modifier
-            .offset(x = (-4).dp, y = 4.dp) // I eyeballed this lol ?
-            .size(32.dp)
-            .clip(CircleShape)
-            .clickable(
-                enabled = !isEmployeePage,
-            ) {
-                if (!isEmployeePage) {
-                    navController.navigate("home")
-                }
-            }
+            .padding(0.dp) // Remove the default padding
     )
 }

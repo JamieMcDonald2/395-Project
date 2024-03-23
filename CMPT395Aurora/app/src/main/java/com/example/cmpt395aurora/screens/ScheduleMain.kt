@@ -1,11 +1,9 @@
 /**
  *   Schedule Main page
- *   v1.00
+ *   v1.01
  *
  *   v1.01
  *   Added navigation to the dates
- *
- *
  *
  */
 

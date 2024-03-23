@@ -1,19 +1,23 @@
 /**
- *  database helper v1.3
+ *  database helper v1.4
  *  some ref's used in the creation of our database:
  *  - https://developer.android.com/training/data-storage/sqlite
  *  - https://abhiandroid.com/database/sqlite
  *  - https://www.freecodecamp.org/news/how-to-use-sqlite-database-with-android-studio/
  *  - https://www.androidauthority.com/sqlite-primer-for-android-811987/
  *
- *  v1.1:
- *      - added clear for seed testing
+ *  v1.4:
+ *      - new single employee query "getEmployeeById"
+ *
+ *  v1.3:
+ *      - major bug fixes (boolean vs string)
  *
  *  v1.2:
  *      - new database fields as per specs
  *
- *  v1.3:
- *      - major bug fixes (boolean vs string)
+ *  v1.1:
+ *      - added clear for seed testing
+ *
  */
 
 package com.example.cmpt395aurora.database
@@ -85,17 +89,18 @@ class DatabaseHelper(context: Context) :
         contentValues.put("opening", opening)
         contentValues.put("closing", closing)
 
-        try {
+        return try {
             val result = db.insert("employees", null, contentValues)
             db.close()
-            return result != -1L
+            result != -1L
         } catch (e: Exception) {
             Log.e("DatabaseHelper", "Error adding employee: ${e.message}")
             db.close()
-            return false
+            false
         }
     }
-    // get all employees for list (maybe obsolete)
+
+    // get all
     fun getAllEmployees(): List<Employee> {
         val employees = ArrayList<Employee>()
         val db = this.readableDatabase
@@ -118,6 +123,30 @@ class DatabaseHelper(context: Context) :
         db.close()
         return employees
     }
+
+    /**
+     * Query Employee by ID
+     */
+    fun getEmployeeById(id: Int): Employee? {
+        val db = this.readableDatabase
+        val cursor = db.rawQuery("SELECT * FROM employees WHERE id = ?", arrayOf(id.toString()))
+        var employee: Employee? = null
+        if (cursor.moveToFirst()) {
+            val fname = cursor.getString(1)
+            val lname = cursor.getString(2)
+            val nname = cursor.getString(3)
+            val email = cursor.getString(4)
+            val pnumber = cursor.getString(5)
+            val isActive = cursor.getInt(6) != 0  //Boolean
+            val opening = cursor.getInt(7) != 0   //Boolean
+            val closing = cursor.getInt(8) != 0   //Boolean
+            employee = Employee(id, fname, lname, nname, email, pnumber, isActive, opening, closing)
+        }
+        cursor.close()
+        db.close()
+        return employee
+    }
+
     // delete employee
     fun deleteEmployee(id: Int): Boolean {
         val db = this.writableDatabase
