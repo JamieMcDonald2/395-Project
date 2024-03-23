@@ -21,10 +21,12 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
 import com.example.cmpt395aurora.ComponentFunctions.NavigationBar
 import com.example.cmpt395aurora.ComponentFunctions.TopBar
 import com.example.cmpt395aurora.Navigation
+import com.example.cmpt395aurora.database.employees.EmployeeViewModel
 import com.example.cmpt395aurora.database.employees.seedDatabase
 import com.example.cmpt395aurora.ui.theme.CMPT395AuroraTheme
 
@@ -38,13 +40,14 @@ class MainActivity : ComponentActivity() {
             CMPT395AuroraTheme {
                 // Create a NavController
                 val navController = rememberNavController()
+                val viewModel: EmployeeViewModel = viewModel()
 
                 Scaffold(
                     topBar = { TopBar(navController) },
                     bottomBar = { NavigationBar(navController) }
                 ) { paddingValues ->
                     Box(modifier = Modifier.padding(paddingValues)) {
-                        Navigation(navController)
+                        Navigation(navController, viewModel)
                     }
                 }
             }

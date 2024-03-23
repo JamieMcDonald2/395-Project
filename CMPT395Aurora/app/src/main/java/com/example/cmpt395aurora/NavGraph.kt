@@ -35,8 +35,7 @@ import com.google.accompanist.navigation.animation.AnimatedNavHost
 
 @OptIn(ExperimentalAnimationApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun Navigation(navController: NavHostController) {
-    val viewModel: EmployeeViewModel = viewModel()
+fun Navigation(navController: NavHostController, viewModel: EmployeeViewModel) {
     AnimatedNavHost(navController, startDestination = "home") {
         //home screen
         composable(
@@ -74,14 +73,18 @@ fun Navigation(navController: NavHostController) {
         }
         //employee info screen
         composable(
-            "employee3",
+            "employee3/{employeeId}",
             enterTransition = {
                 slideInHorizontally(
                     initialOffsetX = { 1000 },
                     animationSpec = tween(500)
                 )
             }) {
-            EmployeeInfoScreen(viewModel)
+            val arguments = navController.currentBackStackEntry?.arguments
+            val empID = arguments?.getString("employeeId")
+            if (empID != null) {
+                EmployeeInfoScreen(navController, viewModel, empID)
+            }
         }
         //schedule main
         composable(
