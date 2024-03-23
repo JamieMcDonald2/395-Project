@@ -60,7 +60,8 @@ fun EmployeeListItem(navController: NavController, employee: Employee, viewModel
     Box(
         modifier = Modifier.clickable(
             onClick = {
-                navController.navigate("employee3") // goes to employee info on click
+                val employeeID = employee.id.toString()
+                navController.navigate("employee3/$employeeID") // goes to employee info on click
             }
         )
     )

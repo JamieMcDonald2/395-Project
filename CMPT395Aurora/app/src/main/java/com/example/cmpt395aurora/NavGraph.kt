@@ -73,14 +73,17 @@ fun Navigation(navController: NavHostController, viewModel: EmployeeViewModel) {
         }
         //employee info screen
         composable(
-            "employee3",
+            "employee3/{employeeId}",
             enterTransition = {
                 slideInHorizontally(
                     initialOffsetX = { 1000 },
                     animationSpec = tween(500)
                 )
             }) {
-            EmployeeInfoScreen(viewModel)
+            val empID = navController.currentBackStackEntry?.arguments?.getString("employeeId")
+            if (empID != null) {
+                EmployeeInfoScreen(navController, viewModel, empID)
+            }
         }
         //schedule main
         composable(

@@ -14,18 +14,26 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
 import com.example.cmpt395aurora.database.employees.EmployeeViewModel
 
 
 // This was actually really hard to implement! please don't modify unless it works!
 // needs more clean up not as nice as our other designed pages yet
 @Composable
-fun EmployeeInfoScreen(viewModel: EmployeeViewModel) {
-    DataFields(viewModel)
+fun EmployeeInfoScreen(navController: NavController, viewModel: EmployeeViewModel, empID: String) {
+
+    val arguments = navController.currentBackStackEntry?.arguments
+    val employeeID = arguments?.getInt("employeeID")
+// Use the employeeId to fetch employee details from your ViewModel
+
+    if (employeeID != null) {
+        DataFields(viewModel, empID)
+    }
 }
 
 
-fun displayUserInfo(viewModel: EmployeeViewModel): String { // Changed return type to String
+fun displayUserInfo(viewModel: EmployeeViewModel, employeeID: String): String { // Changed return type to String
 
     val firstName = viewModel.fname.value
     val lastName = viewModel.lname.value
@@ -37,7 +45,7 @@ fun displayUserInfo(viewModel: EmployeeViewModel): String { // Changed return ty
     val trainedForClosing = viewModel.closing.value
 
     val userInfo = StringBuilder()
-    userInfo.append("First Name: $firstName\n")
+    userInfo.append("Employee ID: $employeeID\n")
     userInfo.append("Last Name: $lastName\n")
     userInfo.append("Nick Name: $nickName\n")
     userInfo.append("Email: $email\n")
@@ -52,8 +60,8 @@ fun displayUserInfo(viewModel: EmployeeViewModel): String { // Changed return ty
 
 // this will move back inside AddEmployeeScreen later
 @Composable
-fun DataFields(viewModel: EmployeeViewModel) {
-    val info = displayUserInfo(viewModel)
+fun DataFields(viewModel: EmployeeViewModel, employeeID: String) {
+    val info = displayUserInfo(viewModel, employeeID)
     Box(modifier = Modifier.fillMaxSize()) {
         Text(
             text = info,
