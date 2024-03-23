@@ -76,8 +76,6 @@ fun EmployeeListItem(navController: NavController, employee: Employee, viewModel
             Box(
                 modifier = Modifier
                     .weight(0.5f), contentAlignment = Alignment.Center
-//            modifier = Modifier.weight(0.5f),
-                //            contentAlignment = Alignment.Center
             ) {
                 EmployeeMonogram(employee)
 
@@ -122,14 +120,6 @@ fun EmployeeListItem(navController: NavController, employee: Employee, viewModel
                         )
                 )
             }
-
-//        Row(modifier = Modifier.weight(0.3f)) {
-//            Icons1 {
-//                Icons1a {
-//                    Icon()
-//                }
-//            }
-//        }
         }
     }
     ListItemDivider()

@@ -60,6 +60,12 @@ https://github.com/macewanCS/w24goldwasser/blob/main/LICENSE
 
 ## Release Notes
 
+    2.3
+    - Set up employee information page to recieve and Employee ID as an argument
+    - Set up nav controller to handle argument for employee info screen
+    - Set up viewModel function to use the new querry for single employee retreival
+    - Changed employee list item to pass the ID of the employee that is clicked
+
     2.2
     - fixed top bar icons - final
     - added new query for single employee data retrival

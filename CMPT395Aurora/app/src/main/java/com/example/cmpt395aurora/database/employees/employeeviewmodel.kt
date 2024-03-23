@@ -37,6 +37,10 @@ class EmployeeViewModel(application: Application) : AndroidViewModel(application
         return dbHelper.getAllEmployees()
     }
 
+    fun getEmployeeByID(id: Int): Employee? {
+        return dbHelper.getEmployeeById(id)
+    }
+
     fun deleteEmployee(id: Int) {
         dbHelper.deleteEmployee(id)
     }

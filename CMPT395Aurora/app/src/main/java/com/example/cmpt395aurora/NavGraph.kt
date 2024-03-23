@@ -80,7 +80,8 @@ fun Navigation(navController: NavHostController, viewModel: EmployeeViewModel) {
                     animationSpec = tween(500)
                 )
             }) {
-            val empID = navController.currentBackStackEntry?.arguments?.getString("employeeId")
+            val arguments = navController.currentBackStackEntry?.arguments
+            val empID = arguments?.getString("employeeId")
             if (empID != null) {
                 EmployeeInfoScreen(navController, viewModel, empID)
             }
