@@ -189,7 +189,7 @@ fun FormWrapper(viewModel: EmployeeViewModel) {
             ) {
                 Button(
                     onClick = {
-                        if (viewModel.validateFields()) {
+                        if (viewModel.validateFields() && viewModel.isValidEmail(viewModel.email.value) && viewModel.isValidPhoneNumber(viewModel.pnumber.value)) {
                             viewModel.addEmployee(
                                 fname = viewModel.fname.value,
                                 lname = viewModel.lname.value,
