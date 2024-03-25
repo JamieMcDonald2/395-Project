@@ -60,4 +60,20 @@ class EmployeeViewModel(application: Application) : AndroidViewModel(application
             email.value.isNotEmpty() &&
             pnumber.value.isNotEmpty()
     }
+
+    fun isValidEmail(email: String): Boolean {
+        val emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$".toRegex()
+        return email.matches(emailRegex)
+    }
+
+    //Length: Usually, 10-15 digits, including country code.
+    //Format: May include country codes, area codes, and the local number.
+    // Sometimes, it's separated by spaces or dashes.
+    //Digits only: After removing all non-numeric characters,
+    // the phone number should consist of digits only.
+
+    fun isValidPhoneNumber(pNumber: String): Boolean {
+        val phoneRegex = "^[+]?[0-9]{10,15}$".toRegex()
+        return pNumber.replace("[^\\d.]".toRegex(), "").matches(phoneRegex)
+    }
 }
