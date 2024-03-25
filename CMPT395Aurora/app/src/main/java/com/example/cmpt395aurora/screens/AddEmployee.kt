@@ -1,22 +1,14 @@
 /**
- * Add employee Screen v1.08
+ * Add employee Screen v1.09
  *
- *  1.01
- *  - added name field UI
- *  - https://developer.android.com/jetpack/compose/state
- *  - https://developer.android.com/reference/kotlin/androidx/compose/runtime/MutableState
- *  - https://stackoverflow.com/questions/66169601/what-is-the-difference-between-remember-and-mutablestate-in-android-jetpack
- *  - https://stackoverflow.com/questions/69932411/correct-way-to-handle-mutable-state-of-list-of-data-in-jetpack-compose
+ *  1.09
+ *  - added"onValueChange" parameter for username settings and other values (to pass to rest of app)
  *
- *  1.02
- *  - new fields to match database
+ *  1.08
+ *  - changed several non-text fields to toggles since they only have boolean values
  *
- *  1.05
- *  - Added all UI, added scrolling (loop to create text fields)
- *      - selected/focused/error states (error state WIP) for text fields
- *      - https://developer.android.com/jetpack/compose/text#textfield
- *      - https://en.cppreference.com/w/cpp/utility/functional/reference_wrapper
- *      - https://formly.dev/docs/guide/custom-formly-wrapper/
+ *  1.07
+ *  - removed toast, added snack bar, for better UX
  *
  *  1.06
  *  - moved add button
@@ -26,11 +18,23 @@
  *      - https://developer.android.com/guide/topics/ui/notifiers/toasts
  *      - https://developer.android.com/reference/android/widget/Toast
  *
- *  1.07
- *  - removed toast, added snack bar, for better UX
+ *  1.05
+ *  - Added all UI, added scrolling (loop to create text fields)
+ *      - selected/focused/error states (error state WIP) for text fields
+ *      - https://developer.android.com/jetpack/compose/text#textfield
+ *      - https://en.cppreference.com/w/cpp/utility/functional/reference_wrapper
+ *      - https://formly.dev/docs/guide/custom-formly-wrapper/
  *
- *  1.08
- *  - changed several non-text fields to toggles since they only have boolean values
+ *  1.02
+ *  - new fields to match database
+ *
+ *  1.01
+ *  - added name field UI
+ *  - https://developer.android.com/jetpack/compose/state
+ *  - https://developer.android.com/reference/kotlin/androidx/compose/runtime/MutableState
+ *  - https://stackoverflow.com/questions/66169601/what-is-the-difference-between-remember-and-mutablestate-in-android-jetpack
+ *  - https://stackoverflow.com/questions/69932411/correct-way-to-handle-mutable-state-of-list-of-data-in-jetpack-compose
+ *
  */
 
 package com.example.cmpt395aurora.screens
@@ -130,13 +134,14 @@ fun FormWrapper(viewModel: EmployeeViewModel) {
                         else -> remember { mutableStateOf("") }
                     }
                     val isError = remember { mutableStateOf(false) }
-
+                    // had to add "onValueChange" parameter for username settings and other values
                     GenericTextField(
                         text = text,
                         isError = isError,
                         label = field,
                         placeholder = "Enter $field",
-                        onFocusChange = { }
+                        onFocusChange = { },
+                        onValueChange = { newValue -> /* handle value change */ }
                     )
                 }
 

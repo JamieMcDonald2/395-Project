@@ -1,13 +1,16 @@
 /**
- * Employee View Model v1.02
+ * Employee View Model v1.04
  *
  *      - Database view model
  *
- * v1.02
- *  - corrected variable types, added new validate function for text fields - to be updated later?
+ *  v1.04
+ *  - add update employee call to function from dbhelper
  *
- *  v2.17
+ *  v1.03
  *  - changed position field to phone number
+ *
+ *  v1.02
+ *  - corrected variable types, added new validate function for text fields - to be updated later?
  */
 
 package com.example.cmpt395aurora.database.employees
@@ -45,9 +48,9 @@ class EmployeeViewModel(application: Application) : AndroidViewModel(application
         dbHelper.deleteEmployee(id)
     }
 
-    /*fun modifyEmployee(id: Int, newName: String, newPosition: String) {
-        dbHelper.modifyEmployee(id, newName, newPosition)
-    }*/
+    fun updateEmployee(updatedEmployee: Employee) {
+        dbHelper.updateEmployee(updatedEmployee)
+    }
 
     fun validateFields(): Boolean {
         // Add your validation logic here. For example:

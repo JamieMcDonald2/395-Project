@@ -1,8 +1,11 @@
 /**
- *  Name Field v1.01
+ *  Name Field v1.02
  *
  *  - https://m3.material.io/components/text-fields/guidelines
  *  - https://developer.android.com/jetpack/compose/text/user-input
+ *
+ *  v1.02:
+ *      - ability to update value change of entry
  *
  *  v1.01:
  *      - padding/spacing/size
@@ -41,7 +44,8 @@ fun GenericTextField(
     isError: MutableState<Boolean>,
     label: String,
     placeholder: String,
-    onFocusChange: (Boolean) -> Unit
+    onFocusChange: (Boolean) -> Unit,
+    onValueChange: (String) -> Unit
 ) {
     val focusRequester = remember { FocusRequester() }
     val isFocused = remember { mutableStateOf(false) }
@@ -50,6 +54,7 @@ fun GenericTextField(
         value = text.value,
         onValueChange = { newText ->
             text.value = newText
+            onValueChange(newText) // Call onValueChange with the new text
         },
         label = { Text(label) },
         placeholder = { Text(placeholder) },

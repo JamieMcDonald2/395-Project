@@ -1,19 +1,24 @@
 /**
  * Employee List Item Component
- * v1.03
+ * v1.04
  *
- * - added loop for iterating over database and UI elements from figma component
+ *  v1.04
+ *  - new logic to prevent unneccessary recompostion of overline item to increase performance
+ *    in an attempt to resolve transition error from these items
+ *
+ *  v1.03
+ *  - adjusted overline to line up with heading
+ *  - added logic for various possible combinations of training or lack of to display text
+ *
+ *  v1.02
+ *  - changed position field to phone number
+ *
+ *  - added loop for iterating over database and UI elements from figma component
  *  - https://developer.android.com/jetpack/compose/lists
  *
  *  v1.01
  *  - added proper dividers, initials to monogram, color to list items
  *
- *  v1.02
- *  - changed position field to phone number
- *
- *  v1.03
- *  - adjusted overline to line up with heading
- *  - added logic for various possible combinations of training or lack of to display text
  */
 
 package com.example.cmpt395aurora.ComponentFunctions
@@ -30,6 +35,7 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -45,16 +51,17 @@ import com.google.relay.compose.RelayText
 
 @Composable
 fun EmployeeListItem(navController: NavController, employee: Employee, viewModel: EmployeeViewModel) {
-    var overlineString = ""
-
-    if(employee.opening){
-        overlineString += "Opening"
-    }
-    if(employee.opening && employee.closing){
-        overlineString += "/Closing"
-    }
-    else if(employee.closing) {
-        overlineString += "Closing"
+    //new logic v1.04
+    val overlineString = remember(employee) {
+        if(employee.opening && employee.closing){
+            "Opening/Closing"
+        } else if(employee.opening) {
+            "Opening"
+        } else if(employee.closing) {
+            "Closing"
+        } else {
+            ""
+        }
     }
 
     Box(

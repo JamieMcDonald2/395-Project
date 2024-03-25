@@ -1,10 +1,18 @@
 /**
- *  database helper v1.4
+ *  database helper v1.6
+ *  database version 6
+ *
  *  some ref's used in the creation of our database:
  *  - https://developer.android.com/training/data-storage/sqlite
  *  - https://abhiandroid.com/database/sqlite
  *  - https://www.freecodecamp.org/news/how-to-use-sqlite-database-with-android-studio/
  *  - https://www.androidauthority.com/sqlite-primer-for-android-811987/
+ *
+ *  v1.6:
+ *      - new update employee function
+ *
+ *  v1.5:
+ *      - new update username function for settings/database
  *
  *  v1.4:
  *      - new single employee query "getEmployeeById"
@@ -36,7 +44,7 @@ class DatabaseHelper(context: Context) :
      */
     companion object {
         private const val DATABASE_NAME = "EmployeeDatabase"
-        private const val DATABASE_VERSION = 5
+        private const val DATABASE_VERSION = 6
     }
     // new table
     override fun onCreate(db: SQLiteDatabase) {
@@ -66,16 +74,20 @@ class DatabaseHelper(context: Context) :
                 + "pmAvailability TEXT, "
                 + "adAvailability TEXT) ")
         db.execSQL(CREATE_EMPAVAIL_TABLE)
-    }
 
+        val CREATE_SETTINGS_TABLE = ("CREATE TABLE settings (username TEXT UNIQUE)")
+        db.execSQL(CREATE_SETTINGS_TABLE)
+    }
 
     // upgrade table
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.execSQL("DROP TABLE IF EXISTS employees")
         db.execSQL("DROP TABLE IF EXISTS dayschedule")
         db.execSQL("DROP TABLE IF EXISTS empavail")
+        db.execSQL("DROP TABLE IF EXISTS settings")
         onCreate(db)
     }
+
     // add employee
     fun addEmployee(fname: String, lname: String, nname: String, email: String, pnumber: String, isActive: Boolean, opening: Boolean, closing: Boolean): Boolean {
         val db = this.writableDatabase
@@ -161,20 +173,21 @@ class DatabaseHelper(context: Context) :
         db.close()
     }
 
-    /*fun modifyEmployee(id: Int, newName: String, newPosition: String): Boolean {
+    fun updateEmployee(employee: Employee): Int {
         val db = this.writableDatabase
-        val contentValues = ContentValues().apply {
-            put("name", newName)
-            put("position", newPosition)
-        }
+        val contentValues = ContentValues()
+        contentValues.put("fname", employee.fname)
+        contentValues.put("lname", employee.lname)
+        contentValues.put("nname", employee.nname)
+        contentValues.put("email", employee.email)
+        contentValues.put("pnumber", employee.pnumber)
+        contentValues.put("isActive", if (employee.isActive) 1 else 0)
+        contentValues.put("opening", if (employee.opening) 1 else 0)
+        contentValues.put("closing", if (employee.closing) 1 else 0)
 
-        val selection = "id = ?"
-        val selectionArgs = arrayOf(id.toString())
-
-        val result = db.update("employees", contentValues, selection, selectionArgs).toLong()
-        db.close()
-        return result != -1L
-    }*/
+        // Updating row
+        return db.update("employees", contentValues, "id = ?", arrayOf(employee.id.toString()))
+    }
 
     fun addAvailability(eadate: String, employeeid: String, amAvailability: String, pmAvailability: String, adAvailability: String): Boolean {
         val db = this.writableDatabase
@@ -235,4 +248,44 @@ class DatabaseHelper(context: Context) :
         return result != -1L
     }
 
+    // update username in view model through settings page
+    fun updateUsername(newUsername: String) {
+        val db = this.writableDatabase
+        val contentValues = ContentValues()
+        contentValues.put("username", newUsername)
+
+        try {
+            // Check if a row exists in the settings table
+            val cursor = db.rawQuery("SELECT * FROM settings", null)
+            if (cursor.moveToFirst()) {
+                // If a row exists, update it
+                db.update("settings", contentValues, null, null)
+            } else {
+                // If no row exists, insert a new one
+                db.insert("settings", null, contentValues)
+            }
+            cursor.close()
+        } catch (e: Exception) {
+            Log.e("DatabaseHelper", "Error updating username: ${e.message}")
+        } finally {
+            Log.d("DatabaseHelper", "Updated username: $newUsername")   //test
+            db.close()
+        }
+    }
+
+    // get username for setting page
+    fun getUsername(): String {
+        val db = this.readableDatabase
+        val cursor = db.rawQuery("SELECT username FROM settings", null)
+        var username = ""
+        if (cursor.moveToFirst()) {
+            username = cursor.getString(0)
+        } else {
+            Log.d("DatabaseHelper", "Cursor is empty")           //test
+        }
+        cursor.close()
+        db.close()
+        Log.d("DatabaseHelper", "Fetched username: $username")   //test
+        return username
+    }
 }

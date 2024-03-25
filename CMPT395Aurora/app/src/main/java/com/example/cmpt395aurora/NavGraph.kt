@@ -1,15 +1,15 @@
 /**
- *   Navigation Graph v1.4
+ *   Navigation Graph v1.5
  *
- *   Animated Navigation Host is experimental apparently?
- *   can change these transitions to make our app look cooler!
+ *   Animated Navigation Host is experimental
+ *   can change these transitions to make our app look better
  *
- *   - 1.2 - Grant added screens
- *   - 1.3 - Jamie added add employee screen
+ *   - 1.5 - new settings updates
  *   - 1.4 - navcontroller updates for database
+ *   - 1.3 - Jamie added add employee screen
+ *   - 1.2 - Grant added screens
  */
 
-// some imported packages are obsolete but needed
 @file:Suppress("DEPRECATION")
 
 package com.example.cmpt395aurora
@@ -20,10 +20,10 @@ import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.example.cmpt395aurora.database.employees.EmployeeViewModel
+import com.example.cmpt395aurora.database.settings.SettingsViewModel
 import com.example.cmpt395aurora.screens.AddEmployeeScreen
 import com.example.cmpt395aurora.screens.EmployeeInfoScreen
 import com.example.cmpt395aurora.screens.EmployeeMain
@@ -33,9 +33,12 @@ import com.example.cmpt395aurora.screens.ScheduleMain
 import com.example.cmpt395aurora.screens.SettingsMain
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 
+/**
+ * some imported packages are obsolete but needed
+ */
 @OptIn(ExperimentalAnimationApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun Navigation(navController: NavHostController, viewModel: EmployeeViewModel) {
+fun Navigation(navController: NavHostController, employeeViewModel: EmployeeViewModel, settingsViewModel: SettingsViewModel) {
     AnimatedNavHost(navController, startDestination = "home") {
         //home screen
         composable(
@@ -58,7 +61,7 @@ fun Navigation(navController: NavHostController, viewModel: EmployeeViewModel) {
                     animationSpec = tween(500)
                 )
             }) {
-            EmployeeMain(navController, viewModel)
+            EmployeeMain(navController, employeeViewModel)
         }
         //add employee screen
         composable(
@@ -69,9 +72,9 @@ fun Navigation(navController: NavHostController, viewModel: EmployeeViewModel) {
                     animationSpec = tween(500)
                 )
             }) {
-            AddEmployeeScreen(viewModel)
+            AddEmployeeScreen(employeeViewModel)
         }
-        //employee info screen
+        //employee info screen - does not transition properly - known issue with android studio
         composable(
             "employee3/{employeeId}",
             enterTransition = {
@@ -79,11 +82,31 @@ fun Navigation(navController: NavHostController, viewModel: EmployeeViewModel) {
                     initialOffsetX = { 1000 },
                     animationSpec = tween(500)
                 )
-            }) {
+            },
+            exitTransition = {
+                slideOutHorizontally(
+                    targetOffsetX = { -1000 },
+                    animationSpec = tween(500)
+                )
+            },
+            popEnterTransition = {
+                slideInHorizontally(
+                    initialOffsetX = { -1000 },
+                    animationSpec = tween(500)
+                )
+            },
+            popExitTransition = {
+                slideOutHorizontally(
+                    targetOffsetX = { 1000 },
+                    animationSpec = tween(500)
+                )
+            }
+        )
+        {
             val arguments = navController.currentBackStackEntry?.arguments
             val empID = arguments?.getString("employeeId")
             if (empID != null) {
-                EmployeeInfoScreen(navController, viewModel, empID)
+                EmployeeInfoScreen(navController, employeeViewModel, empID)
             }
         }
         //schedule main
@@ -106,7 +129,7 @@ fun Navigation(navController: NavHostController, viewModel: EmployeeViewModel) {
                     animationSpec = tween(500)
                 )
             }) {
-            SettingsMain()
+            SettingsMain(settingsViewModel)
         }
         //schedule employee page
         composable(
@@ -121,3 +144,9 @@ fun Navigation(navController: NavHostController, viewModel: EmployeeViewModel) {
         }
     }
 }
+
+
+
+
+
+
