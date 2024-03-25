@@ -67,6 +67,7 @@ fun EmployeeMain(navController: NavHostController, viewModel: EmployeeViewModel)
 
             // Display our employees here with this loop over list of employees
             // new "LazyList" for scrolling!
+            // Maybe make all inactive employees go to bottom?
             LazyColumn {
                 items(employees.size) { index ->
                     EmployeeListItem(navController, employees[index], viewModel)

@@ -1,5 +1,8 @@
 /**
- * Add employee Screen v1.09
+ * Add employee Screen v1.10
+ *
+ *  1.10
+ *  - reorientated text and toggles for boolean fields - better UX
  *
  *  1.09
  *  - added"onValueChange" parameter for username settings and other values (to pass to rest of app)
@@ -40,7 +43,9 @@
 package com.example.cmpt395aurora.screens
 
 import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -150,16 +155,27 @@ fun FormWrapper(viewModel: EmployeeViewModel) {
                         "Is Active?" -> viewModel.isActive
                         "Trained for Opening?" -> viewModel.opening
                         "Trained for Closing?" -> viewModel.closing
-
                         else -> remember { mutableStateOf(false) }
                     }
 
-                    Text(field)
-                    Switch(
-                        checked = isChecked.value,
-                        onCheckedChange = { isChecked.value = it },
-                        modifier = Modifier.padding(4.dp)
-                    )
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp), // Add horizontal padding
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically // Vertically center the items
+                    ) {
+                        Text(field)
+                        Box(
+                            modifier = Modifier.padding(4.dp),
+                            contentAlignment = Alignment.Center // Vertically center the Switch
+                        ) {
+                            Switch(
+                                checked = isChecked.value,
+                                onCheckedChange = { isChecked.value = it }
+                            )
+                        }
+                    }
                 }
             }
         }

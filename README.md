@@ -12,7 +12,7 @@ Jamie McDonald (JamieMcDonald2)
 
 # Project Name TBD
 
-## Release build "Aurora" v2.4-alpha
+## Release build "Aurora" v2.41-alpha
 
 ### See Release Notes at Bottom
 
@@ -61,6 +61,9 @@ Other Problems:
 https://github.com/macewanCS/w24goldwasser/blob/main/LICENSE
 
 ## Release Notes
+
+    2.41
+    - new inactive colors for employee list items / inactive employees
 
     2.4
     - New logic for passing data to text fields on employee screen

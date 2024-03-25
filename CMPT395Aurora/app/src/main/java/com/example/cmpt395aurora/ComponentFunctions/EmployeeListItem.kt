@@ -1,6 +1,8 @@
 /**
- * Employee List Item Component
- * v1.04
+ * Employee List Item Component v1.05
+ *
+ *  v1.05
+ *  - new inactive color status for list items
  *
  *  v1.04
  *  - new logic to prevent unneccessary recompostion of overline item to increase performance
@@ -64,6 +66,12 @@ fun EmployeeListItem(navController: NavController, employee: Employee, viewModel
         }
     }
 
+    // Determine the color based on the employee's active status
+    val textColor = if (employee.isActive) MaterialTheme.colorScheme.onSurface else Color.Gray
+    // Determine the color based on the employee's active status
+    val VeryLightGray = Color(0xFFEEEEEE)
+    val boxColor = if (employee.isActive) MaterialTheme.colorScheme.background else VeryLightGray
+
     Box(
         modifier = Modifier.clickable(
             onClick = {
@@ -77,7 +85,7 @@ fun EmployeeListItem(navController: NavController, employee: Employee, viewModel
             modifier = Modifier
                 .fillMaxWidth()
                 .height(height = 64.dp)
-                .background(MaterialTheme.colorScheme.background),
+                .background(boxColor),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Box(
@@ -85,8 +93,6 @@ fun EmployeeListItem(navController: NavController, employee: Employee, viewModel
                     .weight(0.5f), contentAlignment = Alignment.Center
             ) {
                 EmployeeMonogram(employee)
-
-
             }
 
             Column(
@@ -113,7 +119,7 @@ fun EmployeeListItem(navController: NavController, employee: Employee, viewModel
                     content = employee.fname + " " + employee.lname,
                     fontSize = MaterialTheme.typography.bodyLarge.fontSize,
                     fontFamily = MaterialTheme.typography.bodyLarge.fontFamily,
-                    color = MaterialTheme.colorScheme.onSurface,
+                    color = textColor, // Use the color here
                     height = MaterialTheme.typography.bodyLarge.lineHeight,
                     letterSpacing = MaterialTheme.typography.bodyLarge.letterSpacing,
                     textAlign = TextAlign.Left,
@@ -134,6 +140,9 @@ fun EmployeeListItem(navController: NavController, employee: Employee, viewModel
 
 @Composable
 fun EmployeeMonogram(employee: Employee) {
+    // Determine the color based on the employee's active status
+    val monogramColor = if (employee.isActive) MaterialTheme.colorScheme.onSurface else Color.Gray
+
     Box(
         modifier = Modifier.weight(0.5f),
         contentAlignment = Alignment.Center
@@ -141,6 +150,7 @@ fun EmployeeMonogram(employee: Employee) {
         BuildingBlocksMonogram {}
         Text(
             text = employee.fname.first().toString(),
+            color = monogramColor, // Use the color here
             modifier = Modifier.align(Alignment.Center)
         )
     }
