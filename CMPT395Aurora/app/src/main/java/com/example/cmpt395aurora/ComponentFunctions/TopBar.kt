@@ -1,5 +1,11 @@
 /**
- * top bar v1.5
+ * top bar v2.0
+ *
+ *     2.0
+ *     - new text field - aligned with existing icons
+ *     - draw on db user name field for home page
+ *          - https://developer.android.com/jetpack/compose/mental-model
+ *          - https://developer.android.com/codelabs/basic-android-kotlin-compose-sql
  *
  *     1.5
  *     - added padding for icons to line up better and make ripple effect centered/more predominant
@@ -15,9 +21,8 @@
 
 package com.example.cmpt395aurora.ComponentFunctions
 
+import android.content.Context
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -25,28 +30,26 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.example.cmpt395aurora.iconsbackbutton.IconsBackButton
+import com.example.cmpt395aurora.database.DatabaseHelper
 
 @Composable
 fun TopBar(navController: NavController) {
@@ -54,10 +57,20 @@ fun TopBar(navController: NavController) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
+    // Get the current context
+    val context: Context = LocalContext.current
+
+    // Create an instance of DatabaseHelper
+    val databaseHelper = DatabaseHelper(context)
+
+    // Fetch the username from the database
+    val username = databaseHelper.getUsername()
+
     Column {
         Row(
-            // back button logic
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(56.dp), // Set a fixed height
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -88,7 +101,17 @@ fun TopBar(navController: NavController) {
                         modifier = Modifier.padding(0.dp) // Remove the default padding
                     )
                 }
+            } else {
+                Spacer(modifier = Modifier.width(48.dp)) // for home page
+            }
 
+            Text(
+                text = if (currentRoute == "home") "Hi, $username" else currentRoute ?: "",
+                textAlign = TextAlign.Center,
+                modifier = Modifier.weight(1f)
+            )
+
+            if (currentRoute != "home") {
                 IconButton(
                     onClick = { navController.navigate("home") }, // Navigate to home page upon click
                     modifier = Modifier.padding(0.dp) // Remove the default padding
@@ -96,16 +119,13 @@ fun TopBar(navController: NavController) {
                     CustomIconHome(navController = navController) // home icon
                 }
             } else {
-                Spacer(modifier = Modifier.size(48.dp)) // for home page
+                Spacer(modifier = Modifier.width(48.dp)) // for home page
             }
-            // Add other content for the top bar here such as page title or the 'hi, [manager name]'
-            // will depend which page you are on in app so be careful!
         }
         Spacer(modifier = Modifier.height(2.dp)) // Add space above the divider for balanced look
         Divider()
     }
 }
-
 
 // Simple components don't need their own file, or figma relay connections, such as this divider
 @Composable

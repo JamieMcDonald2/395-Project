@@ -1,5 +1,5 @@
 /**
- *   Main page v1.03
+ *   Main page v1.05
  *
  *        - https://developer.android.com/jetpack/compose/navigation
  *        - https://developer.android.com/codelabs/jetpack-compose-navigation
@@ -7,6 +7,9 @@
  *        - https://saurabhjadhavblogs.com/ultimate-guide-to-jetpack-compose-navigation
  *        - https://developer.android.com/jetpack/compose/components/scaffold
  *        - https://developer.android.com/reference/android/graphics/Paint
+ *
+ *   v1.05
+ *      - added settings view model for database values to settings page
  *
  *   v1.04
  *      - added seed logic, for testing
@@ -28,6 +31,7 @@ import com.example.cmpt395aurora.ComponentFunctions.TopBar
 import com.example.cmpt395aurora.Navigation
 import com.example.cmpt395aurora.database.employees.EmployeeViewModel
 import com.example.cmpt395aurora.database.employees.seedDatabase
+import com.example.cmpt395aurora.database.settings.SettingsViewModel
 import com.example.cmpt395aurora.ui.theme.CMPT395AuroraTheme
 
 /**
@@ -40,14 +44,15 @@ class MainActivity : ComponentActivity() {
             CMPT395AuroraTheme {
                 // Create a NavController
                 val navController = rememberNavController()
-                val viewModel: EmployeeViewModel = viewModel()
+                val employeeViewModel: EmployeeViewModel = viewModel()
+                val settingsViewModel: SettingsViewModel = viewModel()
 
                 Scaffold(
                     topBar = { TopBar(navController) },
                     bottomBar = { NavigationBar(navController) }
                 ) { paddingValues ->
                     Box(modifier = Modifier.padding(paddingValues)) {
-                        Navigation(navController, viewModel)
+                        Navigation(navController, employeeViewModel, settingsViewModel)
                     }
                 }
             }
@@ -55,4 +60,5 @@ class MainActivity : ComponentActivity() {
         seedDatabase(this) // remove this when testing is over
     }
 }
+
 

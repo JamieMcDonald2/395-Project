@@ -12,7 +12,7 @@ Jamie McDonald (JamieMcDonald2)
 
 # Project Name TBD
 
-## Release build "Aurora" v2.3-alpha
+## Release build "Aurora" v2.41-alpha
 
 ### See Release Notes at Bottom
 
@@ -49,6 +49,8 @@ as required!
 
 2.3 - Sometimes generate random test employee data button crashes app (won't matter after testing - low priority)
 
+2.4 - transitions from employee list are wrong! known issue with android studio
+
 Other Problems:
 
     - Pulling from repo causes minor syntax errors sometimes - unknown cause (android studio issue - not issue with app)
@@ -59,6 +61,17 @@ Other Problems:
 https://github.com/macewanCS/w24goldwasser/blob/main/LICENSE
 
 ## Release Notes
+
+    2.41
+    - new inactive colors for employee list items / inactive employees
+
+    2.4
+    - New logic for passing data to text fields on employee screen
+    - New settings field for user name
+    - User name displays in top bar  
+    - New logic for retained database information in textfields based on settings field (for use anywhere)
+        - deployed this new logic to the employee info screen
+    - performance improvments for bug fixing
 
     2.3
     - Set up employee information page to recieve and Employee ID as an argument

@@ -1,22 +1,17 @@
 /**
- * Add employee Screen v1.08
+ * Add employee Screen v1.10
  *
- *  1.01
- *  - added name field UI
- *  - https://developer.android.com/jetpack/compose/state
- *  - https://developer.android.com/reference/kotlin/androidx/compose/runtime/MutableState
- *  - https://stackoverflow.com/questions/66169601/what-is-the-difference-between-remember-and-mutablestate-in-android-jetpack
- *  - https://stackoverflow.com/questions/69932411/correct-way-to-handle-mutable-state-of-list-of-data-in-jetpack-compose
+ *  1.10
+ *  - reorientated text and toggles for boolean fields - better UX
  *
- *  1.02
- *  - new fields to match database
+ *  1.09
+ *  - added"onValueChange" parameter for username settings and other values (to pass to rest of app)
  *
- *  1.05
- *  - Added all UI, added scrolling (loop to create text fields)
- *      - selected/focused/error states (error state WIP) for text fields
- *      - https://developer.android.com/jetpack/compose/text#textfield
- *      - https://en.cppreference.com/w/cpp/utility/functional/reference_wrapper
- *      - https://formly.dev/docs/guide/custom-formly-wrapper/
+ *  1.08
+ *  - changed several non-text fields to toggles since they only have boolean values
+ *
+ *  1.07
+ *  - removed toast, added snack bar, for better UX
  *
  *  1.06
  *  - moved add button
@@ -26,17 +21,31 @@
  *      - https://developer.android.com/guide/topics/ui/notifiers/toasts
  *      - https://developer.android.com/reference/android/widget/Toast
  *
- *  1.07
- *  - removed toast, added snack bar, for better UX
+ *  1.05
+ *  - Added all UI, added scrolling (loop to create text fields)
+ *      - selected/focused/error states (error state WIP) for text fields
+ *      - https://developer.android.com/jetpack/compose/text#textfield
+ *      - https://en.cppreference.com/w/cpp/utility/functional/reference_wrapper
+ *      - https://formly.dev/docs/guide/custom-formly-wrapper/
  *
- *  1.08
- *  - changed several non-text fields to toggles since they only have boolean values
+ *  1.02
+ *  - new fields to match database
+ *
+ *  1.01
+ *  - added name field UI
+ *  - https://developer.android.com/jetpack/compose/state
+ *  - https://developer.android.com/reference/kotlin/androidx/compose/runtime/MutableState
+ *  - https://stackoverflow.com/questions/66169601/what-is-the-difference-between-remember-and-mutablestate-in-android-jetpack
+ *  - https://stackoverflow.com/questions/69932411/correct-way-to-handle-mutable-state-of-list-of-data-in-jetpack-compose
+ *
  */
 
 package com.example.cmpt395aurora.screens
 
 import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -130,13 +139,14 @@ fun FormWrapper(viewModel: EmployeeViewModel) {
                         else -> remember { mutableStateOf("") }
                     }
                     val isError = remember { mutableStateOf(false) }
-
+                    // had to add "onValueChange" parameter for username settings and other values
                     GenericTextField(
                         text = text,
                         isError = isError,
                         label = field,
                         placeholder = "Enter $field",
-                        onFocusChange = { }
+                        onFocusChange = { },
+                        onValueChange = { newValue -> /* handle value change */ }
                     )
                 }
 
@@ -145,16 +155,27 @@ fun FormWrapper(viewModel: EmployeeViewModel) {
                         "Is Active?" -> viewModel.isActive
                         "Trained for Opening?" -> viewModel.opening
                         "Trained for Closing?" -> viewModel.closing
-
                         else -> remember { mutableStateOf(false) }
                     }
 
-                    Text(field)
-                    Switch(
-                        checked = isChecked.value,
-                        onCheckedChange = { isChecked.value = it },
-                        modifier = Modifier.padding(4.dp)
-                    )
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp), // Add horizontal padding
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically // Vertically center the items
+                    ) {
+                        Text(field)
+                        Box(
+                            modifier = Modifier.padding(4.dp),
+                            contentAlignment = Alignment.Center // Vertically center the Switch
+                        ) {
+                            Switch(
+                                checked = isChecked.value,
+                                onCheckedChange = { isChecked.value = it }
+                            )
+                        }
+                    }
                 }
             }
         }

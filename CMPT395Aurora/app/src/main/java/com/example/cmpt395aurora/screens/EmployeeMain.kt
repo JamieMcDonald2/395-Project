@@ -1,13 +1,10 @@
 /**
  *  Employee Main page v1.04
  *
- *  1.01:
- *  - added info from db test
- *  - https://developer.android.com/training/data-storage/sqlite
- *
- *  1.02:
- *  - Began importing UI elements
- *  - https://developer.android.com/jetpack/compose/documentation
+ *  1.04:
+ *  - FAB for adding employees (removed button from main screen)
+ *  - Tooltip for FAB
+ *    - https://m3.material.io/components/floating-action-button/guidelines
  *
  *  1.03:
  *  - added employees to UI list item and added loop for iterating over list of employees
@@ -17,10 +14,14 @@
  *    - https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/sorted-by.html
  *    - https://www.kotlinsos.com/community-libraries/how-to-use-sortby-in-kotlin/
  *
- *  1.04:
- *  - FAB for adding employees (removed button from main screen)
- *  - Tooltip for FAB
- *    - https://m3.material.io/components/floating-action-button/guidelines
+ *  1.02:
+ *  - Began importing UI elements
+ *  - https://developer.android.com/jetpack/compose/documentation
+ *
+ *  1.01:
+ *  - added info from db test
+ *  - https://developer.android.com/training/data-storage/sqlite
+ *
 */
 
 package com.example.cmpt395aurora.screens
@@ -66,6 +67,7 @@ fun EmployeeMain(navController: NavHostController, viewModel: EmployeeViewModel)
 
             // Display our employees here with this loop over list of employees
             // new "LazyList" for scrolling!
+            // Maybe make all inactive employees go to bottom?
             LazyColumn {
                 items(employees.size) { index ->
                     EmployeeListItem(navController, employees[index], viewModel)
