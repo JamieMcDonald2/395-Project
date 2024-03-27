@@ -32,6 +32,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import java.util.Date
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 
 @ExperimentalMaterial3Api
@@ -65,7 +67,9 @@ fun ScheduleMain(navController: NavController) {
                 ) {
                     Button(
                         onClick = {
-                            navController.navigate("schedule2")
+
+                            val dateString = formatDate(selectedDate.value)
+                            navController.navigate("schedule2/$dateString")
                         },
                         enabled = selectedDate.value != null,
                         modifier = Modifier
@@ -78,8 +82,14 @@ fun ScheduleMain(navController: NavController) {
             }
         }
     }
+
     //This keeps track of changes to the selected date
     LaunchedEffect(datePickerState.selectedDateMillis) {
         selectedDate.value = datePickerState.selectedDateMillis?.let { Date(it) }
     }
+}
+
+fun formatDate(date: Date?): String {
+    val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+    return format.format(date)
 }

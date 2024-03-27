@@ -12,7 +12,7 @@ Jamie McDonald (JamieMcDonald2)
 
 # Project Name TBD
 
-## Release build "Aurora" v2.41-alpha
+## Release build "Aurora" v2.5-alpha
 
 ### See Release Notes at Bottom
 
@@ -61,6 +61,9 @@ Other Problems:
 https://github.com/macewanCS/w24goldwasser/blob/main/LICENSE
 
 ## Release Notes
+
+    2.5
+    - Starting functionality to schedule employee screen
 
     2.41
     - new inactive colors for employee list items / inactive employees

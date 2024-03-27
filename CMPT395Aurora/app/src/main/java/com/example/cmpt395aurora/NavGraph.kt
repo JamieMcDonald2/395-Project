@@ -21,7 +21,9 @@ import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.example.cmpt395aurora.database.employees.EmployeeViewModel
 import com.example.cmpt395aurora.database.settings.SettingsViewModel
 import com.example.cmpt395aurora.screens.AddEmployeeScreen
@@ -133,14 +135,17 @@ fun Navigation(navController: NavHostController, employeeViewModel: EmployeeView
         }
         //schedule employee page
         composable(
-            "schedule2",
+            route = "schedule2/{date}",
+            arguments = listOf(navArgument("date") { type = NavType.StringType }),
             enterTransition = {
                 slideInHorizontally(
                     initialOffsetX = { 1000 },
                     animationSpec = tween(500)
                 )
-            }) {
-            ScheduleEmployeeScreen()
+            }
+        ) { backStackEntry ->
+            val date = backStackEntry.arguments?.getString("date")
+            ScheduleEmployeeScreen(date)
         }
     }
 }
