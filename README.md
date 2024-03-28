@@ -81,6 +81,9 @@ https://github.com/macewanCS/w24goldwasser/blob/main/LICENSE
     - new top bar text field can be manipulated from any screen/component
     - Major DB changes (Employee ID)
     
+    2.5
+    - Starting functionality to schedule employee screen
+
     2.41
     - new inactive colors for employee list items / inactive employees
 
