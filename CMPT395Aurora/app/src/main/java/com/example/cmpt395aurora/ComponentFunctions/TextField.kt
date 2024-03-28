@@ -1,5 +1,5 @@
 /**
- *  Name Field v1.02
+ *  Text Field v1.02
  *
  *  - https://m3.material.io/components/text-fields/guidelines
  *  - https://developer.android.com/jetpack/compose/text/user-input

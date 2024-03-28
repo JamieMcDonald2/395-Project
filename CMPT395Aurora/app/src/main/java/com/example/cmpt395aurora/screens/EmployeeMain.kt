@@ -1,5 +1,8 @@
 /**
- *  Employee Main page v1.04
+ *  Employee Main page v1.05
+ *
+ *  1.05:
+ *  - ability to sort by inactive/active as well as alphabetical
  *
  *  1.04:
  *  - FAB for adding employees (removed button from main screen)
@@ -35,6 +38,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
@@ -48,8 +52,12 @@ import com.example.cmpt395aurora.searchbar.SearchBar
 
 @Composable
 fun EmployeeMain(navController: NavHostController, viewModel: EmployeeViewModel) {
+    // This effect will run every time this composable is recomposed
+    LaunchedEffect(Unit) {
+        viewModel.refreshEmployees()
+    }
     // Use the ViewModel to get the data
-    val employees = viewModel.getAllEmployees().sortedBy { it.fname }
+    val employees = viewModel.getAllEmployees().sortedWith(compareBy({ !it.isActive }, { it.fname }))
 
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.BottomEnd) { // Box to allow layering of composables
         Column(

@@ -1,7 +1,15 @@
+/**
+ *  Seed Database 1.3
+ *
+ *  v1.3
+ *      - added id
+ */
+
 package com.example.cmpt395aurora.database.employees
 
 import android.content.Context
 import com.example.cmpt395aurora.database.DatabaseHelper
+import kotlin.random.Random
 
 // seed database - made random generator for fun and practice
 fun seedDatabase(context: Context) {
@@ -45,6 +53,7 @@ fun seedDatabase(context: Context) {
     )
 
     for (i in names.indices) {
+        val id = Random.nextInt(100, 999)
         val nameParts = names[i].split(" ")
         val email = emails[i]
         val pnumber = pnumbers.random()
@@ -52,6 +61,6 @@ fun seedDatabase(context: Context) {
         val opening = (i % 3 == 0)
         val closing = (i % 5 == 0)
 
-        dbHelper.addEmployee(nameParts[0], nameParts[1], nameParts[0], email, pnumber, isActive, opening, closing)
+        dbHelper.addEmployee(id, nameParts[0], nameParts[1], nameParts[0], email, pnumber, isActive, opening, closing)
     }
 }

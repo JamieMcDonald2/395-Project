@@ -66,17 +66,16 @@ fun SettingsMain(viewModel: SettingsViewModel) {
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-    Log.d("SettingsMain", "Rendering with username: ${viewModel.username.value}") //test
+//    Log.d("SettingsMain", "Rendering with username: ${viewModel.username.value}") //test
     GenericTextField(
         text = viewModel.input,
         isError = isError,
         label = "Username",
         placeholder = "Enter your username",
-        onFocusChange = { isFocused -> /* handle focus change */ },
-        onValueChange = { newValue ->
-            viewModel.input.value = newValue
-        }
-    )
+        onFocusChange = { isFocused -> /* handle focus change */ }
+    ) { newValue ->
+        viewModel.input.value = newValue
+    }
         // Add more fields here later
 
         Button(

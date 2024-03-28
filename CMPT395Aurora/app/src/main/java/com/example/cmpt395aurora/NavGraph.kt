@@ -1,9 +1,10 @@
 /**
- *   Navigation Graph v1.5
+ *   Navigation Graph v1.6
  *
  *   Animated Navigation Host is experimental
  *   can change these transitions to make our app look better
  *
+ *   - 1.6 - new logic for topbar text field
  *   - 1.5 - new settings updates
  *   - 1.4 - navcontroller updates for database
  *   - 1.3 - Jamie added add employee screen
@@ -19,13 +20,15 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
+import com.example.cmpt395aurora.database.TopBarViewModel
 import com.example.cmpt395aurora.database.employees.EmployeeViewModel
 import com.example.cmpt395aurora.database.settings.SettingsViewModel
 import com.example.cmpt395aurora.screens.AddEmployeeScreen
-import com.example.cmpt395aurora.screens.EmployeeInfoScreen
+import com.example.cmpt395aurora.screens.EditEmployeeInfoScreen
 import com.example.cmpt395aurora.screens.EmployeeMain
 import com.example.cmpt395aurora.screens.HomeScreen
 import com.example.cmpt395aurora.screens.ScheduleEmployeeScreen
@@ -38,7 +41,7 @@ import com.google.accompanist.navigation.animation.AnimatedNavHost
  */
 @OptIn(ExperimentalAnimationApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun Navigation(navController: NavHostController, employeeViewModel: EmployeeViewModel, settingsViewModel: SettingsViewModel) {
+fun Navigation(navController: NavHostController, employeeViewModel: EmployeeViewModel, topBarViewModel: TopBarViewModel, settingsViewModel: SettingsViewModel) {
     AnimatedNavHost(navController, startDestination = "home") {
         //home screen
         composable(
@@ -50,7 +53,7 @@ fun Navigation(navController: NavHostController, employeeViewModel: EmployeeView
                     animationSpec = tween(500)
                 )
             }) {
-            HomeScreen(navController)
+            HomeScreen(navController, topBarViewModel, settingsViewModel)
         }
         //employee main screen
         composable(
@@ -76,7 +79,7 @@ fun Navigation(navController: NavHostController, employeeViewModel: EmployeeView
         }
         //employee info screen - does not transition properly - known issue with android studio
         composable(
-            "employee3/{employeeId}",
+            "employee3/{id}",
             enterTransition = {
                 slideInHorizontally(
                     initialOffsetX = { 1000 },
@@ -104,9 +107,12 @@ fun Navigation(navController: NavHostController, employeeViewModel: EmployeeView
         )
         {
             val arguments = navController.currentBackStackEntry?.arguments
-            val empID = arguments?.getString("employeeId")
+            val empID = arguments?.getString("id")
             if (empID != null) {
-                EmployeeInfoScreen(navController, employeeViewModel, empID)
+                EditEmployeeInfoScreen(navController, employeeViewModel, topBarViewModel, empID)
+            } else {
+                // need to change this to snackbar probably
+                Text("Error: No employee ID provided")
             }
         }
         //schedule main
