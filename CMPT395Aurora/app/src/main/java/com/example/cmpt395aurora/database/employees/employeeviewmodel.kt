@@ -116,6 +116,7 @@ class EmployeeViewModel(application: Application) : AndroidViewModel(application
     // clear fields on add employee screen
     fun clearEmployeeFields() {
         id.value = 0 // Int
+        idString.value = ""
         fname.value = ""
         lname.value = ""
         nname.value = ""

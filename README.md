@@ -12,7 +12,7 @@ Jamie McDonald (JamieMcDonald2)
 
 # Project Name TBD
 
-## Release build "Aurora" v2.7-alpha
+## Release build "Aurora" v2.71-alpha
 
 ### See Release Notes at Bottom
 
@@ -66,8 +66,10 @@ https://github.com/macewanCS/w24goldwasser/blob/main/LICENSE
 
 ## Release Notes
 
-    2.7
+    2.71
+    - bug fix for add employee
 
+    2.7
     - availability button/logic on edit employee screen
 
     - added alot of logging that will need to be removed later
