@@ -1,5 +1,5 @@
 /**
- *  database helper v1.6
+ *  database helper v1.7
  *  database version 6
  *
  *  some ref's used in the creation of our database:
@@ -7,6 +7,10 @@
  *  - https://abhiandroid.com/database/sqlite
  *  - https://www.freecodecamp.org/news/how-to-use-sqlite-database-with-android-studio/
  *  - https://www.androidauthority.com/sqlite-primer-for-android-811987/
+ *
+ *  v1.7
+ *      - new get employee ID function - moved employee ID to employee database
+ *      - new logger
  *
  *  v1.6:
  *      - new update employee function
@@ -69,7 +73,6 @@ class DatabaseHelper(context: Context) :
 
         val CREATE_EMPAVAIL_TABLE = ("CREATE TABLE empavail ( "
                 + "eadate TEXT PRIMARY KEY, "
-                + "employeeid TEXT, "
                 + "amAvailability TEXT, "
                 + "pmAvailability TEXT, "
                 + "adAvailability TEXT) ")
@@ -88,18 +91,47 @@ class DatabaseHelper(context: Context) :
         onCreate(db)
     }
 
+    /**
+     * This is for testing puposes - log table values
+     */
+    fun logDatabaseTables() {
+        val db = this.readableDatabase
+        val tables = arrayOf("employees", "dayschedule", "empavail", "settings")
+
+        for (table in tables) {
+            val cursor = db.rawQuery("SELECT * FROM $table", null)
+            val columnNames = cursor.columnNames
+            while (cursor.moveToNext()) {
+                val IDValues = StringBuilder()
+                for (column in columnNames) {
+                    val columnIndex = cursor.getColumnIndex(column)
+                    if (columnIndex != -1) {
+                        val value = cursor.getString(columnIndex)
+                        IDValues.append(value ?: "NULL VALUE").append(" | ")
+                    } else {
+                        Log.d("DatabaseLog", "Column not found: $column")  // testing
+                    }
+                }
+                Log.d("DatabaseLog", "Table: $table, Values: $IDValues")  // testing
+            }
+            cursor.close()
+        }
+    }
+
     // add employee
-    fun addEmployee(fname: String, lname: String, nname: String, email: String, pnumber: String, isActive: Boolean, opening: Boolean, closing: Boolean): Boolean {
+    fun addEmployee(id: Int, fname: String, lname: String, nname: String, email: String, pnumber: String, isActive: Boolean, opening: Boolean, closing: Boolean): Boolean {
         val db = this.writableDatabase
-        val contentValues = ContentValues()
-        contentValues.put("fname", fname)
-        contentValues.put("lname", lname)
-        contentValues.put("nname", nname)
-        contentValues.put("email", email)
-        contentValues.put("pnumber", pnumber)
-        contentValues.put("isActive", isActive)
-        contentValues.put("opening", opening)
-        contentValues.put("closing", closing)
+        val contentValues = ContentValues().also {
+            it.put("id", id)
+            it.put("fname", fname)
+            it.put("lname", lname)
+            it.put("nname", nname)
+            it.put("email", email)
+            it.put("pnumber", pnumber)
+            it.put("isActive", isActive)
+            it.put("opening", opening)
+            it.put("closing", closing)
+        }
 
         return try {
             val result = db.insert("employees", null, contentValues)
@@ -129,10 +161,12 @@ class DatabaseHelper(context: Context) :
                 val opening = cursor.getInt(7) != 0   //Boolean
                 val closing = cursor.getInt(8) != 0   //Boolean
                 employees.add(Employee(id, fname, lname, nname, email, pnumber, isActive, opening, closing))
+//                Log.d("getAllEmployees", "Employee created with ID: $id, First Name: $fname, Last Name: $lname")   // testing
             } while (cursor.moveToNext())
         }
         cursor.close()
         db.close()
+        Log.d("getAllEmployees", "Number of employees: ${employees.size}") // log employees test
         return employees
     }
 
@@ -156,8 +190,24 @@ class DatabaseHelper(context: Context) :
         }
         cursor.close()
         db.close()
+//        if (employee != null) {
+//            Log.d("EmployeeById", "employeeID: ${employee.id}")          //testing
+//        }
         return employee
     }
+
+    // get employee ID based on 'X'
+//    fun getEmployeeIdByCondition(condition: String): Int? {
+//        val db = this.readableDatabase
+//        val cursor = db.rawQuery("SELECT id FROM employees WHERE $condition", null)
+//        var employeeId: Int? = null
+//        if (cursor.moveToFirst()) {
+//            employeeId = cursor.getInt(0) // Get the ID, which is the first column in the result
+//        }
+//        cursor.close()
+//        db.close()
+//        return employeeId
+//    }
 
     // delete employee
     fun deleteEmployee(id: Int): Boolean {
@@ -175,25 +225,31 @@ class DatabaseHelper(context: Context) :
 
     fun updateEmployee(employee: Employee): Int {
         val db = this.writableDatabase
-        val contentValues = ContentValues()
-        contentValues.put("fname", employee.fname)
-        contentValues.put("lname", employee.lname)
-        contentValues.put("nname", employee.nname)
-        contentValues.put("email", employee.email)
-        contentValues.put("pnumber", employee.pnumber)
-        contentValues.put("isActive", if (employee.isActive) 1 else 0)
-        contentValues.put("opening", if (employee.opening) 1 else 0)
-        contentValues.put("closing", if (employee.closing) 1 else 0)
+        val contentValues = ContentValues().also {
+            it.put("id", employee.id)
+            it.put("fname", employee.fname)
+            it.put("lname", employee.lname)
+            it.put("nname", employee.nname)
+            it.put("email", employee.email)
+            it.put("pnumber", employee.pnumber)
+            it.put("isActive", if (employee.isActive) 1 else 0)
+            it.put("opening", if (employee.opening) 1 else 0)
+            it.put("closing", if (employee.closing) 1 else 0)
+        }
 
         // Updating row
-        return db.update("employees", contentValues, "id = ?", arrayOf(employee.id.toString()))
+        val affectedRows = db.update("employees", contentValues, "id = ?", arrayOf(employee.id.toString()))
+
+        // Log the number of affected rows
+        Log.d("DB Update", "Number of rows affected: $affectedRows") // testing
+
+        return affectedRows
     }
 
-    fun addAvailability(eadate: String, employeeid: String, amAvailability: String, pmAvailability: String, adAvailability: String): Boolean {
+    fun addAvailability(eadate: String, amAvailability: String, pmAvailability: String, adAvailability: String): Boolean {
         val db = this.writableDatabase
         val contentValues = ContentValues()
         contentValues.put("eadate", eadate)
-        contentValues.put("employeeid", employeeid)
         contentValues.put("amAvailability", amAvailability)
         contentValues.put("pmAvailability", pmAvailability)
         contentValues.put("adAvailability", adAvailability)
@@ -209,20 +265,19 @@ class DatabaseHelper(context: Context) :
         }
     }
 
-    fun deleteAvailability(eadate: String, employeeid: String): Boolean {
+    fun deleteAvailability(eadate: String): Boolean {
         val db = this.writableDatabase
-        val whereClause = "employeeid = ? AND eadate = ?"
-        val whereArgs = arrayOf(employeeid.toString(), eadate)
+        val whereClause = "eadate = ?"
+        val whereArgs = arrayOf(eadate)
         val result = db.delete("employeeavailability", whereClause, whereArgs).toLong()
         db.close()
         return result != -1L
     }
 
-    fun addShift(dsdate: String, employeeid: String, amAvailability: String, pmAvailability: String, adAvailability: String): Boolean {
+    fun addShift(dsdate: String, amAvailability: String, pmAvailability: String, adAvailability: String): Boolean {
         val db = this.writableDatabase
         val contentValues = ContentValues()
         contentValues.put("dsdate", dsdate)
-        contentValues.put("employee1", employeeid)
         contentValues.put("employee2", amAvailability)
         contentValues.put("employee3", pmAvailability)
 
@@ -239,10 +294,10 @@ class DatabaseHelper(context: Context) :
         }
     }
 
-    fun deleteShift(dsdate: String, employeeid: String): Boolean {
+    fun deleteShift(dsdate: String): Boolean {
         val db = this.writableDatabase
         val whereClause = "employeeid = ? AND dsdate = ?"
-        val whereArgs = arrayOf(employeeid.toString(), dsdate)
+        val whereArgs = arrayOf(dsdate)
         val result = db.delete("dayschedule", whereClause, whereArgs).toLong()
         db.close()
         return result != -1L
@@ -285,7 +340,7 @@ class DatabaseHelper(context: Context) :
         }
         cursor.close()
         db.close()
-        Log.d("DatabaseHelper", "Fetched username: $username")   //test
+//        Log.d("DatabaseHelper", "Fetched username: $username")   //test
         return username
     }
 }

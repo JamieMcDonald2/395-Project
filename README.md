@@ -12,7 +12,7 @@ Jamie McDonald (JamieMcDonald2)
 
 # Project Name TBD
 
-## Release build "Aurora" v2.5-alpha
+## Release build "Aurora" v2.7-alpha
 
 ### See Release Notes at Bottom
 
@@ -49,7 +49,11 @@ as required!
 
 2.3 - Sometimes generate random test employee data button crashes app (won't matter after testing - low priority)
 
-2.4 - transitions from employee list are wrong! known issue with android studio
+2.4 - transitions from employee list are wrong - sometimes! known issue with android studio
+
+2.6 - text field logic is incomplete on most pages (easy to fix)
+
+2.7 - error checking missing on many fields
 
 Other Problems:
 
@@ -62,6 +66,21 @@ https://github.com/macewanCS/w24goldwasser/blob/main/LICENSE
 
 ## Release Notes
 
+    2.7
+
+    - availability button/logic on edit employee screen
+
+    - added alot of logging that will need to be removed later
+
+    - refactored edit employee logic to be more efficient
+    - adjusted top bar text field to be more efficient
+    - bug fixing - add employee errors because of many updates to navigation
+
+    2.6
+    - Finished Edit employee screen
+    - new top bar text field can be manipulated from any screen/component
+    - Major DB changes (Employee ID)
+    
     2.5
     - Starting functionality to schedule employee screen
 

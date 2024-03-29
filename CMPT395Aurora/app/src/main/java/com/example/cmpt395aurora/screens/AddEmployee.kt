@@ -1,5 +1,8 @@
 /**
- * Add employee Screen v1.10
+ * Add employee Screen v1.11
+ *
+ *  1.11
+ *  - add id field / fields for button on click
  *
  *  1.10
  *  - reorientated text and toggles for boolean fields - better UX
@@ -60,6 +63,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -75,12 +79,13 @@ import com.example.cmpt395aurora.database.employees.AddEmployeeTesting
 import com.example.cmpt395aurora.database.employees.EmployeeViewModel
 import kotlinx.coroutines.launch
 
-// This was actually really hard to implement! please don't modify unless it works!
-// needs more clean up not as nice as our other designed pages yet
 @Composable
 fun AddEmployeeScreen(viewModel: EmployeeViewModel) {  // we can move the formwrapper back inside after testing
     val addEmployeeTesting = AddEmployeeTesting()
 
+    LaunchedEffect(Unit) {
+        viewModel.clearEmployeeFields()
+    }
     //remove this later
 //    addEmployeeTesting.populateTestData(viewModel)
 
@@ -108,6 +113,7 @@ fun FormWrapper(viewModel: EmployeeViewModel) {
     val scope = rememberCoroutineScope()
 
     val fields = listOf(
+        "ID",
         "First Name",
         "Last Name",
         "Nick Name",
@@ -121,7 +127,7 @@ fun FormWrapper(viewModel: EmployeeViewModel) {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            // cool!
+            // cool! clear the fields if you click outside of them
             .pointerInput(Unit) { detectTapGestures { focusManager.clearFocus() } }
     ) {
         /* this loop might not work for error checking :(
@@ -129,8 +135,9 @@ fun FormWrapper(viewModel: EmployeeViewModel) {
         */
         items(fields) { field ->
             when (field) {
-                "First Name", "Last Name", "Nick Name", "Email", "Phone Number" -> {
+                "ID", "First Name", "Last Name", "Nick Name", "Email", "Phone Number" -> {
                     val text = when (field) {
+                        "ID" -> viewModel.idString
                         "First Name" -> viewModel.fname
                         "Last Name" -> viewModel.lname
                         "Nick Name" -> viewModel.nname
@@ -139,15 +146,13 @@ fun FormWrapper(viewModel: EmployeeViewModel) {
                         else -> remember { mutableStateOf("") }
                     }
                     val isError = remember { mutableStateOf(false) }
-                    // had to add "onValueChange" parameter for username settings and other values
                     GenericTextField(
                         text = text,
                         isError = isError,
                         label = field,
                         placeholder = "Enter $field",
-                        onFocusChange = { },
-                        onValueChange = { newValue -> /* handle value change */ }
-                    )
+                        onFocusChange = { }
+                    ) { newValue -> /* handle value change */ }
                 }
 
                 "Is Active?", "Trained for Opening?", "Trained for Closing?" -> {
@@ -191,6 +196,7 @@ fun FormWrapper(viewModel: EmployeeViewModel) {
                     onClick = {
                         if (viewModel.validateFields() && viewModel.isValidEmail(viewModel.email.value) && viewModel.isValidPhoneNumber(viewModel.pnumber.value)) {
                             viewModel.addEmployee(
+                                id = viewModel.id.value,
                                 fname = viewModel.fname.value,
                                 lname = viewModel.lname.value,
                                 nname = viewModel.nname.value,
@@ -201,6 +207,7 @@ fun FormWrapper(viewModel: EmployeeViewModel) {
                                 closing = viewModel.closing.value
                             )
                             // Clear the fields
+                            viewModel.id.value = 0
                             viewModel.fname.value = ""
                             viewModel.lname.value = ""
                             viewModel.nname.value = ""

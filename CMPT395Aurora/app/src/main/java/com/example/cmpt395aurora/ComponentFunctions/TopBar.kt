@@ -21,7 +21,7 @@
 
 package com.example.cmpt395aurora.ComponentFunctions
 
-import android.content.Context
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -43,28 +43,19 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.example.cmpt395aurora.database.DatabaseHelper
+import com.example.cmpt395aurora.database.TopBarViewModel
+import com.google.relay.compose.ColumnScopeInstanceImpl.weight
 
 @Composable
-fun TopBar(navController: NavController) {
+fun TopBar(navController: NavController, topBarViewModel: TopBarViewModel) {
     // Observe the NavController back stack
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
-
-    // Get the current context
-    val context: Context = LocalContext.current
-
-    // Create an instance of DatabaseHelper
-    val databaseHelper = DatabaseHelper(context)
-
-    // Fetch the username from the database
-    val username = databaseHelper.getUsername()
 
     Column {
         Row(
@@ -105,11 +96,8 @@ fun TopBar(navController: NavController) {
                 Spacer(modifier = Modifier.width(48.dp)) // for home page
             }
 
-            Text(
-                text = if (currentRoute == "home") "Hi, $username" else currentRoute ?: "",
-                textAlign = TextAlign.Center,
-                modifier = Modifier.weight(1f)
-            )
+            Log.d("TopBar", "Current topBarText: ${topBarViewModel.topBarText.value}")  // testing
+            CustomTextBlock(topBarViewModel)
 
             if (currentRoute != "home") {
                 IconButton(
@@ -149,5 +137,15 @@ fun CustomIconHome(navController: NavController) {
         contentDescription = "Home",
         modifier = Modifier
             .padding(0.dp) // Remove the default padding
+    )
+}
+
+// Can pass values to the text field now
+@Composable
+fun CustomTextBlock(topBarViewModel: TopBarViewModel) {
+    Text(
+        text = topBarViewModel.topBarText.value,
+        textAlign = TextAlign.Center,
+        modifier = Modifier.weight(1f)
     )
 }

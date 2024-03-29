@@ -1,5 +1,8 @@
 /**
- * Employee List Item Component v1.05
+ * Employee List Item Component v1.06
+ *
+ *  v1.06
+ *  - navigate by ID had to be retooled - values can only navigate as strings
  *
  *  v1.05
  *  - new inactive color status for list items
@@ -25,6 +28,7 @@
 
 package com.example.cmpt395aurora.ComponentFunctions
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -69,14 +73,14 @@ fun EmployeeListItem(navController: NavController, employee: Employee, viewModel
     // Determine the color based on the employee's active status
     val textColor = if (employee.isActive) MaterialTheme.colorScheme.onSurface else Color.Gray
     // Determine the color based on the employee's active status
-    val VeryLightGray = Color(0xFFEEEEEE)
+    val VeryLightGray = Color(0xFFEEEEEE)   // might have to remove or change
     val boxColor = if (employee.isActive) MaterialTheme.colorScheme.background else VeryLightGray
 
     Box(
         modifier = Modifier.clickable(
             onClick = {
-                val employeeID = employee.id.toString()
-                navController.navigate("employee3/$employeeID") // goes to employee info on click
+//                Log.d("EmployeeListItem", "Employee clicked with ID: ${employee.id}")  // testing
+                navController.navigate("employee3/${employee.id}") // Pass the employee id to the employee3 screen
             }
         )
     )
