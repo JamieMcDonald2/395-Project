@@ -52,10 +52,11 @@ import com.example.cmpt395aurora.searchbar.SearchBar
 
 @Composable
 fun EmployeeMain(navController: NavHostController, viewModel: EmployeeViewModel) {
-    // This effect will run every time this composable is recomposed
+    // This effect will run every time the composable is recomposed
     LaunchedEffect(Unit) {
         viewModel.refreshEmployees()
     }
+
     // Use the ViewModel to get the data
     val employees = viewModel.getAllEmployees().sortedWith(compareBy({ !it.isActive }, { it.fname }))
 
