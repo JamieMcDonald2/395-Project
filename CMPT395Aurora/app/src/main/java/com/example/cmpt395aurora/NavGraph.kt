@@ -33,8 +33,10 @@ import com.example.cmpt395aurora.screens.AddEmployeeScreen
 import com.example.cmpt395aurora.screens.EditEmployeeInfoScreen
 import com.example.cmpt395aurora.screens.EmployeeMain
 import com.example.cmpt395aurora.screens.HomeScreen
-import com.example.cmpt395aurora.screens.ScheduleEmployeeScreen
+import com.example.cmpt395aurora.screens.ScheduleWeekDay
 import com.example.cmpt395aurora.screens.ScheduleMain
+import com.example.cmpt395aurora.screens.ScheduleWeekDay
+import com.example.cmpt395aurora.screens.ScheduleWeekEnd
 import com.example.cmpt395aurora.screens.SettingsMain
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 
@@ -151,7 +153,22 @@ fun Navigation(navController: NavHostController, employeeViewModel: EmployeeView
             }
         ) { backStackEntry ->
             val date = backStackEntry.arguments?.getString("date")
-            ScheduleEmployeeScreen(date)
+            ScheduleWeekDay(date, employeeViewModel)
+        }
+
+        //schedule employee page
+        composable(
+            route = "schedule3/{date}",
+            arguments = listOf(navArgument("date") { type = NavType.StringType }),
+            enterTransition = {
+                slideInHorizontally(
+                    initialOffsetX = { 1000 },
+                    animationSpec = tween(500)
+                )
+            }
+        ) { backStackEntry ->
+            val date = backStackEntry.arguments?.getString("date")
+            ScheduleWeekEnd(date, employeeViewModel)
         }
     }
 }
