@@ -12,7 +12,7 @@ Jamie McDonald (JamieMcDonald2)
 
 # Project Name TBD
 
-## Release build "Aurora" v2.71-alpha
+## Release build "Aurora" v2.8-alpha
 
 ### See Release Notes at Bottom
 
@@ -65,6 +65,8 @@ Other Problems:
 https://github.com/macewanCS/w24goldwasser/blob/main/LICENSE
 
 ## Release Notes
+    2.8
+    - Added more functionality to the scheduling part of application
 
     2.71
     - bug fix for add employee

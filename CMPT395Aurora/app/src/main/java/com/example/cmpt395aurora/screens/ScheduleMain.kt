@@ -31,16 +31,36 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import java.util.Date
 import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
 import java.util.Locale
+import java.util.TimeZone
 
 
 @ExperimentalMaterial3Api
 @Composable
 fun ScheduleMain(navController: NavController) {
-    val datePickerState = rememberDatePickerState()
     val selectedDate = remember { mutableStateOf<Date?>(null) }
+    val datePickerState = rememberDatePickerState()
+
+    // Update selectedDate when datePickerState changes
+    LaunchedEffect(datePickerState.selectedDateMillis) {
+        val selectedMillis = datePickerState.selectedDateMillis ?: return@LaunchedEffect
+        val calendar = Calendar.getInstance() // Use the system's default time zone
+        calendar.timeInMillis = selectedMillis
+
+        // Set time to the start of the day in the system's default time zone.
+        // For some reason the hour of day HAS to be 24 and not 0 to display
+        // the correct day. If it is set to 0 then the previous day is passed
+        // to the next screen.
+        calendar.set(Calendar.HOUR_OF_DAY, 24)
+        calendar.set(Calendar.MINUTE, 0)
+        calendar.set(Calendar.SECOND, 0)
+        calendar.set(Calendar.MILLISECOND, 0)
+
+        selectedDate.value = calendar.time
+    }
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -54,7 +74,8 @@ fun ScheduleMain(navController: NavController) {
         ) {
             item {
                 DatePicker(
-                    state = datePickerState
+                    state = datePickerState,
+                    modifier = Modifier.fillMaxWidth()
                 )
             }
 
@@ -67,9 +88,15 @@ fun ScheduleMain(navController: NavController) {
                 ) {
                     Button(
                         onClick = {
-
-                            val dateString = formatDate(selectedDate.value)
-                            navController.navigate("schedule2/$dateString")
+                            selectedDate.value?.let {
+                                if (isWeekend(it)) {
+                                    val dateString = formatDate(it)
+                                    navController.navigate("schedule3/$dateString")
+                                } else {
+                                    val dateString = formatDate(it)
+                                    navController.navigate("schedule2/$dateString")
+                                }
+                            }
                         },
                         enabled = selectedDate.value != null,
                         modifier = Modifier
@@ -82,14 +109,20 @@ fun ScheduleMain(navController: NavController) {
             }
         }
     }
-
-    //This keeps track of changes to the selected date
-    LaunchedEffect(datePickerState.selectedDateMillis) {
-        selectedDate.value = datePickerState.selectedDateMillis?.let { Date(it) }
-    }
 }
 
-fun formatDate(date: Date?): String {
+
+fun formatDate(date: Date?): String? {
+    if (date == null) return null
     val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+    // No need to set time zone, it uses the system's default time zone
     return format.format(date)
+}
+
+fun isWeekend(date: Date?): Boolean {
+    if (date == null) return false
+    val calendar = Calendar.getInstance()
+    calendar.time = date
+    val dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK)
+    return dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY
 }
