@@ -166,7 +166,7 @@ class DatabaseHelper(context: Context) :
         }
         cursor.close()
         db.close()
-        Log.d("getAllEmployees", "Number of employees: ${employees.size}") // log employees test
+//        Log.d("getAllEmployees", "Number of employees: ${employees.size}") // log employees test
         return employees
     }
 
@@ -224,9 +224,11 @@ class DatabaseHelper(context: Context) :
     }
 
     fun updateEmployee(employee: Employee): Int {
+
+        Log.d("ViewModelUpdate", "Updating employee: $employee") // testing
+
         val db = this.writableDatabase
         val contentValues = ContentValues().also {
-            it.put("id", employee.id)
             it.put("fname", employee.fname)
             it.put("lname", employee.lname)
             it.put("nname", employee.nname)
@@ -237,11 +239,13 @@ class DatabaseHelper(context: Context) :
             it.put("closing", if (employee.closing) 1 else 0)
         }
 
+//        Log.d("DB Update", "Updating employee with ID: ${employee.id}") // testing
         // Updating row
         val affectedRows = db.update("employees", contentValues, "id = ?", arrayOf(employee.id.toString()))
 
-        // Log the number of affected rows
-        Log.d("DB Update", "Number of rows affected: $affectedRows") // testing
+//        // Log the number of affected rows
+//        Log.d("DB Update", "Number of rows affected: $affectedRows") // testing
+//        Log.d("DB Update2", "New Values: ${employee.id}, ${employee.fname}, ${employee.lname}, ${employee.nname}, ${employee.email}, ${employee.pnumber}") // testing
 
         return affectedRows
     }

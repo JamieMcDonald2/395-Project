@@ -39,6 +39,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
@@ -58,7 +59,7 @@ fun EmployeeMain(navController: NavHostController, viewModel: EmployeeViewModel)
     }
 
     // Use the ViewModel to get the data
-    val employees = viewModel.getAllEmployees().sortedWith(compareBy({ !it.isActive }, { it.fname }))
+    val employees by viewModel.employees
 
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.BottomEnd) { // Box to allow layering of composables
         Column(

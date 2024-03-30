@@ -1,5 +1,18 @@
 /**
- * Edit Employee Info Screen v2.0
+ * Edit Employee Info Screen v2.2
+ *
+ * v2.2
+ * - Removed the ViewModel assignment for each field since the ViewModel already holds the employee data
+ * - Simplified the function by removing unnecessary ViewModel interactions and validations as they are already handled in the ViewModel
+ * - Kept the validation checks and database update logic intact, relying on ViewModel to perform these operations
+ *
+ * - rewrote logic for confirmations and dialog - weren't working properly
+ *
+ * v2.1
+ * - confirmation for:
+ *      - incomplete fields (fixed)
+ *      - unchanged information
+ *   using show dialog and snackbar
  *
  * v2.0
  * - added availability button
@@ -59,7 +72,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
@@ -72,7 +87,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.cmpt395aurora.ComponentFunctions.CustomSnackbar
@@ -83,37 +97,40 @@ import com.example.cmpt395aurora.database.TopBarViewModel
 import kotlinx.coroutines.launch
 
 /**
- *  navController might go?
+ *  Do not alter without consulting Jamie!
  */
 @Composable
-fun EditEmployeeInfoScreen(navController: NavController, viewModel: EmployeeViewModel, topBarViewModel: TopBarViewModel, employeeID: String) {
+fun EditEmployeeInfoScreen(
+    navController: NavController,
+    viewModel: EmployeeViewModel,
+    topBarViewModel: TopBarViewModel,
+    employeeID: String
+) {
     val id = employeeID.toInt()
     val employee: Employee? = viewModel.getEmployeeByID(id)
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
-    val VeryLightGray = Color(0xFFF5F5F5)   // might have to remove or change
+    val showDialog = remember { mutableStateOf(false) } // Declare showDialog variable
+
+    val VeryLightGray = Color(0xFFF5F5F5) // might have to remove or change
     val focusManager = LocalFocusManager.current
 
-    if (employee != null) {
-        viewModel.id.value = employee.id
-        viewModel.fname.value = employee.fname
-        viewModel.lname.value = employee.lname
-        viewModel.nname.value = employee.nname
-        viewModel.email.value = employee.email
-        viewModel.pnumber.value = employee.pnumber
-        viewModel.isActive.value = employee.isActive
-        viewModel.opening.value = employee.opening
-        viewModel.closing.value = employee.closing
+    Log.d("EditEmployeeInfoScreen", "Employee ID: $id, Employee: $employee") // Log employee details
 
+    if (employee != null) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .pointerInput(Unit) { detectTapGestures { focusManager.clearFocus() } }
         ) {
             Box(modifier = Modifier.weight(1f)) {
-                DataFields(viewModel, employee) { updatedEmployee ->
-                    viewModel.updateEmployee(updatedEmployee)
-                }
+                DataFields(
+                    viewModel = viewModel,
+                    employee = employee,
+                    onEmployeeChange = { updatedEmployee ->
+                        viewModel.updateEmployee(updatedEmployee)
+                    }
+                )
             }
             Box(
                 modifier = Modifier
@@ -124,43 +141,70 @@ fun EditEmployeeInfoScreen(navController: NavController, viewModel: EmployeeView
             ) {
                 Button(
                     onClick = {
-                        Log.d("OnClick", "fname: ${viewModel.fname.value}, lname: ${viewModel.lname.value}") // testing
-                        if (viewModel.validateFields() && viewModel.isValidEmail(viewModel.email.value) && viewModel.isValidPhoneNumber(
-                                viewModel.pnumber.value
-                            )
-                        ) {
-                            viewModel.updateEmployee(employee)
-                            scope.launch {
-                                snackbarHostState.showSnackbar(
-                                    message = "Employee edited successfully.",
-                                    actionLabel = "Dismiss",
-                                    duration = androidx.compose.material3.SnackbarDuration.Short
-                                )
+                        val email: String = viewModel.email.value ?: ""
+                        val phoneNumber: String = viewModel.pnumber.value ?: ""
+
+                        val areFieldsValid = viewModel.validateFields()
+                        val isEmailValid: Boolean = viewModel.isValidEmail(email)
+                        val isPhoneNumberValid: Boolean = viewModel.isValidPhoneNumber(phoneNumber)
+
+                        if (areFieldsValid && isEmailValid && isPhoneNumberValid) {
+                            if (viewModel.hasChanges(employee)) {
+                                scope.launch {
+                                    snackbarHostState.showSnackbar(
+                                        message = "Employee edited successfully.",
+                                        actionLabel = "Dismiss",
+                                        duration = SnackbarDuration.Short
+                                    )
+                                }
+                                navController.popBackStack()
+                            } else {
+                                scope.launch {
+                                    snackbarHostState.showSnackbar(
+                                        message = "Please complete all fields.",
+                                        actionLabel = "Dismiss",
+                                        duration = SnackbarDuration.Short
+                                    )
+                                }
                             }
                         } else {
-                            scope.launch {
-                                snackbarHostState.showSnackbar(
-                                    message = "Please complete all the required the fields.",
-                                    actionLabel = "Dismiss",
-                                    duration = androidx.compose.material3.SnackbarDuration.Short
-                                )
-                            }
+                            showDialog.value = true
                         }
                     }
                 ) {
                     Text("Edit Employee")
                 }
+
+                if (showDialog.value) { // Access showDialog value
+                    AlertDialog(
+                        onDismissRequest = { showDialog.value = false },
+                        title = { Text("No changes were made.") },
+                        text = { Text("Do you want to leave anyway?") },
+                        confirmButton = {
+                            Button(onClick = {
+                                showDialog.value = false
+                                navController.popBackStack()
+                            }) {
+                                Text("Leave Anyway")
+                            }
+                        },
+                        dismissButton = {
+                            Button(onClick = { showDialog.value = false }) {
+                                Text("Stay")
+                            }
+                        }
+                    )
+                }
                 CustomSnackbar(snackbarHostState = snackbarHostState)
+
                 // prevent null pointer exception for id string if id is empty
                 employee?.let {
-                    Log.d(
-                        "EmployeeInfoScreen",
-                        "Calling updateTopBarText with: ${employee.id}"
-                    )  // testing
                     topBarViewModel.updateTopBarText("Employee ID " + it.id.toString())
                 }
             }
         }
+    } else {
+        Log.e("EditEmployeeInfoScreen", "Employee not found")
     }
 }
 
@@ -181,7 +225,7 @@ fun DataFields(viewModel: EmployeeViewModel, employee: Employee, onEmployeeChang
                 // Show an error message or throw an exception
                 throw NumberFormatException("Invalid ID: ${newValue.value}")
             } else {
-                viewModel.setId(newId)
+                // Pass the newId directly to the onEmployeeChange lambda function
                 onEmployeeChange(employee.copy(id = newId))
             }
         },
@@ -192,11 +236,8 @@ fun DataFields(viewModel: EmployeeViewModel, employee: Employee, onEmployeeChang
             "Enter first name"
         ) { newValue ->
             val newFname = (newValue as FieldValue.StringField).value
-            viewModel.fname.value = newFname
-            Log.d("OnValueChange", "fname: ${viewModel.fname.value}")  // testing
             onEmployeeChange(employee.copy(fname = newFname))
         },
-
         Field(
             "lname",
             FieldValue.StringField(employee.lname),
@@ -204,8 +245,7 @@ fun DataFields(viewModel: EmployeeViewModel, employee: Employee, onEmployeeChang
             "Enter last name"
         ) { newValue ->
             val newLname = (newValue as FieldValue.StringField).value
-            viewModel.lname.value = newLname
-            onEmployeeChange(employee.copy(fname = newLname))
+            onEmployeeChange(employee.copy(lname = newLname))
         },
         Field(
             "nname",
@@ -213,7 +253,8 @@ fun DataFields(viewModel: EmployeeViewModel, employee: Employee, onEmployeeChang
             "Nick Name",
             "Enter nick name"
         ) { newValue ->
-            onEmployeeChange(employee.copy(nname = (newValue as FieldValue.StringField).value))
+            val newNname = (newValue as FieldValue.StringField).value
+            onEmployeeChange(employee.copy(nname = newNname))
         },
         Field(
             "email",
@@ -221,7 +262,8 @@ fun DataFields(viewModel: EmployeeViewModel, employee: Employee, onEmployeeChang
             "Email",
             "Enter email"
         ) { newValue ->
-            onEmployeeChange(employee.copy(email = (newValue as FieldValue.StringField).value))
+            val Email = (newValue as FieldValue.StringField).value
+            onEmployeeChange(employee.copy(email = Email))
         },
         Field(
             "pnumber",
@@ -229,7 +271,8 @@ fun DataFields(viewModel: EmployeeViewModel, employee: Employee, onEmployeeChang
             "Phone Number",
             "Enter Phone Number"
         ) { newValue ->
-            onEmployeeChange(employee.copy(pnumber = (newValue as FieldValue.StringField).value))
+            val pNumber = (newValue as FieldValue.StringField).value
+            onEmployeeChange(employee.copy(pnumber = pNumber))
         },
         Field(
             "isActive",
@@ -237,7 +280,8 @@ fun DataFields(viewModel: EmployeeViewModel, employee: Employee, onEmployeeChang
             "Is Active?",
             ""
         ) { newValue ->
-            onEmployeeChange(employee.copy(isActive = (newValue as FieldValue.BooleanField).value))
+            val isActive = (newValue as FieldValue.BooleanField).value
+            onEmployeeChange(employee.copy(isActive = isActive))
         },
         Field(
             "isTrainedForOpening",
@@ -245,7 +289,8 @@ fun DataFields(viewModel: EmployeeViewModel, employee: Employee, onEmployeeChang
             "Trained for Opening?",
             "",
         ) { newValue ->
-            onEmployeeChange(employee.copy(opening = (newValue as FieldValue.BooleanField).value))
+            val opening = (newValue as FieldValue.BooleanField).value
+            onEmployeeChange(employee.copy(opening = opening))
         },
         Field(
             "isTrainedForClosing",
@@ -253,7 +298,8 @@ fun DataFields(viewModel: EmployeeViewModel, employee: Employee, onEmployeeChang
             "Trained for Closing?",
             "",
         ) { newValue ->
-            onEmployeeChange(employee.copy(closing = (newValue as FieldValue.BooleanField).value))
+            val closing = (newValue as FieldValue.BooleanField).value
+            onEmployeeChange(employee.copy(closing = closing))
         }
         // Add other fields here ?
     )
@@ -314,12 +360,15 @@ fun DataFields(viewModel: EmployeeViewModel, employee: Employee, onEmployeeChang
                                 checked = isChecked.value,
                                 onCheckedChange = { newValue ->
                                     isChecked.value = newValue
+                                    Log.d("Switch", "New Value: $newValue")  // testing
                                     field.onValueChange(FieldValue.BooleanField(newValue))
                                 }
                             )
                         }
                     }
                 }
+                // force when to be exhaustive ? it works lol
+                else -> {}
             }
         }
 //        if (showDialog) {

@@ -96,7 +96,7 @@ fun TopBar(navController: NavController, topBarViewModel: TopBarViewModel) {
                 Spacer(modifier = Modifier.width(48.dp)) // for home page
             }
 
-            Log.d("TopBar", "Current topBarText: ${topBarViewModel.topBarText.value}")  // testing
+//            Log.d("TopBar", "Current topBarText: ${topBarViewModel.topBarText.value}")  // testing
             CustomTextBlock(topBarViewModel)
 
             if (currentRoute != "home") {
