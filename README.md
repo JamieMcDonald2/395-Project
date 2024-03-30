@@ -12,7 +12,7 @@ Jamie McDonald (JamieMcDonald2)
 
 # Project Name TBD
 
-## Release build "Aurora" v2.8-alpha
+## Release build "Aurora" v2.9-alpha
 
 ### See Release Notes at Bottom
 
@@ -55,6 +55,10 @@ as required!
 
 2.7 - error checking missing on many fields
 
+2.8 - pressed state activated on weekly calendar (a single day) when app starts - should not be - only sometimes
+
+2.9 - can only change 'closing' or 'opening' toggle each time you visit edit screen, cannot change both in one visit - flawed logic for onclick most likely (should be easy fix)
+
 Other Problems:
 
     - Pulling from repo causes minor syntax errors sometimes - unknown cause (android studio issue - not issue with app)
@@ -65,6 +69,14 @@ Other Problems:
 https://github.com/macewanCS/w24goldwasser/blob/main/LICENSE
 
 ## Release Notes
+
+    2.9
+    - added more edit employee logic, confirmations and error checking
+    - added more database logic to help with verifications
+    - large debugging related to viewmodel and database information sharing
+
+    - bug remains on edit employee page, see known issues 2.9
+
     2.8
     - Added more functionality to the scheduling part of application
 

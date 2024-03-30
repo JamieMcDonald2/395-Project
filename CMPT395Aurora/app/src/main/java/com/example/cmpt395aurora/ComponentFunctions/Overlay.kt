@@ -10,13 +10,13 @@ import androidx.compose.ui.window.Dialog
 @Composable
 fun Overlay(showDialog: MutableState<Boolean>) {
     Button(onClick = { showDialog.value = true }) {
-        Text("Show Overlay")
+        Text("Show Overlay?")
     }
 
     if (showDialog.value) {
         Dialog(onDismissRequest = { showDialog.value = false }) {
             AlertDialog(
-                title = { Text("Hello from overlay!") },
+                title = { Text("Hello from Jamie!") },
                 onDismissRequest = { showDialog.value = false },
                 confirmButton = { Button(onClick = { showDialog.value = false }) { Text("Close") } }
             )
