@@ -65,17 +65,17 @@ class DatabaseHelper(context: Context) :
         db.execSQL(CREATE_EMPLOYEE_TABLE)
 
         val CREATE_DAYSCHEDULE_TABLE = ("CREATE TABLE dayschedule ( "
-                + "dsdate TEXT PRIMARY KEY, "
-                + "employee1 TEXT, "
-                + "employee2 TEXT, "
-                + "employee3 TEXT) ")
+            + "dsdate TEXT PRIMARY KEY, "
+            + "employee1 TEXT, "
+            + "employee2 TEXT, "
+            + "employee3 TEXT) ")
         db.execSQL(CREATE_DAYSCHEDULE_TABLE)
 
         val CREATE_EMPAVAIL_TABLE = ("CREATE TABLE empavail ( "
-                + "eadate TEXT PRIMARY KEY, "
-                + "amAvailability TEXT, "
-                + "pmAvailability TEXT, "
-                + "adAvailability TEXT) ")
+            + "eadate TEXT PRIMARY KEY, "
+            + "amAvailability TEXT, "
+            + "pmAvailability TEXT, "
+            + "adAvailability TEXT) ")
         db.execSQL(CREATE_EMPAVAIL_TABLE)
 
         val CREATE_SETTINGS_TABLE = ("CREATE TABLE settings (username TEXT UNIQUE)")
@@ -258,14 +258,14 @@ class DatabaseHelper(context: Context) :
         contentValues.put("pmAvailability", pmAvailability)
         contentValues.put("adAvailability", adAvailability)
 
-        try {
+        return try {
             val result = db.insert("empavail", null, contentValues)
             db.close()
-            return result != -1L
+            result != -1L
         } catch (e: Exception) {
             Log.e("DatabaseHelper", "Error adding availability: ${e.message}")
             db.close()
-            return false
+            false
         }
     }
 
@@ -286,14 +286,14 @@ class DatabaseHelper(context: Context) :
         contentValues.put("employee3", pmAvailability)
 
 
-        try {
+        return try {
             val result = db.insert("dayschedule", null, contentValues)
             db.close()
-            return result != -1L
+            result != -1L
         } catch (e: Exception) {
             Log.e("DatabaseHelper", "Error adding availability: ${e.message}")
             db.close()
-            return false
+            false
 
         }
     }

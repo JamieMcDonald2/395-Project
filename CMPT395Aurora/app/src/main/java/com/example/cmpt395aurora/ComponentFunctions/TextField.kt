@@ -1,8 +1,12 @@
 /**
- *  Text Field v1.02
+ *  Text Field v1.04
  *
  *  - https://m3.material.io/components/text-fields/guidelines
  *  - https://developer.android.com/jetpack/compose/text/user-input
+ *
+ *  v1.04:
+ *      - focus logic so that changes are made, if changes are made, whether field is selected
+ *        or not
  *
  *  v1.02:
  *      - ability to update value change of entry
@@ -13,6 +17,7 @@
 
 package com.example.cmpt395aurora.ComponentFunctions
 
+import android.util.Log
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -49,12 +54,13 @@ fun GenericTextField(
 ) {
     val focusRequester = remember { FocusRequester() }
     val isFocused = remember { mutableStateOf(false) }
+    val textFieldValue = remember { mutableStateOf(text.value) } // Local state for the text field
 
     OutlinedTextField(
-        value = text.value,
+        value = textFieldValue.value,
         onValueChange = { newText ->
-            text.value = newText
-            onValueChange(newText) // Call onValueChange with the new text
+            Log.d("TextField", "New text: $newText")   // testing
+            textFieldValue.value = newText
         },
         label = { Text(label) },
         placeholder = { Text(placeholder) },
@@ -69,8 +75,11 @@ fun GenericTextField(
             unfocusedLabelColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f) // Medium alpha
         ),
         trailingIcon = {
-            if (text.value.isNotEmpty()) {
-                IconButton(onClick = { text.value = "" }) {
+            if (textFieldValue.value.isNotEmpty()) {
+                IconButton(onClick = {
+                    textFieldValue.value = ""
+                    onValueChange(textFieldValue.value) // Trigger the validation check
+                }) {
                     Icon(Icons.Default.Clear, contentDescription = "Clear text")
                 }
             }
@@ -79,6 +88,10 @@ fun GenericTextField(
             .focusRequester(focusRequester)
             .onFocusChanged { state ->
                 isFocused.value = state.isFocused
+                if (!state.isFocused) {
+                    // Update the ViewModel when the text field loses focus
+                    onValueChange(textFieldValue.value)
+                }
                 onFocusChange(state.isFocused)
             }
             .padding(16.dp)

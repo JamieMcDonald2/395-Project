@@ -13,10 +13,16 @@ import androidx.lifecycle.ViewModel
 
 class TopBarViewModel : ViewModel() {
     val topBarText = mutableStateOf("Loading...")
+    val hasChanges = mutableStateOf(false) // Add this line
 
     fun updateTopBarText(newText: String) {
         Log.d("TopBarViewModel", "updateTopBarText called with: $newText")
         topBarText.value = newText
+    }
+
+    // Add this function to update the hasChanges property
+    fun setHasChanges(hasChanges: Boolean) {
+        this.hasChanges.value = hasChanges
     }
 }
 

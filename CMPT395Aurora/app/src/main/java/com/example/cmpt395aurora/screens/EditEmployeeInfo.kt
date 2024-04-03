@@ -1,5 +1,22 @@
 /**
- * Edit Employee Info Screen v2.2
+ * Edit Employee Info Screen v2.6
+ *
+ * v2.6
+ * - new logic for back buttons to confirm discard
+ *
+ * v2.5
+ * - completed verification for data fields
+ *
+ * v2.4
+ * - reversed changes to empty data field logic, still isn't working
+ * - attempted to correct all verification/error checking logic, including empty data fields
+ *
+ * v2.3
+ * - changed datafield logic to store values until 'Edit Employee' is clicked as only the last
+ *   field changed was updating in previous version
+ * - moved empty field confirmation logic inside datafields, wasn't working with 'no changes made'
+ *   dialog
+ * - removed error throwing from ID field, replaced with error snackbar for better UX
  *
  * v2.2
  * - Removed the ViewModel assignment for each field since the ViewModel already holds the employee data
@@ -66,7 +83,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -79,6 +95,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -107,15 +124,23 @@ fun EditEmployeeInfoScreen(
     employeeID: String
 ) {
     val id = employeeID.toInt()
+
+    // Load the employee data into the ViewModel
+    viewModel.loadEmployee(id)
+
     val employee: Employee? = viewModel.getEmployeeByID(id)
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
-    val showDialog = remember { mutableStateOf(false) } // Declare showDialog variable
+    val showSnackbar = remember { mutableStateOf(false) }
+    val showDialog = remember { mutableStateOf(false) }
 
-    val VeryLightGray = Color(0xFFF5F5F5) // might have to remove or change
+    val veryLightGray = Color(0xFFF5F5F5)
     val focusManager = LocalFocusManager.current
 
-    Log.d("EditEmployeeInfoScreen", "Employee ID: $id, Employee: $employee") // Log employee details
+    val originalEmployee = remember { mutableStateOf(viewModel.getEmployeeByID(id)) }
+    val editEmployee = remember { mutableStateOf(originalEmployee.value?.copy()) } // Create a copy for editing
+
+    Log.d("EditEmployeeInfoScreen", "Employee ID: $id, Employee: $employee")
 
     if (employee != null) {
         Column(
@@ -126,30 +151,65 @@ fun EditEmployeeInfoScreen(
             Box(modifier = Modifier.weight(1f)) {
                 DataFields(
                     viewModel = viewModel,
-                    employee = employee,
-                    onEmployeeChange = { updatedEmployee ->
-                        viewModel.updateEmployee(updatedEmployee)
+                    employee = employee
+                ) { updatedEmployee ->
+                    editEmployee.value = updatedEmployee // Update the copy for editing
+
+                    // Create a new Employee instance from the ViewModel fields
+                    val currentEmployee = Employee(
+                        id = viewModel.id.intValue,
+                        fname = viewModel.fname.value,
+                        lname = viewModel.lname.value,
+                        nname = viewModel.nname.value,
+                        email = viewModel.email.value,
+                        pnumber = viewModel.pnumber.value,
+                        isActive = viewModel.isActive.value,
+                        opening = viewModel.opening.value,
+                        closing = viewModel.closing.value
+                    )
+
+                    // Check if the original employee is different from the current state of the ViewModel fields
+                    if (viewModel.originalEmployee.value != currentEmployee) {
+                        // If they are different, set the hasChanges flag to true
+                        topBarViewModel.setHasChanges(true)
+                    } else {
+                        // If they are the same, set the hasChanges flag to false
+                        topBarViewModel.setHasChanges(false)
                     }
-                )
+                }
             }
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(60.dp)
-                    .background(VeryLightGray), // Change to your desired color
+                    .background(veryLightGray),
                 contentAlignment = Alignment.Center
             ) {
                 Button(
                     onClick = {
-                        val email: String = viewModel.email.value ?: ""
-                        val phoneNumber: String = viewModel.pnumber.value ?: ""
+                        focusManager.clearFocus()
+                        // Create a new Employee instance from the ViewModel fields
+                        val currentEmployee = Employee(
+                            id = viewModel.id.intValue,
+                            fname = viewModel.fname.value,
+                            lname = viewModel.lname.value,
+                            nname = viewModel.nname.value,
+                            email = viewModel.email.value,
+                            pnumber = viewModel.pnumber.value,
+                            isActive = viewModel.isActive.value,
+                            opening = viewModel.opening.value,
+                            closing = viewModel.closing.value
+                        )
 
-                        val areFieldsValid = viewModel.validateFields()
-                        val isEmailValid: Boolean = viewModel.isValidEmail(email)
-                        val isPhoneNumberValid: Boolean = viewModel.isValidPhoneNumber(phoneNumber)
+                        if (viewModel.validateFields() && viewModel.isValidEmail(viewModel.email.value) && viewModel.isValidPhoneNumber(viewModel.pnumber.value)) {
+                            // If the fields are valid, check if any changes were made
+                            if (viewModel.originalEmployee.value != currentEmployee) {
+                                // If they are different, update the employee info in the ViewModel and the database
+                                viewModel.updateEmployee(currentEmployee)
+                                viewModel.updateEmployeeInfo()
+                                viewModel.originalEmployee.value = currentEmployee.copy()
 
-                        if (areFieldsValid && isEmailValid && isPhoneNumberValid) {
-                            if (viewModel.hasChanges(employee)) {
+                                // Show a snackbar message and navigate back
                                 scope.launch {
                                     snackbarHostState.showSnackbar(
                                         message = "Employee edited successfully.",
@@ -158,24 +218,28 @@ fun EditEmployeeInfoScreen(
                                     )
                                 }
                                 navController.popBackStack()
+                                topBarViewModel.setHasChanges(false) // back button logic
                             } else {
-                                scope.launch {
-                                    snackbarHostState.showSnackbar(
-                                        message = "Please complete all fields.",
-                                        actionLabel = "Dismiss",
-                                        duration = SnackbarDuration.Short
-                                    )
-                                }
+                                // If no changes were made, show a dialog
+                                showDialog.value = true
+                                showSnackbar.value = true
                             }
                         } else {
-                            showDialog.value = true
+                            // If the fields are not valid, show a snackbar message
+                            scope.launch {
+                                snackbarHostState.showSnackbar(
+                                    message = "Please complete all fields.",
+                                    actionLabel = "Dismiss",
+                                    duration = SnackbarDuration.Short
+                                )
+                            }
                         }
                     }
                 ) {
                     Text("Edit Employee")
                 }
 
-                if (showDialog.value) { // Access showDialog value
+                if (showDialog.value) {
                     AlertDialog(
                         onDismissRequest = { showDialog.value = false },
                         title = { Text("No changes were made.") },
@@ -195,10 +259,7 @@ fun EditEmployeeInfoScreen(
                         }
                     )
                 }
-                CustomSnackbar(snackbarHostState = snackbarHostState)
-
-                // prevent null pointer exception for id string if id is empty
-                employee?.let {
+                employee.let {
                     topBarViewModel.updateTopBarText("Employee ID " + it.id.toString())
                 }
             }
@@ -206,12 +267,17 @@ fun EditEmployeeInfoScreen(
     } else {
         Log.e("EditEmployeeInfoScreen", "Employee not found")
     }
+    CustomSnackbar(snackbarHostState = snackbarHostState)
 }
 
 @Composable
-fun DataFields(viewModel: EmployeeViewModel, employee: Employee, onEmployeeChange: (Employee) -> Unit) {
-
-//    var showDialog by remember { mutableStateOf(false) }
+fun DataFields(
+    viewModel: EmployeeViewModel,
+    employee: Employee,
+    onEmployeeChange: (Employee) -> Unit
+) {
+    // Create a mutable copy of the employee
+    val updatedEmployee = remember { mutableStateOf(employee.copy()) }
 
     val fields = listOf(
         Field(
@@ -221,12 +287,9 @@ fun DataFields(viewModel: EmployeeViewModel, employee: Employee, onEmployeeChang
             "Enter ID"
         ) { newValue ->
             val newId = (newValue as FieldValue.StringField).value.toIntOrNull()
-            if (newId == null) {
-                // Show an error message or throw an exception
-                throw NumberFormatException("Invalid ID: ${newValue.value}")
-            } else {
-                // Pass the newId directly to the onEmployeeChange lambda function
-                onEmployeeChange(employee.copy(id = newId))
+            if (newId != null) {
+                viewModel.id.intValue = newId
+                viewModel.hasChanges.value = true
             }
         },
         Field(
@@ -236,7 +299,8 @@ fun DataFields(viewModel: EmployeeViewModel, employee: Employee, onEmployeeChang
             "Enter first name"
         ) { newValue ->
             val newFname = (newValue as FieldValue.StringField).value
-            onEmployeeChange(employee.copy(fname = newFname))
+            viewModel.fname.value = newFname
+            viewModel.hasChanges.value = true
         },
         Field(
             "lname",
@@ -245,7 +309,8 @@ fun DataFields(viewModel: EmployeeViewModel, employee: Employee, onEmployeeChang
             "Enter last name"
         ) { newValue ->
             val newLname = (newValue as FieldValue.StringField).value
-            onEmployeeChange(employee.copy(lname = newLname))
+            viewModel.lname.value = newLname
+            viewModel.hasChanges.value = true
         },
         Field(
             "nname",
@@ -254,7 +319,8 @@ fun DataFields(viewModel: EmployeeViewModel, employee: Employee, onEmployeeChang
             "Enter nick name"
         ) { newValue ->
             val newNname = (newValue as FieldValue.StringField).value
-            onEmployeeChange(employee.copy(nname = newNname))
+            viewModel.nname.value = newNname
+            viewModel.hasChanges.value = true
         },
         Field(
             "email",
@@ -262,17 +328,19 @@ fun DataFields(viewModel: EmployeeViewModel, employee: Employee, onEmployeeChang
             "Email",
             "Enter email"
         ) { newValue ->
-            val Email = (newValue as FieldValue.StringField).value
-            onEmployeeChange(employee.copy(email = Email))
+            val newEmail = (newValue as FieldValue.StringField).value
+            viewModel.email.value = newEmail
+            viewModel.hasChanges.value = true
         },
         Field(
             "pnumber",
             FieldValue.StringField(employee.pnumber),
             "Phone Number",
-            "Enter Phone Number"
+            "Enter phone number"
         ) { newValue ->
-            val pNumber = (newValue as FieldValue.StringField).value
-            onEmployeeChange(employee.copy(pnumber = pNumber))
+            val newPNumber = (newValue as FieldValue.StringField).value
+            viewModel.pnumber.value = newPNumber
+            viewModel.hasChanges.value = true
         },
         Field(
             "isActive",
@@ -280,100 +348,89 @@ fun DataFields(viewModel: EmployeeViewModel, employee: Employee, onEmployeeChang
             "Is Active?",
             ""
         ) { newValue ->
-            val isActive = (newValue as FieldValue.BooleanField).value
-            onEmployeeChange(employee.copy(isActive = isActive))
+            val newIsActive = (newValue as FieldValue.BooleanField).value
+            viewModel.isActive.value = newIsActive
+            viewModel.hasChanges.value = true
         },
         Field(
             "isTrainedForOpening",
             FieldValue.BooleanField(employee.opening),
             "Trained for Opening?",
-            "",
+            ""
         ) { newValue ->
-            val opening = (newValue as FieldValue.BooleanField).value
-            onEmployeeChange(employee.copy(opening = opening))
+            val newOpening = (newValue as FieldValue.BooleanField).value
+            viewModel.opening.value = newOpening
+            viewModel.hasChanges.value = true
         },
         Field(
             "isTrainedForClosing",
             FieldValue.BooleanField(employee.closing),
             "Trained for Closing?",
-            "",
+            ""
         ) { newValue ->
-            val closing = (newValue as FieldValue.BooleanField).value
-            onEmployeeChange(employee.copy(closing = closing))
+            val newClosing = (newValue as FieldValue.BooleanField).value
+            viewModel.closing.value = newClosing
+            viewModel.hasChanges.value = true
         }
-        // Add other fields here ?
     )
 
+    LaunchedEffect(updatedEmployee.value) {
+        onEmployeeChange(updatedEmployee.value)
+    }
     LazyColumn {
-        item {
-            Box(modifier = Modifier.fillMaxWidth().padding(top = 16.dp)) { // Add padding to the top
-                Button(
-                    onClick = { /*showDialog = true*/ },
-                    modifier = Modifier.align(Alignment.Center) // Center the button
-                ) {
-                    Text("Edit Availability")
-                }
-            }
-
-            Spacer(modifier = Modifier.height(8.dp)) // space
-        }
-
         items(fields.size) { index ->
             val field = fields[index]
             when (field.initialValue) {
                 is FieldValue.StringField -> {
-                    val text =
-                        remember { mutableStateOf((field.initialValue).value) }
-                    val isError = remember { mutableStateOf(false) }
+                    val text = remember { mutableStateOf((field.initialValue).value) }
 
                     GenericTextField(
                         text = text,
-                        isError = isError,
+                        isError = remember { mutableStateOf(false) },  // No error state
                         label = field.label,
                         placeholder = field.placeholder,
                         onFocusChange = { focusState ->
                             // Handle focus change
+                        },
+                        onValueChange = { newValue ->
+                            text.value = newValue
+                            field.onValueChange(FieldValue.StringField(newValue))
+                            viewModel.hasChanges.value = true
                         }
-                    ) { newValue ->
-                        text.value = newValue
-                        field.onValueChange(FieldValue.StringField(newValue))
-                    }
+                    )
                 }
 
                 is FieldValue.BooleanField -> {
-                    val isChecked =
-                        remember { mutableStateOf((field.initialValue).value) }
+                    val isChecked = remember { mutableStateOf((field.initialValue).value) }
 
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = 16.dp), // Add horizontal padding
+                            .padding(horizontal = 16.dp),
                         horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically // Vertically center the items
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(field.label)
                         Box(
                             modifier = Modifier.padding(4.dp),
-                            contentAlignment = Alignment.Center // Vertically center the Switch
+                            contentAlignment = Alignment.Center
                         ) {
                             Switch(
                                 checked = isChecked.value,
                                 onCheckedChange = { newValue ->
                                     isChecked.value = newValue
-                                    Log.d("Switch", "New Value: $newValue")  // testing
                                     field.onValueChange(FieldValue.BooleanField(newValue))
+                                    viewModel.hasChanges.value = true
                                 }
                             )
                         }
                     }
                 }
-                // force when to be exhaustive ? it works lol
-                else -> {}
             }
         }
-//        if (showDialog) {
-//            MyOverlay(onDismiss = { showDialog = false }) // Replace with your actual overlay composable
     }
+    // Only update the ViewModel when the "Edit Employee" button is clicked
+    onEmployeeChange(updatedEmployee.value)
 }
 
 sealed class FieldValue {
