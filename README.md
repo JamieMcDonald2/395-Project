@@ -76,6 +76,7 @@ https://github.com/macewanCS/w24goldwasser/blob/main/LICENSE
     - New Release Build 'Solaris'
     - Bug Testing - found issues (listed in known issues)
     - Removed 'ID' field from Edit Employee Screen
+    - readded 'edit availability' button
 
     2.99
     - fixed logic on edit employee page to allow more then one field to be edited each edit session (was only updating last field edited in 2.9)
