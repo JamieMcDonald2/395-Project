@@ -12,7 +12,7 @@ Jamie McDonald (JamieMcDonald2)
 
 # Project Name TBD
 
-## Release build "Aurora" v2.99-alpha
+## Release build "Solaris" v3.0-alpha
 
 ### See Release Notes at Bottom
 
@@ -59,6 +59,8 @@ as required!
 
 2.9 - deleted fields repopulate when you scroll away/back, add employee populates with last viewed employee data (as of 2.99)
 
+3.0 - Username is only saved on settings screen if you click outside of box first - click -> logic needed
+
 Other Problems:
 
     - Pulling from repo causes minor syntax errors sometimes - unknown cause (android studio issue - not issue with app)
@@ -69,6 +71,11 @@ Other Problems:
 https://github.com/macewanCS/w24goldwasser/blob/main/LICENSE
 
 ## Release Notes
+
+    3.0
+    - New Release Build 'Solaris'
+    - Bug Testing - found issues (listed in known issues)
+    - Removed 'ID' field from Edit Employee Screen
 
     2.99
     - fixed logic on edit employee page to allow more then one field to be edited each edit session (was only updating last field edited in 2.9)
