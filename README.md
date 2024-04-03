@@ -12,7 +12,7 @@ Jamie McDonald (JamieMcDonald2)
 
 # Project Name TBD
 
-## Release build "Aurora" v2.9-alpha
+## Release build "Solaris" v3.0-alpha
 
 ### See Release Notes at Bottom
 
@@ -57,7 +57,9 @@ as required!
 
 2.8 - pressed state activated on weekly calendar (a single day) when app starts - should not be - only sometimes
 
-2.9 - can only change 'closing' or 'opening' toggle each time you visit edit screen, cannot change both in one visit - flawed logic for onclick most likely (should be easy fix)
+2.9 - deleted fields repopulate when you scroll away/back, add employee populates with last viewed employee data (as of 2.99)
+
+3.0 - Username is only saved on settings screen if you click outside of box first - click -> logic needed
 
 Other Problems:
 
@@ -69,6 +71,18 @@ Other Problems:
 https://github.com/macewanCS/w24goldwasser/blob/main/LICENSE
 
 ## Release Notes
+
+    3.0
+    - New Release Build 'Solaris'
+    - Bug Testing - found issues (listed in known issues)
+    - Removed 'ID' field from Edit Employee Screen
+    - readded 'edit availability' button
+
+    2.99
+    - fixed logic on edit employee page to allow more then one field to be edited each edit session (was only updating last field edited in 2.9)
+    - added verification to back button for edit employee (untested on other page fields but might work)
+    - updates to edit employee viewmodel and database to allow for proper verification going forward
+    - removed unnecessary / outdated logic from many items
 
     2.9
     - added more edit employee logic, confirmations and error checking
