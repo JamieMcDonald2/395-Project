@@ -1,0 +1,172 @@
+{
+  "name": "add_employee_fab",
+  "version": 33,
+  "source-key": {
+    "type": "figma",
+    "file": "sjYPI6UptLTQ1tIf73pxSn",
+    "node": "802:16442",
+    "version": "5308941824",
+    "component-id": "3e868d74472db0a7d44ae8e604f69805341e6467"
+  },
+  "default": "Add Employee FAB",
+  "documentation": "Add Employee FAB v1.00",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "group",
+        "id": "Add FAB"
+      },
+      {
+        "type": "group",
+        "id": "state-layer"
+      },
+      {
+        "type": "group",
+        "id": "icon"
+      },
+      {
+        "type": "group",
+        "id": "Icons/add_24px"
+      },
+      {
+        "type": "vector",
+        "id": "Plus_icon"
+      }
+    ],
+    "modes": {
+      "Add Employee FAB": {
+        "rules": [
+          {
+            "id": "top_level",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "shrink"
+              },
+              "height-constraints": {
+                "sizing-mode": "shrink"
+              }
+            },
+            "arrangement": "row",
+            "main-axis-align": "start",
+            "cross-axis-align": "start",
+            "children": [
+              "Add FAB"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "Add FAB",
+            "border-radius": 30.0,
+            "drop-shadow": {
+              "color": {
+                "alpha": 0.14901960784313725,
+                "hue": 0.0,
+                "saturation": 0.0,
+                "value": 0.0
+              },
+              "blur": 8.0,
+              "offset-x": 0.0,
+              "offset-y": 4.0,
+              "spread": 3.0,
+              "blend-mode": "normal"
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "shrink"
+              },
+              "height-constraints": {
+                "sizing-mode": "shrink"
+              }
+            },
+            "arrangement": "row",
+            "children": [
+              "state-layer"
+            ],
+            "background-color": {
+              "alpha": 1.0,
+              "hue": 276.0000000000001,
+              "saturation": 0.04166666666666664,
+              "value": 0.9411764705882353
+            },
+            "clip-content": false
+          },
+          {
+            "id": "state-layer",
+            "padding": 16.0,
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "shrink"
+              },
+              "height-constraints": {
+                "sizing-mode": "shrink"
+              }
+            },
+            "arrangement": "row",
+            "children": [
+              "icon"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "icon",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 24.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 24.0
+              }
+            },
+            "is-structured": false,
+            "children": [
+              "Icons/add_24px"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "Icons/add_24px",
+            "is-structured": false,
+            "children": [
+              "Plus_icon"
+            ],
+            "clip-content": false
+          },
+          {
+            "id": "Plus_icon",
+            "margin": 4.0,
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              }
+            },
+            "vector-content": "plus_icon.svg"
+          }
+        ]
+      }
+    }
+  },
+  "previews": [
+    {
+      "design": "Add Employee FAB",
+      "size": {
+        "width": 56.0,
+        "height": 56.0
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}
