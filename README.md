@@ -12,7 +12,7 @@ Jamie McDonald (JamieMcDonald2)
 
 # Project Name TBD
 
-## Release build "Solaris" v3.0-alpha
+## Release build "Solaris" v3.1-alpha
 
 ### See Release Notes at Bottom
 
@@ -71,6 +71,9 @@ Other Problems:
 https://github.com/macewanCS/w24goldwasser/blob/main/LICENSE
 
 ## Release Notes
+
+    3.1
+    - Continued and completed visual aspect of schedule screens
 
     3.0
     - New Release Build 'Solaris'
