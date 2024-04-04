@@ -217,17 +217,16 @@ fun ScheduleWeekDay(date: String?, viewModel: EmployeeViewModel) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 // Switch for toggling additional dropdowns
+                Text(
+                    text = "Busy Day?",
+                    modifier = Modifier.align(Alignment.CenterVertically).padding(start = 8.dp)
+                )
                 Switch(
                     checked = toggleState,
                     onCheckedChange = {
                         toggleState = it
-                        showAdditionalDropdowns = it // Toggle additional dropdowns visibility
                     },
-                    modifier = Modifier.padding(horizontal = 8.dp)
-                )
-                Text(
-                    text = "Busy Day?",
-                    modifier = Modifier.align(Alignment.CenterVertically).padding(start = 8.dp)
+                    modifier = Modifier.padding(horizontal = 240.dp)
                 )
             }
 
