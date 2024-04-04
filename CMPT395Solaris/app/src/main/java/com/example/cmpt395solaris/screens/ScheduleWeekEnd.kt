@@ -151,16 +151,16 @@ fun ScheduleWeekEnd(date: String?, viewModel: EmployeeViewModel) {
                 modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
+                Text(
+                    text = "Busy Day?",
+                    modifier = Modifier.align(Alignment.CenterVertically).padding(start = 8.dp)
+                )
                 Switch(
                     checked = toggleState,
                     onCheckedChange = {
                         toggleState = it
                     },
-                    modifier = Modifier.padding(horizontal = 8.dp)
-                )
-                Text(
-                    text = "Busy Day?",
-                    modifier = Modifier.align(Alignment.CenterVertically).padding(start = 8.dp)
+                    modifier = Modifier.padding(horizontal = 240.dp)
                 )
             }
 
