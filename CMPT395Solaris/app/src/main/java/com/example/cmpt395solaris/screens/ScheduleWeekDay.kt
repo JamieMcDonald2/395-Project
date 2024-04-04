@@ -7,6 +7,7 @@
 
 package com.example.cmpt395solaris.screens
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -20,9 +21,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.Button
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
@@ -82,20 +85,27 @@ fun ScheduleWeekDay(date: String?, viewModel: EmployeeViewModel) {
     // State to manage visibility of additional DropdownMenus
     var showAdditionalDropdowns by remember { mutableStateOf(false) }
 
-    // Column for displaying the selected date
+// Column for displaying the selected date
     Column(
-        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
+        modifier = Modifier.fillMaxWidth()
+            .padding(vertical = 0.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(
-            text = dateString,
-            style = TextStyle(fontSize = 25.sp, fontWeight = FontWeight.Bold)
-        )
+        Box(contentAlignment = Alignment.Center) {
+            Text(
+                text = dateString,
+                style = TextStyle(fontSize = 22.sp, fontWeight = FontWeight.Bold)
+
+            )
+            Spacer(modifier = Modifier.height(40.dp))
+
+            Divider(color = Color.Black, thickness = 1.dp, modifier = Modifier.align(Alignment.BottomCenter))
+        }
     }
 
     // Adding space below the date
-    Spacer(modifier = Modifier.height(20.dp))
+    //Spacer(modifier = Modifier.height(10.dp))
 
 
     LazyColumn(
@@ -114,7 +124,7 @@ fun ScheduleWeekDay(date: String?, viewModel: EmployeeViewModel) {
             )
 
             // Adding padding between "Morning Shift" text and dropdowns
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(10.dp))
 
             // Column for dropdowns related to "Morning Shift"
             Column(
@@ -130,7 +140,7 @@ fun ScheduleWeekDay(date: String?, viewModel: EmployeeViewModel) {
                     { selectedEmployee1 = it },
                     { isExpanded1 = !isExpanded1 }
                 )
-
+                Spacer(modifier = Modifier.height(10.dp))
                 // Dropdown 2 for "Morning Shift"
                 DropdownMenu(
                     selectedEmployee2,
@@ -140,7 +150,7 @@ fun ScheduleWeekDay(date: String?, viewModel: EmployeeViewModel) {
                     { selectedEmployee2 = it },
                     { isExpanded2 = !isExpanded2 }
                 )
-
+                Spacer(modifier = Modifier.height(10.dp))
                 // Additional dropdowns for "Morning Shift" if toggleState is true
                 if (toggleState) {
                     // Dropdown 3 for "Morning Shift"
@@ -166,7 +176,7 @@ fun ScheduleWeekDay(date: String?, viewModel: EmployeeViewModel) {
             )
 
             // Adding space between "Morning Shift" and "Afternoon Shift"
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(10.dp))
 
             // Column for dropdowns related to "Afternoon Shift"
             Column(
@@ -182,7 +192,7 @@ fun ScheduleWeekDay(date: String?, viewModel: EmployeeViewModel) {
                     { selectedEmployee4 = it },
                     { isExpanded4 = !isExpanded4 }
                 )
-
+                Spacer(modifier = Modifier.height(10.dp))
                 // Dropdown 5 for "Afternoon Shift"
                 DropdownMenu(
                     selectedEmployee5,
@@ -192,11 +202,11 @@ fun ScheduleWeekDay(date: String?, viewModel: EmployeeViewModel) {
                     { selectedEmployee5 = it },
                     { isExpanded5 = !isExpanded5 }
                 )
-
+                Spacer(modifier = Modifier.height(10.dp))
                 // Additional dropdowns for "Afternoon Shift" if toggleState is true
                 if (toggleState) {
                     // Dropdown 6 for "Afternoon Shift"
-                    DropdownMenu2(
+                    DropdownMenu(
                         selectedEmployee6,
                         isExpanded6,
                         options6,
@@ -207,7 +217,7 @@ fun ScheduleWeekDay(date: String?, viewModel: EmployeeViewModel) {
                 }
             }
 
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(10.dp))
         }
 
         // Confirmation section
@@ -272,11 +282,11 @@ fun DropdownMenu(
     onEmployeeSelected: (Employee?) -> Unit,
     onDropdownClicked: () -> Unit
 ) {
-    // State variable to manage border size for the icon (optional)
-    var iconBorder by remember { mutableStateOf(0.dp) } // ?
+    val borderColor = Color.LightGray // Light gray border color
+    val backgroundColor = Color.White
+    val textColor = Color.Black
 
     Column {
-        // Row representing the dropdown menu
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
@@ -284,25 +294,26 @@ fun DropdownMenu(
                 .padding(horizontal = 15.dp)
                 .fillMaxWidth()
                 .height(50.dp)
-                .background(Color.White)
-                .border(1.dp, Color.Gray)
+                .background(backgroundColor)
+                .border(BorderStroke(1.dp, borderColor), shape = RoundedCornerShape(8.dp))
         ) {
-            // Text displaying the selected employee or "Select Employee" if none selected
             Text(
                 text = selectedEmployee?.let { "${it.fname} ${it.lname}" } ?: "Select Employee",
                 modifier = Modifier.weight(1f).padding(start = 16.dp),
-                color = if (selectedEmployee == null) Color.LightGray else Color.Black
+                color = if (selectedEmployee == null) Color.Gray else Color.Black,
+                style = TextStyle(
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Normal,
+                )
             )
-            // Dropdown icon
             Icon(
                 imageVector = Icons.Default.ArrowDropDown,
                 contentDescription = "Dropdown Icon",
+                tint = Color.Black,
                 modifier = Modifier.padding(16.dp)
-                //.border(iconBorder, Color.Black) This is optional, I don't know if I like it
             )
         }
 
-        // If dropdown is expanded, display the list of options
         if (isExpanded) {
             Column(
                 modifier = Modifier.fillMaxWidth()
@@ -310,12 +321,11 @@ fun DropdownMenu(
                 options.forEach { option ->
                     Box(
                         modifier = Modifier
-                            .background(Color.White)
-                            .border(1.dp, Color.Gray)
+                            .background(backgroundColor)
+                            .border(BorderStroke(1.dp, borderColor), shape = RoundedCornerShape(8.dp))
                             .fillMaxWidth()
                             .padding(horizontal = 16.dp, vertical = 8.dp)
                             .clickable {
-                                // Find the corresponding Employee based on the selected name
                                 val selectedEmployee = employeeOptions.find { employee ->
                                     "${employee.fname} ${employee.lname}" == option
                                 }
@@ -325,7 +335,11 @@ fun DropdownMenu(
                     ) {
                         Text(
                             text = option,
-                            modifier = Modifier.padding(8.dp)
+                            modifier = Modifier.padding(8.dp),
+                            style = TextStyle(
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.Normal,
+                            )
                         )
                     }
                 }
@@ -333,7 +347,6 @@ fun DropdownMenu(
         }
     }
 }
-
 
 fun parseDate(dateString: String?): Date? {
     // Check if the input string is null
@@ -346,13 +359,39 @@ fun parseDate(dateString: String?): Date? {
 }
 
 fun formatDate2(date: Date?): String {
-    // Check if the input date is null
     if (date == null) return "" // Return empty string if date is null
-    // Create a date format with the pattern "yyyy-MM-dd" and the default locale, can change this
-    // later if date needs to be in different format
-    val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-    // Format the input date and return the formatted date string
-    return format.format(date)
+
+    // Format day of the week (e.g., Monday)
+    val dayOfWeekFormat = SimpleDateFormat("EEEE, ", Locale.getDefault())
+    val dayOfWeek = dayOfWeekFormat.format(date)
+
+    // Format month (e.g., March)
+    val monthFormat = SimpleDateFormat("MMMM", Locale.getDefault())
+    val month = monthFormat.format(date)
+
+    // Format day of the month with ordinal indicator (e.g., 13th)
+    val dayOfMonth = SimpleDateFormat("dd", Locale.getDefault()).format(date)
+    val dayOfMonthOrdinal = getDayOfMonthWithOrdinal(dayOfMonth.toInt())
+
+    // Format year (e.g., 2024)
+    val yearFormat = SimpleDateFormat("yyyy", Locale.getDefault())
+    val year = yearFormat.format(date)
+
+    // Construct the formatted date string with year
+    return "$dayOfWeek $month $dayOfMonthOrdinal $year"
+}
+
+// Function to get ordinal indicator for day of month
+private fun getDayOfMonthWithOrdinal(day: Int): String {
+    return when (day) {
+        in 11..13 -> "${day}th"
+        else -> when (day % 10) {
+            1 -> "${day}st"
+            2 -> "${day}nd"
+            3 -> "${day}rd"
+            else -> "${day}th"
+        }
+    }
 }
 
 

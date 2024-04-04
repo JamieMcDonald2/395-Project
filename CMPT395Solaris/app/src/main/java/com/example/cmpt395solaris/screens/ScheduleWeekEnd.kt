@@ -1,12 +1,13 @@
 
 /**
  *   Schedule Employee page
- *   v1.00
+ *   v2.03
  *
  */
 
 package com.example.cmpt395solaris.screens
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -20,9 +21,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.Button
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
@@ -73,14 +76,21 @@ fun ScheduleWeekEnd(date: String?, viewModel: EmployeeViewModel) {
 
     // Column for displaying the selected date
     Column(
-        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
+        modifier = Modifier.fillMaxWidth()
+            .padding(vertical = 0.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(
-            text = dateString,
-            style = TextStyle(fontSize = 25.sp, fontWeight = FontWeight.Bold)
-        )
+        Box(contentAlignment = Alignment.Center) {
+            Text(
+                text = dateString,
+                style = TextStyle(fontSize = 22.sp, fontWeight = FontWeight.Bold)
+                // No need to specify font here to use the default font
+            )
+            Spacer(modifier = Modifier.height(40.dp))
+
+            Divider(color = Color.Black, thickness = 1.dp, modifier = Modifier.align(Alignment.BottomCenter))
+        }
     }
 
     // Adding space below the date
@@ -102,7 +112,7 @@ fun ScheduleWeekEnd(date: String?, viewModel: EmployeeViewModel) {
             )
 
             // Adding space between shift text and dropdown menus
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(10.dp))
 
             // Column for dropdown menus
             Column(
@@ -118,7 +128,7 @@ fun ScheduleWeekEnd(date: String?, viewModel: EmployeeViewModel) {
                     { selectedEmployee1 = it },
                     { isExpanded1 = !isExpanded1 }
                 )
-
+                Spacer(modifier = Modifier.height(10.dp))
                 // Dropdown 2
                 DropdownMenu2(
                     selectedEmployee2,
@@ -128,7 +138,7 @@ fun ScheduleWeekEnd(date: String?, viewModel: EmployeeViewModel) {
                     { selectedEmployee2 = it },
                     { isExpanded2 = !isExpanded2 }
                 )
-
+                Spacer(modifier = Modifier.height(10.dp))
                 // Dropdown 3 if toggleState is true
                 if (toggleState) {
                     DropdownMenu2(
@@ -142,7 +152,7 @@ fun ScheduleWeekEnd(date: String?, viewModel: EmployeeViewModel) {
                 }
             }
             // Adding space at the bottom
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(10.dp))
         }
 
         // Item for toggling additional dropdown menus
@@ -196,17 +206,19 @@ fun ScheduleWeekEnd(date: String?, viewModel: EmployeeViewModel) {
  * @param onEmployeeSelected Callback function to handle selection of an employee.
  * @param onDropdownClicked Callback function to handle dropdown click.
  */
+
 @Composable
 fun DropdownMenu2(
     selectedEmployee: Employee?,
     isExpanded: Boolean,
     options: List<String>,
-    employeeOptions: List<Employee>, // List of Employee objects
+    employeeOptions: List<Employee>,
     onEmployeeSelected: (Employee?) -> Unit,
     onDropdownClicked: () -> Unit
 ) {
-    // State variable to manage border size for the icon (optional)
-    var iconBorder by remember { mutableStateOf(0.dp) }
+    val borderColor = Color.LightGray // Light gray border color
+    val backgroundColor = Color.White
+    val textColor = Color.Black
 
     Column {
         Row(
@@ -216,37 +228,38 @@ fun DropdownMenu2(
                 .padding(horizontal = 15.dp)
                 .fillMaxWidth()
                 .height(50.dp)
-                .background(Color.White)
-                .border(1.dp, Color.Gray)
+                .background(backgroundColor)
+                .border(BorderStroke(1.dp, borderColor), shape = RoundedCornerShape(8.dp))
         ) {
             Text(
                 text = selectedEmployee?.let { "${it.fname} ${it.lname}" } ?: "Select Employee",
                 modifier = Modifier.weight(1f).padding(start = 16.dp),
-                color = if (selectedEmployee == null) Color.LightGray else Color.Black
+                color = if (selectedEmployee == null) Color.Gray else Color.Black,
+                style = TextStyle(
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Normal,
+                )
             )
             Icon(
                 imageVector = Icons.Default.ArrowDropDown,
                 contentDescription = "Dropdown Icon",
+                tint = Color.Black,
                 modifier = Modifier.padding(16.dp)
-                //.border(iconBorder, Color.Black) This is optional, I don't know if I like it
             )
         }
 
-        // If dropdown is clicked, display the list of options
         if (isExpanded) {
             Column(
-                modifier = Modifier
-                    .fillMaxWidth()
+                modifier = Modifier.fillMaxWidth()
             ) {
                 options.forEach { option ->
                     Box(
                         modifier = Modifier
-                            .background(Color.White)
-                            .border(1.dp, Color.Gray)
+                            .background(backgroundColor)
+                            .border(BorderStroke(1.dp, borderColor), shape = RoundedCornerShape(8.dp))
                             .fillMaxWidth()
                             .padding(horizontal = 16.dp, vertical = 8.dp)
                             .clickable {
-                                // Find the corresponding Employee object based on the selected name
                                 val selectedEmployee = employeeOptions.find { employee ->
                                     "${employee.fname} ${employee.lname}" == option
                                 }
@@ -256,7 +269,11 @@ fun DropdownMenu2(
                     ) {
                         Text(
                             text = option,
-                            modifier = Modifier.padding(8.dp)
+                            modifier = Modifier.padding(8.dp),
+                            style = TextStyle(
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.Normal,
+                            )
                         )
                     }
                 }
@@ -264,8 +281,6 @@ fun DropdownMenu2(
         }
     }
 }
-
-
 
 
 fun parseDate2(dateString: String?): Date? {
@@ -279,15 +294,38 @@ fun parseDate2(dateString: String?): Date? {
 }
 
 fun formatDate3(date: Date?): String {
-    // Check if the input date is null
     if (date == null) return "" // Return empty string if date is null
-    // Create a date format with the pattern "yyyy-MM-dd" and the default locale, can change this
-    // later if date needs to be in different format
-    val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-    // Format the input date and return the formatted date string
-    return format.format(date)
+
+    // Format day of the week (e.g., Monday)
+    val dayOfWeekFormat = SimpleDateFormat("EEEE, ", Locale.getDefault())
+    val dayOfWeek = dayOfWeekFormat.format(date)
+
+    // Format month (e.g., March)
+    val monthFormat = SimpleDateFormat("MMMM", Locale.getDefault())
+    val month = monthFormat.format(date)
+
+    // Format day of the month with ordinal indicator (e.g., 13th)
+    val dayOfMonth = SimpleDateFormat("dd", Locale.getDefault()).format(date)
+    val dayOfMonthOrdinal = getDayOfMonthWithOrdinal(dayOfMonth.toInt())
+
+    // Format year (e.g., 2024)
+    val yearFormat = SimpleDateFormat("yyyy", Locale.getDefault())
+    val year = yearFormat.format(date)
+    return "$dayOfWeek $month $dayOfMonthOrdinal $year"
 }
 
+// Function to get ordinal indicator for day of month
+private fun getDayOfMonthWithOrdinal(day: Int): String {
+    return when (day) {
+        in 11..13 -> "${day}th"
+        else -> when (day % 10) {
+            1 -> "${day}st"
+            2 -> "${day}nd"
+            3 -> "${day}rd"
+            else -> "${day}th"
+        }
+    }
+}
 
 
 
