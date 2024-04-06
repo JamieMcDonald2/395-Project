@@ -57,6 +57,8 @@ class EmployeeViewModel(application: Application) : AndroidViewModel(application
     val opening = mutableStateOf(false)
     val closing = mutableStateOf(false)
 
+    val lastID = mutableIntStateOf(0)
+
     val originalEmployee = mutableStateOf<Employee?>(null)
 
     private val dbHelper = DatabaseHelper(application)
