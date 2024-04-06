@@ -61,6 +61,7 @@ fun GenericTextField(
         onValueChange = { newText ->
             Log.d("TextField", "New text: $newText")   // testing
             textFieldValue.value = newText
+            onValueChange(newText) // Call onValueChange every time the text changes
         },
         label = { Text(label) },
         placeholder = { Text(placeholder) },
@@ -88,10 +89,6 @@ fun GenericTextField(
             .focusRequester(focusRequester)
             .onFocusChanged { state ->
                 isFocused.value = state.isFocused
-                if (!state.isFocused) {
-                    // Update the ViewModel when the text field loses focus
-                    onValueChange(textFieldValue.value)
-                }
                 onFocusChange(state.isFocused)
             }
             .padding(16.dp)

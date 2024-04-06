@@ -12,7 +12,7 @@ Jamie McDonald (JamieMcDonald2)
 
 # Project Name TBD
 
-## Release build "Solaris" v3.0-alpha
+## Release build "Solaris" v3.2-alpha
 
 ### See Release Notes at Bottom
 
@@ -57,10 +57,6 @@ as required!
 
 2.8 - pressed state activated on weekly calendar (a single day) when app starts - should not be - only sometimes
 
-2.9 - deleted fields repopulate when you scroll away/back, add employee populates with last viewed employee data (as of 2.99)
-
-3.0 - Username is only saved on settings screen if you click outside of box first - click -> logic needed
-
 Other Problems:
 
     - Pulling from repo causes minor syntax errors sometimes - unknown cause (android studio issue - not issue with app)
@@ -71,6 +67,11 @@ Other Problems:
 https://github.com/macewanCS/w24goldwasser/blob/main/LICENSE
 
 ## Release Notes
+
+    3.2
+    - Added textfield logic for remaining screens that didn't have it
+    - rewrote logic for textfields on edit employee screen so that deleted fields are maintained when scrolling
+    - fixed issue with settings text field/user name (wasn't saving unless you clicked outside the box)
 
     3.0
     - New Release Build 'Solaris'
