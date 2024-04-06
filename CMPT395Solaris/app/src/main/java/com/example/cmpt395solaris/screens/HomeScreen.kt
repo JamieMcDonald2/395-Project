@@ -25,15 +25,27 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.cmpt395solaris.ComponentFunctions.ThisWeek
 import com.example.cmpt395solaris.database.TopBarViewModel
 import com.example.cmpt395solaris.database.settings.SettingsViewModel
 
 @Composable
 fun HomeScreen(navController: NavHostController, topBarViewModel: TopBarViewModel, settingsViewModel: SettingsViewModel) {
+
+    val navBackStackEntry = navController.currentBackStackEntryAsState().value
+    val currentRoute = navBackStackEntry?.destination?.route
+
+    LaunchedEffect(key1 = currentRoute) {
+        if (currentRoute == "home") {
+            topBarViewModel.updateTopBarText("Hi, ${settingsViewModel.username.value}")
+        }
+    }
+
     Box(modifier = Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier.fillMaxSize()
@@ -46,6 +58,5 @@ fun HomeScreen(navController: NavHostController, topBarViewModel: TopBarViewMode
             text = "Middle of the screen",
             modifier = Modifier.align(Alignment.Center)
         )
-        topBarViewModel.updateTopBarText("Hi, ${settingsViewModel.username.value}")
     }
 }

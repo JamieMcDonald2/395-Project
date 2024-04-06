@@ -1,5 +1,8 @@
 /**
- *  Employee Main page v1.05
+ *  Employee Main page v1.06
+ *
+ *  1.06
+ *  - added top bar view model for text item display
  *
  *  1.05:
  *  - ability to sort by inactive/active as well as alphabetical
@@ -48,11 +51,14 @@ import androidx.navigation.NavHostController
 import com.example.cmpt395solaris.ComponentFunctions.AddEmployeeFab
 import com.example.cmpt395solaris.ComponentFunctions.Divider
 import com.example.cmpt395solaris.ComponentFunctions.EmployeeListItem
+import com.example.cmpt395solaris.database.TopBarViewModel
 import com.example.cmpt395solaris.database.employees.EmployeeViewModel
 import com.example.cmpt395solaris.searchbar.SearchBar
 
 @Composable
-fun EmployeeMain(navController: NavHostController, viewModel: EmployeeViewModel) {
+fun EmployeeMain(navController: NavHostController, viewModel: EmployeeViewModel, topBarViewModel: TopBarViewModel) {
+
+    topBarViewModel.updateTopBarText("Employees")
     // This effect will run every time the composable is recomposed
     LaunchedEffect(Unit) {
         viewModel.refreshEmployees()

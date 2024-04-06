@@ -260,82 +260,90 @@ fun DataFields(
 //        },
         Field(
             "fname",
-            FieldValue.StringField(employee.fname),
+            FieldValue.StringField(updatedEmployee.value.fname),
             "First Name",
             "Enter first name"
         ) { newValue ->
             val newFname = (newValue as FieldValue.StringField).value
             viewModel.fname.value = newFname
+            updatedEmployee.value = updatedEmployee.value.copy(fname = newFname)
             viewModel.hasChanges.value = true
         },
         Field(
             "lname",
-            FieldValue.StringField(employee.lname),
+            FieldValue.StringField(updatedEmployee.value.lname),
             "Last Name",
             "Enter last name"
         ) { newValue ->
             val newLname = (newValue as FieldValue.StringField).value
             viewModel.lname.value = newLname
+            updatedEmployee.value = updatedEmployee.value.copy(lname = newLname)
             viewModel.hasChanges.value = true
         },
         Field(
             "nname",
-            FieldValue.StringField(employee.nname),
+            FieldValue.StringField(updatedEmployee.value.nname),
             "Nick Name",
             "Enter nick name"
         ) { newValue ->
             val newNname = (newValue as FieldValue.StringField).value
             viewModel.nname.value = newNname
+            updatedEmployee.value = updatedEmployee.value.copy(nname = newNname)
             viewModel.hasChanges.value = true
         },
         Field(
             "email",
-            FieldValue.StringField(employee.email),
+            FieldValue.StringField(updatedEmployee.value.email),
             "Email",
             "Enter email"
         ) { newValue ->
             val newEmail = (newValue as FieldValue.StringField).value
             viewModel.email.value = newEmail
+            updatedEmployee.value = updatedEmployee.value.copy(email = newEmail)
             viewModel.hasChanges.value = true
         },
         Field(
             "pnumber",
-            FieldValue.StringField(employee.pnumber),
+            FieldValue.StringField(updatedEmployee.value.pnumber),
             "Phone Number",
             "Enter phone number"
         ) { newValue ->
             val newPNumber = (newValue as FieldValue.StringField).value
             viewModel.pnumber.value = newPNumber
+            updatedEmployee.value = updatedEmployee.value.copy(pnumber = newPNumber)
             viewModel.hasChanges.value = true
         },
         Field(
             "isActive",
-            FieldValue.BooleanField(employee.isActive),
+            FieldValue.BooleanField(updatedEmployee.value.isActive),
             "Is Active?",
             ""
         ) { newValue ->
             val newIsActive = (newValue as FieldValue.BooleanField).value
             viewModel.isActive.value = newIsActive
+            updatedEmployee.value = updatedEmployee.value.copy(isActive = newIsActive)
             viewModel.hasChanges.value = true
         },
         Field(
             "isTrainedForOpening",
-            FieldValue.BooleanField(employee.opening),
+            FieldValue.BooleanField(updatedEmployee.value.opening),
             "Trained for Opening?",
             ""
         ) { newValue ->
             val newOpening = (newValue as FieldValue.BooleanField).value
             viewModel.opening.value = newOpening
+            updatedEmployee.value = updatedEmployee.value.copy(opening = newOpening)
             viewModel.hasChanges.value = true
         },
         Field(
             "isTrainedForClosing",
-            FieldValue.BooleanField(employee.closing),
+            FieldValue.BooleanField(updatedEmployee.value.closing),
             "Trained for Closing?",
             ""
         ) { newValue ->
             val newClosing = (newValue as FieldValue.BooleanField).value
             viewModel.closing.value = newClosing
+            updatedEmployee.value = updatedEmployee.value.copy(closing = newClosing)
             viewModel.hasChanges.value = true
         }
     )

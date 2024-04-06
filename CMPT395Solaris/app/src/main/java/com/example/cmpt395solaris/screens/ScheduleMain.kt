@@ -1,6 +1,9 @@
 /**
  *   Schedule Main page
- *   v1.01
+ *   v1.02
+ *
+ *   v1.02
+ *   Added top bar text field logic
  *
  *   v1.01
  *   Added navigation to the dates
@@ -31,6 +34,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.cmpt395solaris.database.TopBarViewModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -39,7 +43,10 @@ import java.util.Locale
 
 @ExperimentalMaterial3Api
 @Composable
-fun ScheduleMain(navController: NavController) {
+fun ScheduleMain(navController: NavController, topBarViewModel: TopBarViewModel) {
+
+    topBarViewModel.updateTopBarText("Scheduling")
+
     val selectedDate = remember { mutableStateOf<Date?>(null) }
     val datePickerState = rememberDatePickerState()
 
