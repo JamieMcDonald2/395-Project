@@ -12,7 +12,7 @@ Jamie McDonald (JamieMcDonald2)
 
 # Project Name TBD
 
-## Release build "Solaris" v3.2-alpha
+## Release build "Solaris" v3.3-alpha
 
 ### See Release Notes at Bottom
 
