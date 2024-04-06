@@ -373,12 +373,24 @@ fun AddEmployeeButton(
                     closing = viewModel.closing.value
                 )
 
-                if (viewModel.validateFields() && viewModel.isValidEmail(viewModel.email.value) && viewModel.isValidPhoneNumber(viewModel.pnumber.value)) {
+                        //
+//
+                if (viewModel.validateFields() &&  viewModel.isValidPhoneNumber(viewModel.pnumber.value) && viewModel.isValidEmail(viewModel.email.value)) {
                     // If the fields are valid, check if any changes were made
                     if (viewModel.originalEmployee.value != currentEmployee) {
                         // If they are different, update the employee info in the ViewModel and the database
-                        viewModel.updateEmployee(currentEmployee)
-                        viewModel.updateEmployeeInfo()
+                        viewModel.addEmployee(
+                            viewModel.id.intValue,
+                            viewModel.fname.value,
+                            viewModel.lname.value,
+                            viewModel.nname.value,
+                            viewModel.email.value,
+                            viewModel.pnumber.value,
+                            viewModel.isActive.value,
+                            viewModel.opening.value,
+                            viewModel.closing.value
+                        )
+//                        viewModel.updateEmployeeInfo()
                         viewModel.originalEmployee.value = currentEmployee.copy()
 
                         // Show a snackbar message and navigate back

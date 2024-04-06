@@ -186,8 +186,9 @@ class EmployeeViewModel(application: Application) : AndroidViewModel(application
             return false
         }
 
-        val phoneRegex = "^[+]?[0-9]{10,15}$".toRegex()
+        val phoneRegex = "^[+]?[0-9]{9,15}$".toRegex()
         val cleanedNumber = pNumber.replace("[^\\d.]".toRegex(), "")
+        Log.d("isValidPhoneNumber1", "Cleaned phone number: $cleanedNumber")
         val isPhoneNumberValid = cleanedNumber.matches(phoneRegex)
 
 //        Log.d("isValidPhoneNumber2", "isPhoneNumberValid: $isPhoneNumberValid for number: $cleanedNumber") // testing
