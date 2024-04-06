@@ -390,6 +390,8 @@ fun AddEmployeeButton(
                             viewModel.opening.value,
                             viewModel.closing.value
                         )
+                        //update the latest id added
+                        viewModel.lastID.intValue = viewModel.id.intValue
 //                        viewModel.updateEmployeeInfo()
                         viewModel.originalEmployee.value = currentEmployee.copy()
 
