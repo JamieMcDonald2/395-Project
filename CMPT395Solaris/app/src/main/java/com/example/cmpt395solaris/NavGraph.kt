@@ -67,7 +67,7 @@ fun Navigation(navController: NavHostController, employeeViewModel: EmployeeView
                     animationSpec = tween(500)
                 )
             }) {
-            EmployeeMain(navController, employeeViewModel)
+            EmployeeMain(navController, employeeViewModel, topBarViewModel)
         }
         //add employee screen
         composable(
@@ -78,7 +78,7 @@ fun Navigation(navController: NavHostController, employeeViewModel: EmployeeView
                     animationSpec = tween(500)
                 )
             }) {
-            AddEmployeeScreen(employeeViewModel)
+            AddEmployeeScreen(employeeViewModel, topBarViewModel)
         }
         // edit employee info screen - does not transition properly - known issue with android studio
         composable(
@@ -127,7 +127,7 @@ fun Navigation(navController: NavHostController, employeeViewModel: EmployeeView
                     animationSpec = tween(500)
                 )
             }) {
-            ScheduleMain(navController)
+            ScheduleMain(navController, topBarViewModel)
         }
         //settings page
         composable(
@@ -138,7 +138,7 @@ fun Navigation(navController: NavHostController, employeeViewModel: EmployeeView
                     animationSpec = tween(500)
                 )
             }) {
-            SettingsMain(settingsViewModel)
+            SettingsMain(settingsViewModel, navController, topBarViewModel)
         }
         //schedule employee page
         composable(

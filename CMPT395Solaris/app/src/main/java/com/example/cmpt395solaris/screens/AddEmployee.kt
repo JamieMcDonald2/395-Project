@@ -1,5 +1,8 @@
 /**
- * Add employee Screen v1.11
+ * Add employee Screen v1.12
+ *
+ *  1.12
+ *  - added topbar view model for text display
  *
  *  1.11
  *  - add id field / fields for button on click
@@ -75,12 +78,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.cmpt395solaris.ComponentFunctions.CustomSnackbar
 import com.example.cmpt395solaris.ComponentFunctions.GenericTextField
+import com.example.cmpt395solaris.database.TopBarViewModel
 import com.example.cmpt395solaris.database.employees.AddEmployeeTesting
 import com.example.cmpt395solaris.database.employees.EmployeeViewModel
 import kotlinx.coroutines.launch
 
 @Composable
-fun AddEmployeeScreen(viewModel: EmployeeViewModel) {  // we can move the formwrapper back inside after testing
+fun AddEmployeeScreen(viewModel: EmployeeViewModel, topBarViewModel: TopBarViewModel) {  // we can move the formwrapper back inside after testing
+
+    topBarViewModel.updateTopBarText("Add Employee")
+
     val addEmployeeTesting = AddEmployeeTesting()
 
     LaunchedEffect(Unit) {
@@ -194,10 +201,10 @@ fun FormWrapper(viewModel: EmployeeViewModel) {
             ) {
                 Button(
                     onClick = {
-                        viewModel.id.value = viewModel.idString.value.toInt()
+                        viewModel.id.intValue = viewModel.idString.value.toInt()
                         if (viewModel.validateFields() && viewModel.isValidEmail(viewModel.email.value) && viewModel.isValidPhoneNumber(viewModel.pnumber.value)) {
                             viewModel.addEmployee(
-                                id = viewModel.id.value,
+                                id = viewModel.id.intValue,
                                 fname = viewModel.fname.value,
                                 lname = viewModel.lname.value,
                                 nname = viewModel.nname.value,
@@ -208,7 +215,7 @@ fun FormWrapper(viewModel: EmployeeViewModel) {
                                 closing = viewModel.closing.value
                             )
                             // Clear the fields
-                            viewModel.id.value = 0
+                            viewModel.id.intValue = 0
                             viewModel.idString.value = ""
                             viewModel.fname.value = ""
                             viewModel.lname.value = ""

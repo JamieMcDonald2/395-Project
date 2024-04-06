@@ -74,6 +74,7 @@ class MainActivity : ComponentActivity() {
                 dbHelper.logDatabaseTables()
             }
         }
+        // get rid of this!
         seedDatabase(this) // remove this when testing is over
     }
 }

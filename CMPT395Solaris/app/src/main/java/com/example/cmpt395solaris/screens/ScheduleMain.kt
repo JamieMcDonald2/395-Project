@@ -1,13 +1,17 @@
 /**
  *   Schedule Main page
- *   v3.1
+ *   v1.02
+ *
+ *   v1.02
+ *   Added top bar text field logic
+ *
+ *   v1.01
+ *   Added navigation to the dates
  *
  */
 
 package com.example.cmpt395solaris.screens
 
-import android.widget.DatePicker
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -28,11 +32,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.cmpt395solaris.database.TopBarViewModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -41,7 +43,10 @@ import java.util.Locale
 
 @ExperimentalMaterial3Api
 @Composable
-fun ScheduleMain(navController: NavController) {
+fun ScheduleMain(navController: NavController, topBarViewModel: TopBarViewModel) {
+
+    topBarViewModel.updateTopBarText("Scheduling")
+
     val selectedDate = remember { mutableStateOf<Date?>(null) }
     val datePickerState = rememberDatePickerState()
 
@@ -127,5 +132,3 @@ fun isWeekend(date: Date?): Boolean {
     val dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK)
     return dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY
 }
-
-
