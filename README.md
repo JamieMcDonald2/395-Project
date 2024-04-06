@@ -73,6 +73,9 @@ https://github.com/macewanCS/w24goldwasser/blob/main/LICENSE
     - rewrote logic for textfields on edit employee screen so that deleted fields are maintained when scrolling
     - fixed issue with settings text field/user name (wasn't saving unless you clicked outside the box)
 
+    3.1
+    - Continued and completed visual aspect of schedule screens
+
     3.0
     - New Release Build 'Solaris'
     - Bug Testing - found issues (listed in known issues)
