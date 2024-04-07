@@ -12,7 +12,7 @@ Jamie McDonald (JamieMcDonald2)
 
 # Project Name TBD
 
-## Release build "Solaris" v3.3-alpha
+## Release build "Solaris" v3.4-alpha
 
 ### See Release Notes at Bottom
 
@@ -53,7 +53,7 @@ as required!
 
 2.6 - text field logic is incomplete on most pages (easy to fix)
 
-2.7 - error checking missing on many fields
+2.7 - error checking missing on many fields/buttons - missing on nav bar icons/home icon
 
 2.8 - pressed state activated on weekly calendar (a single day) when app starts - should not be - only sometimes
 
@@ -68,6 +68,9 @@ https://github.com/macewanCS/w24goldwasser/blob/main/LICENSE
 
 ## Release Notes
 
+    3.4
+    - Started availability overlay on edit employee screen
+
     3.3
     - Redesigned the add employee screen to include the same logic as the edit employee screen
     - Changed the phone number validator to accept 9 digit phone numbers, as most phone numbers in our area are 9 digits
@@ -77,6 +80,8 @@ https://github.com/macewanCS/w24goldwasser/blob/main/LICENSE
     - Added textfield logic for remaining screens that didn't have it
     - rewrote logic for textfields on edit employee screen so that deleted fields are maintained when scrolling
     - fixed issue with settings text field/user name (wasn't saving unless you clicked outside the box)
+    3.21
+    - fixed bug with back button logic (showed dialog unnecessarily on the employee main page)
 
     3.1
     - Continued and completed visual aspect of schedule screens

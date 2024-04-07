@@ -1,5 +1,8 @@
 /**
- * Edit Employee Info Screen v2.7
+ * Edit Employee Info Screen v2.8
+ *
+ * v2.8
+ * - fixed bug with text fields and toggles reverting if scrolled off screen
  *
  * v2.7
  * - disabled 'ID' field - maybe remove later altogether
@@ -79,7 +82,9 @@
 
 package com.example.cmpt395solaris.screens
 
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
@@ -110,14 +115,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavController
 import com.example.cmpt395solaris.ComponentFunctions.CustomSnackbar
 import com.example.cmpt395solaris.ComponentFunctions.GenericTextField
+import com.example.cmpt395solaris.ComponentFunctions.Overlay
 import com.example.cmpt395solaris.database.employees.Employee
 import com.example.cmpt395solaris.database.employees.EmployeeViewModel
 import com.example.cmpt395solaris.database.TopBarViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import java.time.Month
 
 /**
  *  Do not alter without consulting Jamie!
@@ -491,6 +499,8 @@ fun EditEmployeeButton(
 
 @Composable
 fun EditAvailabilityButton() {
+    val showDialog = remember { mutableStateOf(false) }
+
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -499,13 +509,38 @@ fun EditAvailabilityButton() {
     ) {
         Button(
             onClick = {
-                // Handle edit availability click here
+                showDialog.value = true
             }
         ) {
             Text("Edit Availability")
         }
     }
+    Overlay(showDialog)
 }
+
+@RequiresApi(Build.VERSION_CODES.O)
+@Composable
+fun AvailabilityOverlay(showOverlay: MutableState<Boolean>) {
+    if (showOverlay.value) {
+        Dialog(onDismissRequest = { showOverlay.value = false }) {
+            Column {
+                // Date selection
+                val selectedMonth = remember { mutableStateOf(Month.JANUARY) }
+                // Replace with your MonthPicker
+
+                // Availability entry
+                val availability = remember { mutableStateOf(List(31) { false }) }
+                // Replace with your AvailabilityGrid
+
+                // Submission
+                Button(onClick = { /* Handle submission */ }) {
+                    Text("Submit")
+                }
+            }
+        }
+    }
+}
+
 
 
 

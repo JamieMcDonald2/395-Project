@@ -1,5 +1,9 @@
 /**
- *  Employee Main page v1.06
+ *  Employee Main page v1.07
+ *
+ *  1.07
+ *  - reset top bar view model change when you access this page so that you don't get no changes
+ *    made dialog on this page (cannot make edits on this page)
  *
  *  1.06
  *  - added top bar view model for text item display
@@ -62,6 +66,8 @@ fun EmployeeMain(navController: NavHostController, viewModel: EmployeeViewModel,
     // This effect will run every time the composable is recomposed
     LaunchedEffect(Unit) {
         viewModel.refreshEmployees()
+        // Reset the hasChanges value
+        topBarViewModel.setHasChanges(false)
     }
 
     // Use the ViewModel to get the data
