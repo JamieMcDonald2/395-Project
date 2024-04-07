@@ -8,7 +8,7 @@
 package com.example.cmpt395solaris.database.employees
 
 data class Employee(
-    val id: Int,
+    var id: Int,
     val fname: String,
     val lname: String,
     val nname: String,

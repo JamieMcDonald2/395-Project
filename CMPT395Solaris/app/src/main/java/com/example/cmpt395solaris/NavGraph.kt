@@ -30,6 +30,7 @@ import androidx.navigation.navArgument
 import com.example.cmpt395solaris.database.employees.EmployeeViewModel
 import com.example.cmpt395solaris.database.settings.SettingsViewModel
 import com.example.cmpt395solaris.screens.AddEmployeeScreen
+import com.example.cmpt395solaris.screens.AddEmployeeScreen2
 import com.example.cmpt395solaris.screens.EditEmployeeInfoScreen
 import com.example.cmpt395solaris.screens.EmployeeMain
 import com.example.cmpt395solaris.screens.HomeScreen
@@ -78,7 +79,7 @@ fun Navigation(navController: NavHostController, employeeViewModel: EmployeeView
                     animationSpec = tween(500)
                 )
             }) {
-            AddEmployeeScreen(employeeViewModel, topBarViewModel)
+            AddEmployeeScreen2(navController ,employeeViewModel, topBarViewModel)
         }
         // edit employee info screen - does not transition properly - known issue with android studio
         composable(
