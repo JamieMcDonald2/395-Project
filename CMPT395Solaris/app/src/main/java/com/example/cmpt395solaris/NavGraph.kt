@@ -25,21 +25,24 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
-import com.example.cmpt395solaris.database.TopBarViewModel
 import androidx.navigation.navArgument
+import com.example.cmpt395solaris.database.SharedViewModel
+import com.example.cmpt395solaris.database.TopBarViewModel
 import com.example.cmpt395solaris.database.availability.EmpAvailabilityViewModel
 import com.example.cmpt395solaris.database.employees.EmployeeViewModel
 import com.example.cmpt395solaris.database.settings.SettingsViewModel
+import com.example.cmpt395solaris.screens.AddEmployeeScreen
 import com.example.cmpt395solaris.screens.AddEmployeeScreen2
 import com.example.cmpt395solaris.screens.EditEmployeeInfoScreen
 import com.example.cmpt395solaris.screens.EmployeeAvailabilityScreen
 import com.example.cmpt395solaris.screens.EmployeeMain
 import com.example.cmpt395solaris.screens.HomeScreen
-import com.example.cmpt395solaris.screens.ScheduleWeekDay
 import com.example.cmpt395solaris.screens.ScheduleMain
+import com.example.cmpt395solaris.screens.ScheduleWeekDay
 import com.example.cmpt395solaris.screens.ScheduleWeekEnd
 import com.example.cmpt395solaris.screens.SettingsMain
 import com.google.accompanist.navigation.animation.AnimatedNavHost
+
 
 /**
  * some imported packages are obsolete but needed
@@ -51,8 +54,8 @@ fun Navigation(
     employeeViewModel: EmployeeViewModel,
     topBarViewModel: TopBarViewModel,
     settingsViewModel: SettingsViewModel,
-    AvailabilityViewModel: EmpAvailabilityViewModel
-) {
+    sharedViewModel: SharedViewModel,
+    availabilityViewModel: EmpAvailabilityViewModel) {
     AnimatedNavHost(navController, startDestination = "home") {
         //home screen
         composable(
@@ -120,11 +123,7 @@ fun Navigation(
             val arguments = navController.currentBackStackEntry?.arguments
             val empID = arguments?.getString("id")
             if (empID != null) {
-                EditEmployeeInfoScreen(navController,
-                    employeeViewModel,
-                    topBarViewModel,
-                    empID,
-                )
+                EditEmployeeInfoScreen(navController, employeeViewModel, topBarViewModel, empID)
             } else {
                 // need to change this to snackbar probably
                 Text("Error: No employee ID provided")
@@ -142,15 +141,17 @@ fun Navigation(
             val empID = arguments?.getString("id")
             if (empID != null) {
                 EmployeeAvailabilityScreen(
-                    navController,
-                    employeeViewModel,
-                    topBarViewModel,
-                    empID,
-                    AvailabilityViewModel)
+                    navController = navController,
+                    viewModel = employeeViewModel,
+                    topBarViewModel = topBarViewModel,
+                    employeeID = empID,
+                    availabilityViewModel = availabilityViewModel
+                )
             } else {
                 // need to change this to snackbar probably
                 Text("Error: No employee ID provided")
             }
+
         }
         //schedule main
         composable(
@@ -201,7 +202,7 @@ fun Navigation(
             }
         ) { backStackEntry ->
             val date = backStackEntry.arguments?.getString("date")
-            ScheduleWeekEnd(date, employeeViewModel)
+            ScheduleWeekEnd(date, employeeViewModel, navController, sharedViewModel)
         }
     }
 }

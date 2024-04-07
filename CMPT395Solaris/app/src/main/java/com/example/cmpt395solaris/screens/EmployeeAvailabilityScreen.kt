@@ -14,16 +14,19 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
@@ -35,6 +38,9 @@ import com.example.cmpt395solaris.database.employees.EmployeeViewModel
 import com.example.cmpt395solaris.database.TopBarViewModel
 import com.example.cmpt395solaris.database.availability.EmpAvail
 import com.example.cmpt395solaris.database.availability.EmpAvailabilityViewModel
+import com.example.cmpt395solaris.database.employees.Employee
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 /**
  *  Do not alter without consulting Jamie!
@@ -89,16 +95,16 @@ fun EmployeeAvailabilityScreen(
                         id = viewModel.id.intValue,
                         mondayAM = availabilityViewModel.mondayAM.value,
                         mondayPM = availabilityViewModel.mondayPM.value,
-                        tuesdayAM = availabilityViewModel.mondayAM.value,
-                        tuesdayPM = availabilityViewModel.mondayPM.value,
-                        wednesdayAM = availabilityViewModel.mondayAM.value,
-                        wednesdayPM = availabilityViewModel.mondayPM.value,
-                        thursdayAM = availabilityViewModel.mondayAM.value,
-                        thursdayPM = availabilityViewModel.mondayPM.value,
-                        fridayAM = availabilityViewModel.mondayAM.value,
-                        fridayPM = availabilityViewModel.mondayPM.value,
-                        saturday = availabilityViewModel.mondayAM.value,
-                        sunday = availabilityViewModel.mondayPM.value,
+                        tuesdayAM = availabilityViewModel.tuesdayAM.value,
+                        tuesdayPM = availabilityViewModel.tuesdayPM.value,
+                        wednesdayAM = availabilityViewModel.wednesdayAM.value,
+                        wednesdayPM = availabilityViewModel.wednesdayPM.value,
+                        thursdayAM = availabilityViewModel.thursdayAM.value,
+                        thursdayPM = availabilityViewModel.thursdayPM.value,
+                        fridayAM = availabilityViewModel.fridayAM.value,
+                        fridayPM = availabilityViewModel.fridayPM.value,
+                        saturday = availabilityViewModel.saturday.value,
+                        sunday = availabilityViewModel.sunday.value,
                     )
 
                     // Check if the original employee is different from the current state of the ViewModel fields
@@ -139,10 +145,20 @@ fun EmployeeAvailabilityScreen(
                         }
                     )
                 }
+                AvailabilitySubmitButton(
+                    focusManager = focusManager,
+                    availabilityViewModel = availabilityViewModel,
+                    topBarViewModel = topBarViewModel,
+                    navController = navController,
+                    scope = scope,
+                    snackbarHostState = snackbarHostState,
+                    showDialog = showDialog,
+                    showSnackbar = showSnackbar
+                )
             }
         }
     } else {
-        Log.e("EditEmployeeInfoScreen", "Employee not found")
+        Log.e("EditAvailabilityScreen", "Employee not found")
     }
     CustomSnackbar(snackbarHostState = snackbarHostState)
 }
@@ -164,9 +180,9 @@ fun AvailabilityFields(
             "Monday Mornings: ",
             ""
         ) { newValue ->
-            val newAvailability = (newValue as FieldValue.BooleanField).value
-            availabilityViewModel.mondayAM.value = newAvailability
-            updatedAvailability.value = updatedAvailability.value.copy(mondayAM = newAvailability)
+            val newmMondayAM = (newValue as FieldValue.BooleanField).value
+            availabilityViewModel.mondayAM.value = newmMondayAM
+            updatedAvailability.value = updatedAvailability.value.copy(mondayAM = newmMondayAM)
             availabilityViewModel.hasChanges.value = true
         },
         Field(
@@ -175,9 +191,9 @@ fun AvailabilityFields(
             "Monday Evenings: ",
             ""
         ) { newValue ->
-            val newAvailability = (newValue as FieldValue.BooleanField).value
-            availabilityViewModel.mondayPM.value = newAvailability
-            updatedAvailability.value = updatedAvailability.value.copy(mondayPM = newAvailability)
+            val newMondayPM = (newValue as FieldValue.BooleanField).value
+            availabilityViewModel.mondayPM.value = newMondayPM
+            updatedAvailability.value = updatedAvailability.value.copy(mondayPM = newMondayPM)
             availabilityViewModel.hasChanges.value = true
         },
         Field(
@@ -186,9 +202,9 @@ fun AvailabilityFields(
             "Tuesday Mornings: ",
             ""
         ) { newValue ->
-            val newAvailability = (newValue as FieldValue.BooleanField).value
-            availabilityViewModel.tuesdayAM.value = newAvailability
-            updatedAvailability.value = updatedAvailability.value.copy(tuesdayAM = newAvailability)
+            val newTuesdayAM = (newValue as FieldValue.BooleanField).value
+            availabilityViewModel.tuesdayAM.value = newTuesdayAM
+            updatedAvailability.value = updatedAvailability.value.copy(tuesdayAM = newTuesdayAM)
             availabilityViewModel.hasChanges.value = true
         },
         Field(
@@ -197,9 +213,9 @@ fun AvailabilityFields(
             "Tuesday Evenings: ",
             ""
         ) { newValue ->
-            val newAvailability = (newValue as FieldValue.BooleanField).value
-            availabilityViewModel.tuesdayPM.value = newAvailability
-            updatedAvailability.value = updatedAvailability.value.copy(tuesdayPM = newAvailability)
+            val newTuesdayPM = (newValue as FieldValue.BooleanField).value
+            availabilityViewModel.tuesdayPM.value = newTuesdayPM
+            updatedAvailability.value = updatedAvailability.value.copy(tuesdayPM = newTuesdayPM)
             availabilityViewModel.hasChanges.value = true
         },
         Field(
@@ -208,9 +224,9 @@ fun AvailabilityFields(
             "Wednesday Mornings: ",
             ""
         ) { newValue ->
-            val newAvailability = (newValue as FieldValue.BooleanField).value
-            availabilityViewModel.wednesdayAM.value = newAvailability
-            updatedAvailability.value = updatedAvailability.value.copy(wednesdayAM = newAvailability)
+            val newWednesdayAM = (newValue as FieldValue.BooleanField).value
+            availabilityViewModel.wednesdayAM.value = newWednesdayAM
+            updatedAvailability.value = updatedAvailability.value.copy(wednesdayAM = newWednesdayAM)
             availabilityViewModel.hasChanges.value = true
         },
         Field(
@@ -219,9 +235,9 @@ fun AvailabilityFields(
             "Wednesday Evenings: ",
             ""
         ) { newValue ->
-            val newAvailability = (newValue as FieldValue.BooleanField).value
-            availabilityViewModel.wednesdayPM.value = newAvailability
-            updatedAvailability.value = updatedAvailability.value.copy(wednesdayPM = newAvailability)
+            val newWednesdayPM = (newValue as FieldValue.BooleanField).value
+            availabilityViewModel.wednesdayPM.value = newWednesdayPM
+            updatedAvailability.value = updatedAvailability.value.copy(wednesdayPM = newWednesdayPM)
             availabilityViewModel.hasChanges.value = true
         },
         Field(
@@ -230,9 +246,9 @@ fun AvailabilityFields(
             "Thursday Mornings: ",
             ""
         ) { newValue ->
-            val newAvailability = (newValue as FieldValue.BooleanField).value
-            availabilityViewModel.thursdayAM.value = newAvailability
-            updatedAvailability.value = updatedAvailability.value.copy(thursdayAM = newAvailability)
+            val newThursdayAM = (newValue as FieldValue.BooleanField).value
+            availabilityViewModel.thursdayAM.value = newThursdayAM
+            updatedAvailability.value = updatedAvailability.value.copy(thursdayAM = newThursdayAM)
             availabilityViewModel.hasChanges.value = true
         },
         Field(
@@ -241,9 +257,9 @@ fun AvailabilityFields(
             "Thursday Evenings: ",
             ""
         ) { newValue ->
-            val newAvailability = (newValue as FieldValue.BooleanField).value
-            availabilityViewModel.thursdayPM.value = newAvailability
-            updatedAvailability.value = updatedAvailability.value.copy(thursdayPM = newAvailability)
+            val newThursdayPM = (newValue as FieldValue.BooleanField).value
+            availabilityViewModel.thursdayPM.value = newThursdayPM
+            updatedAvailability.value = updatedAvailability.value.copy(thursdayPM = newThursdayPM)
             availabilityViewModel.hasChanges.value = true
         },
         Field(
@@ -252,9 +268,9 @@ fun AvailabilityFields(
             "Friday Mornings: ",
             ""
         ) { newValue ->
-            val newAvailability = (newValue as FieldValue.BooleanField).value
-            availabilityViewModel.fridayAM.value = newAvailability
-            updatedAvailability.value = updatedAvailability.value.copy(fridayAM = newAvailability)
+            val newFridayAM = (newValue as FieldValue.BooleanField).value
+            availabilityViewModel.fridayAM.value = newFridayAM
+            updatedAvailability.value = updatedAvailability.value.copy(fridayAM = newFridayAM)
             availabilityViewModel.hasChanges.value = true
         },
         Field(
@@ -263,9 +279,9 @@ fun AvailabilityFields(
             "Friday Evenings: ",
             ""
         ) { newValue ->
-            val newAvailability = (newValue as FieldValue.BooleanField).value
-            availabilityViewModel.fridayPM.value = newAvailability
-            updatedAvailability.value = updatedAvailability.value.copy(fridayPM = newAvailability)
+            val newFridayPM = (newValue as FieldValue.BooleanField).value
+            availabilityViewModel.fridayPM.value = newFridayPM
+            updatedAvailability.value = updatedAvailability.value.copy(fridayPM = newFridayPM)
             availabilityViewModel.hasChanges.value = true
         },
         Field(
@@ -274,9 +290,9 @@ fun AvailabilityFields(
             "Saturday: ",
             ""
         ) { newValue ->
-            val newAvailability = (newValue as FieldValue.BooleanField).value
-            availabilityViewModel.saturday.value = newAvailability
-            updatedAvailability.value = updatedAvailability.value.copy(saturday = newAvailability)
+            val newSaturday = (newValue as FieldValue.BooleanField).value
+            availabilityViewModel.saturday.value = newSaturday
+            updatedAvailability.value = updatedAvailability.value.copy(saturday = newSaturday)
             availabilityViewModel.hasChanges.value = true
         },
         Field(
@@ -285,9 +301,9 @@ fun AvailabilityFields(
             "Sunday: ",
             ""
         ) { newValue ->
-            val newAvailability = (newValue as FieldValue.BooleanField).value
-            availabilityViewModel.sunday.value = newAvailability
-            updatedAvailability.value = updatedAvailability.value.copy(sunday = newAvailability)
+            val newSunday = (newValue as FieldValue.BooleanField).value
+            availabilityViewModel.sunday.value = newSunday
+            updatedAvailability.value = updatedAvailability.value.copy(sunday = newSunday)
             availabilityViewModel.hasChanges.value = true
         },
 
@@ -355,8 +371,64 @@ fun AvailabilityFields(
 
 
 
+@Composable
+fun AvailabilitySubmitButton(
+    focusManager: FocusManager,
+    availabilityViewModel: EmpAvailabilityViewModel,
+    topBarViewModel: TopBarViewModel,
+    navController: NavController,
+    scope: CoroutineScope,
+    snackbarHostState: SnackbarHostState,
+    showDialog: MutableState<Boolean>,
+    showSnackbar: MutableState<Boolean>
+) {
+    Button(
+        onClick = {
+            focusManager.clearFocus()
+            // Create a new Employee instance from the ViewModel fields
+            val currentAvailability = EmpAvail(
+                id = availabilityViewModel.id.intValue,
+                mondayAM = availabilityViewModel.mondayAM.value,
+                mondayPM = availabilityViewModel.mondayPM.value,
+                tuesdayAM = availabilityViewModel.tuesdayAM.value,
+                tuesdayPM = availabilityViewModel.tuesdayPM.value,
+                wednesdayAM = availabilityViewModel.wednesdayAM.value,
+                wednesdayPM = availabilityViewModel.wednesdayPM.value,
+                thursdayAM = availabilityViewModel.thursdayAM.value,
+                thursdayPM = availabilityViewModel.thursdayPM.value,
+                fridayAM = availabilityViewModel.fridayAM.value,
+                fridayPM = availabilityViewModel.fridayPM.value,
+                saturday = availabilityViewModel.saturday.value,
+                sunday = availabilityViewModel.sunday.value,
+            )
 
+            // If the fields are valid, check if any changes were made
+            if (availabilityViewModel.originalAvailability.value != currentAvailability) {
+                // If they are different, update the employee info in the ViewModel and the database
+                availabilityViewModel.updateAvailability(currentAvailability)
+                availabilityViewModel.updateAvailabilityInfo()
+                availabilityViewModel.originalAvailability.value = currentAvailability.copy()
 
+                // Show a snackbar message and navigate back
+                scope.launch {
+                    snackbarHostState.showSnackbar(
+                        message = "Availability edited successfully.",
+                        actionLabel = "Dismiss",
+                        duration = SnackbarDuration.Short
+                    )
+                }
+                navController.popBackStack()
+                topBarViewModel.setHasChanges(false) // back button logic
+            } else {
+                // If no changes were made, show a dialog
+                showDialog.value = true
+                showSnackbar.value = true
+            }
+        }
+    ) {
+        Text("Submit")
+    }
+}
 
 
 

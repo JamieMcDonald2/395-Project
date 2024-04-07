@@ -12,7 +12,7 @@ Jamie McDonald (JamieMcDonald2)
 
 # Project Name TBD
 
-## Release build "Solaris" v3.4-alpha
+## Release build "Solaris" v3.5-alpha
 
 ### See Release Notes at Bottom
 
@@ -67,6 +67,8 @@ Other Problems:
 https://github.com/macewanCS/w24goldwasser/blob/main/LICENSE
 
 ## Release Notes
+    3.5
+    - Added more functionality to schedule screens
 
     3.4
     - Started availability overlay on edit employee screen

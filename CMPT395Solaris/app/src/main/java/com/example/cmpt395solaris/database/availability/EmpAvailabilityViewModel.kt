@@ -35,6 +35,37 @@ class EmpAvailabilityViewModel(application: Application) : AndroidViewModel(appl
         return dbHelper.getAvailabilityById(id)
     }
 
+    fun updateAvailability(updatedAvailability: EmpAvail) {
+        dbHelper.updateAvailability(updatedAvailability)
+    }
+
+
+    fun updateAvailabilityInfo() {
+        // Create a new Employee instance from the ViewModel fields
+        val currentAvailability = EmpAvail(
+            id = id.intValue,
+            mondayAM = mondayAM.value,
+            mondayPM = mondayPM.value,
+            tuesdayAM = tuesdayAM.value,
+            tuesdayPM = tuesdayPM.value,
+            wednesdayAM = wednesdayAM.value,
+            wednesdayPM = wednesdayPM.value,
+            thursdayAM = thursdayAM.value,
+            thursdayPM = thursdayPM.value,
+            fridayAM = fridayAM.value,
+            fridayPM = fridayPM.value,
+            saturday = saturday.value,
+            sunday = sunday.value,
+        )
+
+        // Check if the original employee is different from the current state of the ViewModel fields
+        if (originalAvailability.value != currentAvailability) {
+            // If they are different, update the employee info in the ViewModel and the database
+            updateAvailability(currentAvailability)
+            originalAvailability.value = currentAvailability.copy()
+        }
+    }
+
 //    fun deleteAvailability(eadate: String) {
 //        dbHelper.deleteAvailability(eadate)
 //    }

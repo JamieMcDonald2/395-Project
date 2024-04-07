@@ -36,15 +36,21 @@ import com.example.cmpt395solaris.ComponentFunctions.NavigationBar
 import com.example.cmpt395solaris.ComponentFunctions.TopBar
 import com.example.cmpt395solaris.Navigation
 import com.example.cmpt395solaris.database.DatabaseHelper
+import com.example.cmpt395solaris.database.SharedViewModel
 import com.example.cmpt395solaris.database.TopBarViewModel
 import com.example.cmpt395solaris.database.availability.EmpAvailabilityViewModel
 import com.example.cmpt395solaris.database.employees.EmployeeViewModel
+import com.example.cmpt395solaris.database.employees.seedDatabase
 import com.example.cmpt395solaris.database.settings.SettingsViewModel
 import com.example.cmpt395solaris.ui.theme.CMPT395SolarisTheme
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 /**
  * Contains database seeder we need to remove later!
  */
+
 class MainActivity : ComponentActivity() {
     private lateinit var dbHelper: DatabaseHelper
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,15 +67,19 @@ class MainActivity : ComponentActivity() {
                 // Create an instance of SettingsViewModel
                 val settingsViewModel: SettingsViewModel = viewModel()
 
-                // Create an instance of Availability view model
-                val AvailabilityViewModel: EmpAvailabilityViewModel = viewModel()
+                val sharedViewModel = viewModel<SharedViewModel>()
+
+                val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+
+                val availabilityViewModel: EmpAvailabilityViewModel = viewModel()
 
                 Scaffold(
                     topBar = { TopBar(navController, topBarViewModel) },
                     bottomBar = { NavigationBar(navController) }
                 ) { paddingValues ->
                     Box(modifier = Modifier.padding(paddingValues)) {
-                        Navigation(navController, employeeViewModel, topBarViewModel, settingsViewModel, AvailabilityViewModel)
+                        //ScheduleWeekEnd(date = currentDate, employeeViewModel, navController, sharedViewModel = sharedViewModel)
+                        Navigation(navController, employeeViewModel, topBarViewModel, settingsViewModel, sharedViewModel, availabilityViewModel)
                     }
                 }
                 // remove this when testing is over
