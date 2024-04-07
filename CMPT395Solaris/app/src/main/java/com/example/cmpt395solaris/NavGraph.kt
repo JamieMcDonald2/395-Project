@@ -27,11 +27,12 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import com.example.cmpt395solaris.database.TopBarViewModel
 import androidx.navigation.navArgument
+import com.example.cmpt395solaris.database.availability.EmpAvailabilityViewModel
 import com.example.cmpt395solaris.database.employees.EmployeeViewModel
 import com.example.cmpt395solaris.database.settings.SettingsViewModel
-import com.example.cmpt395solaris.screens.AddEmployeeScreen
 import com.example.cmpt395solaris.screens.AddEmployeeScreen2
 import com.example.cmpt395solaris.screens.EditEmployeeInfoScreen
+import com.example.cmpt395solaris.screens.EmployeeAvailabilityScreen
 import com.example.cmpt395solaris.screens.EmployeeMain
 import com.example.cmpt395solaris.screens.HomeScreen
 import com.example.cmpt395solaris.screens.ScheduleWeekDay
@@ -45,7 +46,13 @@ import com.google.accompanist.navigation.animation.AnimatedNavHost
  */
 @OptIn(ExperimentalAnimationApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun Navigation(navController: NavHostController, employeeViewModel: EmployeeViewModel, topBarViewModel: TopBarViewModel, settingsViewModel: SettingsViewModel) {
+fun Navigation(
+    navController: NavHostController,
+    employeeViewModel: EmployeeViewModel,
+    topBarViewModel: TopBarViewModel,
+    settingsViewModel: SettingsViewModel,
+    AvailabilityViewModel: EmpAvailabilityViewModel
+) {
     AnimatedNavHost(navController, startDestination = "home") {
         //home screen
         composable(
@@ -113,7 +120,33 @@ fun Navigation(navController: NavHostController, employeeViewModel: EmployeeView
             val arguments = navController.currentBackStackEntry?.arguments
             val empID = arguments?.getString("id")
             if (empID != null) {
-                EditEmployeeInfoScreen(navController, employeeViewModel, topBarViewModel, empID)
+                EditEmployeeInfoScreen(navController,
+                    employeeViewModel,
+                    topBarViewModel,
+                    empID,
+                )
+            } else {
+                // need to change this to snackbar probably
+                Text("Error: No employee ID provided")
+            }
+        }
+        composable(
+            "Availability1/{id}",
+            enterTransition = {
+                slideInHorizontally(
+                    initialOffsetX = { 1000 },
+                    animationSpec = tween(500)
+                )
+            }) {
+            val arguments = navController.currentBackStackEntry?.arguments
+            val empID = arguments?.getString("id")
+            if (empID != null) {
+                EmployeeAvailabilityScreen(
+                    navController,
+                    employeeViewModel,
+                    topBarViewModel,
+                    empID,
+                    AvailabilityViewModel)
             } else {
                 // need to change this to snackbar probably
                 Text("Error: No employee ID provided")

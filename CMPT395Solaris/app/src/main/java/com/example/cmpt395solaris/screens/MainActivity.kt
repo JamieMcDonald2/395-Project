@@ -37,8 +37,8 @@ import com.example.cmpt395solaris.ComponentFunctions.TopBar
 import com.example.cmpt395solaris.Navigation
 import com.example.cmpt395solaris.database.DatabaseHelper
 import com.example.cmpt395solaris.database.TopBarViewModel
+import com.example.cmpt395solaris.database.availability.EmpAvailabilityViewModel
 import com.example.cmpt395solaris.database.employees.EmployeeViewModel
-import com.example.cmpt395solaris.database.employees.seedDatabase
 import com.example.cmpt395solaris.database.settings.SettingsViewModel
 import com.example.cmpt395solaris.ui.theme.CMPT395SolarisTheme
 
@@ -61,12 +61,15 @@ class MainActivity : ComponentActivity() {
                 // Create an instance of SettingsViewModel
                 val settingsViewModel: SettingsViewModel = viewModel()
 
+                // Create an instance of Availability view model
+                val AvailabilityViewModel: EmpAvailabilityViewModel = viewModel()
+
                 Scaffold(
                     topBar = { TopBar(navController, topBarViewModel) },
                     bottomBar = { NavigationBar(navController) }
                 ) { paddingValues ->
                     Box(modifier = Modifier.padding(paddingValues)) {
-                        Navigation(navController, employeeViewModel, topBarViewModel, settingsViewModel)
+                        Navigation(navController, employeeViewModel, topBarViewModel, settingsViewModel, AvailabilityViewModel)
                     }
                 }
                 // remove this when testing is over

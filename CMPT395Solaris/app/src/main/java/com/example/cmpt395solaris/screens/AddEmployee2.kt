@@ -40,7 +40,9 @@ import com.example.cmpt395solaris.database.TopBarViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-
+/**
+ *  Do not alter without consulting Ben!
+ */
 
 @Composable
 fun AddEmployeeScreen2(
@@ -333,7 +335,7 @@ fun AddEmployeeDataFields(
                 showSnackbar = showSnackbar
             )
         }
-        item { EditAvailabilityButton() } // edit availability button
+//        item { EditAvailabilityButton(availabilityViewModel =) } // edit availability button
     }
     // Only update the ViewModel when the "Edit Employee" button is clicked
     onEmployeeChange(updatedEmployee.value)

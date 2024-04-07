@@ -77,6 +77,7 @@ class EmployeeViewModel(application: Application) : AndroidViewModel(application
 //        Log.d("addEmployee", "employee email: ${email}")  // testing
 //        Log.d("addEmployee", "employee pnumber: ${pnumber}")  // testing
         dbHelper.addEmployee(id, fname, lname, nname, email, pnumber, isActive, opening, closing)
+        dbHelper.addEmployeeToAvailabilityDB(id)
     }
 
     fun getAllEmployees(): List<Employee> {
