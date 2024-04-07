@@ -80,6 +80,7 @@ import com.example.cmpt395solaris.ComponentFunctions.CustomSnackbar
 import com.example.cmpt395solaris.ComponentFunctions.GenericTextField
 import com.example.cmpt395solaris.database.TopBarViewModel
 import com.example.cmpt395solaris.database.employees.AddEmployeeTesting
+import com.example.cmpt395solaris.database.employees.Employee
 import com.example.cmpt395solaris.database.employees.EmployeeViewModel
 import kotlinx.coroutines.launch
 
@@ -88,39 +89,47 @@ fun AddEmployeeScreen(viewModel: EmployeeViewModel, topBarViewModel: TopBarViewM
 
     topBarViewModel.updateTopBarText("Add Employee")
 
-    val addEmployeeTesting = AddEmployeeTesting()
 
-    LaunchedEffect(Unit) {
-        viewModel.clearEmployeeFields()
-    }
-    //remove this later
-//    addEmployeeTesting.populateTestData(viewModel)
+//    // Clear the fields
+//    viewModel.id.intValue = 0
+//    viewModel.idString.value = ""
+//    viewModel.fname.value = ""
+//    viewModel.lname.value = ""
+//    viewModel.nname.value = ""
+//    viewModel.email.value = ""
+//    viewModel.pnumber.value = ""
+//    viewModel.isActive.value = false
+//    viewModel.opening.value = false
+//    viewModel.closing.value = false
 
-    FormWrapper(viewModel)
+    val employee = Employee(
+        id = viewModel.lastID.intValue + 1,
+        fname = "",
+        lname = "",
+        nname = "",
+        email = "",
+        pnumber = "",
+        isActive = false,
+        opening = false,
+        closing = false
+    )
 
-    //remove or hide this later
-    ExtendedFloatingActionButton(
-        onClick = { addEmployeeTesting.populateTestData(viewModel) },
-        modifier = Modifier
-            .padding(4.dp)
-            .size(20.dp)
-    ) {
-        Text(
-            "Populate Test Data",
-            style = MaterialTheme.typography.labelSmall.copy(fontSize = 1.sp)
-        )
-    }
+
+//    LaunchedEffect(Unit) {
+//        viewModel.clearEmployeeFields()
+//    }
+
+    FormWrapper(viewModel, employee)
 }
 
 // this will move back inside AddEmployeeScreen later
 @Composable
-fun FormWrapper(viewModel: EmployeeViewModel) {
+fun FormWrapper(viewModel: EmployeeViewModel, employee: Employee) {
     val focusManager = LocalFocusManager.current
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
 
     val fields = listOf(
-        "ID",
         "First Name",
         "Last Name",
         "Nick Name",
@@ -142,9 +151,8 @@ fun FormWrapper(viewModel: EmployeeViewModel) {
         */
         items(fields) { field ->
             when (field) {
-                "ID", "First Name", "Last Name", "Nick Name", "Email", "Phone Number" -> {
+                "First Name", "Last Name", "Nick Name", "Email", "Phone Number" -> {
                     val text = when (field) {
-                        "ID" -> viewModel.idString
                         "First Name" -> viewModel.fname
                         "Last Name" -> viewModel.lname
                         "Nick Name" -> viewModel.nname

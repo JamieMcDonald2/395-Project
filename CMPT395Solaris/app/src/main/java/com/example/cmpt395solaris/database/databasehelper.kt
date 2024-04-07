@@ -122,7 +122,7 @@ class DatabaseHelper(context: Context) :
     fun addEmployee(id: Int, fname: String, lname: String, nname: String, email: String, pnumber: String, isActive: Boolean, opening: Boolean, closing: Boolean): Boolean {
         val db = this.writableDatabase
         val contentValues = ContentValues().also {
-            it.put("id", id)
+//            it.put("id", id)
             it.put("fname", fname)
             it.put("lname", lname)
             it.put("nname", nname)

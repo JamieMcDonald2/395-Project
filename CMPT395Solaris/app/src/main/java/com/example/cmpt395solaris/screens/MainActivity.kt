@@ -85,7 +85,7 @@ class MainActivity : ComponentActivity() {
             }
         }
         // get rid of this!
-        seedDatabase(this) // remove this when testing is over
+//        seedDatabase(this) // remove this when testing is over
     }
 }
 
