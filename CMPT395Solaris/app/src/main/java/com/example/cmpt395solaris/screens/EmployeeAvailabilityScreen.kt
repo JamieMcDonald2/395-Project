@@ -1,5 +1,6 @@
 package com.example.cmpt395solaris.screens
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -51,18 +52,19 @@ fun EmployeeAvailabilityScreen(
     navController: NavController,
     viewModel: EmployeeViewModel,
     topBarViewModel: TopBarViewModel,
-    employeeID: String,
+    id: String,
     availabilityViewModel: EmpAvailabilityViewModel
 ) {
-    val id = employeeID.toInt()
 
-    val avail: EmpAvail? = availabilityViewModel.getAvailability(id)
+    val empID = id.toInt()
+
+    val avail: EmpAvail? = availabilityViewModel.getAvailability(empID)
 
 //    if (avail != null) {
 //        availabilityViewModel.loadViewModel(avail)
 //    }
 
-    availabilityViewModel.loadAvailability(id)
+    availabilityViewModel.loadAvailability(empID)
 
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -72,11 +74,12 @@ fun EmployeeAvailabilityScreen(
     val veryLightGray = Color(0xFFF5F5F5)
     val focusManager = LocalFocusManager.current
 
-    val originalAvailability = remember { mutableStateOf(availabilityViewModel.getAvailability(id)) }
+    val originalAvailability = remember { mutableStateOf(availabilityViewModel.getAvailability(empID)) }
     val editAvailability =
         remember { mutableStateOf(originalAvailability.value?.copy()) } // Create a copy for editing
 
-    Log.d("EditAvailabilityScreen - Main Function", "Employee ID: $id, Availability: $avail")
+    Log.d("EditAvailabilityScreen - Main Function", "Employee ID: $empID, Availability: $avail")
+
 
 //    avail: EmpAvail,
 //    availabilityViewModel: EmpAvailabilityViewModel,
@@ -186,9 +189,9 @@ fun AvailabilityFields(
             "Monday Mornings: ",
             ""
         ) { newValue ->
-            val newmMondayAM = (newValue as FieldValue.BooleanField).value
-            availabilityViewModel.mondayAM.value = newmMondayAM
-            updatedAvailability.value = updatedAvailability.value.copy(mondayAM = newmMondayAM)
+            val newMondayAM = (newValue as FieldValue.BooleanField).value
+            availabilityViewModel.mondayAM.value = newMondayAM
+            updatedAvailability.value = updatedAvailability.value.copy(mondayAM = newMondayAM)
             availabilityViewModel.hasChanges.value = true
         },
         Field(
@@ -377,6 +380,7 @@ fun AvailabilityFields(
 
 
 
+@SuppressLint("RestrictedApi")
 @Composable
 fun AvailabilitySubmitButton(
     focusManager: FocusManager,
@@ -423,6 +427,7 @@ fun AvailabilitySubmitButton(
                         duration = SnackbarDuration.Short
                     )
                 }
+
                 navController.popBackStack()
                 topBarViewModel.setHasChanges(false) // back button logic
             } else {

@@ -15,6 +15,7 @@
 
 package com.example.cmpt395solaris
 
+import android.util.Log
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInHorizontally
@@ -31,7 +32,6 @@ import com.example.cmpt395solaris.database.TopBarViewModel
 import com.example.cmpt395solaris.database.availability.EmpAvailabilityViewModel
 import com.example.cmpt395solaris.database.employees.EmployeeViewModel
 import com.example.cmpt395solaris.database.settings.SettingsViewModel
-import com.example.cmpt395solaris.screens.AddEmployeeScreen
 import com.example.cmpt395solaris.screens.AddEmployeeScreen2
 import com.example.cmpt395solaris.screens.EditEmployeeInfoScreen
 import com.example.cmpt395solaris.screens.EmployeeAvailabilityScreen
@@ -121,7 +121,13 @@ fun Navigation(
         )
         {
             val arguments = navController.currentBackStackEntry?.arguments
-            val empID = arguments?.getString("id")
+            Log.d("NavGraph", "Arguments: $arguments")
+            var empID = arguments?.getString("id")
+            Log.d("NavGraph", "EmpID: $empID")
+            if(empID == "{id}"){
+                empID = employeeViewModel.id.intValue.toString()
+                Log.d("NavGraph", "Changed EmpID: $empID")
+            }
             if (empID != null) {
                 EditEmployeeInfoScreen(navController, employeeViewModel, topBarViewModel, empID)
             } else {
@@ -138,13 +144,19 @@ fun Navigation(
                 )
             }) {
             val arguments = navController.currentBackStackEntry?.arguments
-            val empID = arguments?.getString("id")
+            Log.d("NavGraph", "Arguments: $arguments")
+            var empID = arguments?.getString("id")
+            Log.d("NavGraph", "EmpID: $empID")
+            if(empID == "{id}"){
+                empID = employeeViewModel.id.intValue.toString()
+                Log.d("NavGraph", "Changed EmpID: $empID")
+            }
             if (empID != null) {
                 EmployeeAvailabilityScreen(
                     navController = navController,
                     viewModel = employeeViewModel,
                     topBarViewModel = topBarViewModel,
-                    employeeID = empID,
+                    id = empID!!,
                     availabilityViewModel = availabilityViewModel
                 )
             } else {
