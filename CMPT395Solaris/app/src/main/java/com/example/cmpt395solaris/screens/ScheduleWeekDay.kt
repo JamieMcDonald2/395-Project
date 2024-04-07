@@ -39,6 +39,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.toLowerCase
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.cmpt395solaris.database.employees.Employee
@@ -51,6 +52,17 @@ import java.util.Locale
 fun ScheduleWeekDay(date: String?, viewModel: EmployeeViewModel) {
     // Convert date string to a formatted date
     val dateString = formatDate2(parseDate(date))
+    val parts = dateString.split(", ")
+    val day = parts.first().lowercase()
+
+    val morningField = day + "AM"
+    val eveningField = day + "PM"
+
+    val morningEmployees = viewModel.getAvailableEmployees(morningField)
+    val eveningEmployees = viewModel.getAvailableEmployees(eveningField)
+    val morningTrainedEmployees = viewModel.getOpenTrainedEmployees(morningField)
+    val eveningTrainedEmployees = viewModel.getCloseTrainedEmployees(eveningField)
+
 
     // State variables for selected employees
     var selectedEmployee1 by remember { mutableStateOf<Employee?>(null) }
@@ -69,15 +81,15 @@ fun ScheduleWeekDay(date: String?, viewModel: EmployeeViewModel) {
     var isExpanded6 by remember { mutableStateOf(false) }
 
     // Fetch employees from the ViewModel and sort them by activity status and first name
-    val employees = viewModel.getAllEmployees().sortedWith(compareBy({ !it.isActive }, { it.fname }))
+//    val employees = viewModel.getAllEmployees().sortedWith(compareBy({ !it.isActive }, { it.fname }))
 
     // Options for the dropdown menus
-    val options1 = employees.map { "${it.fname} ${it.lname}" }
-    val options2 = employees.map { "${it.fname} ${it.lname}" }
-    val options3 = employees.map { "${it.fname} ${it.lname}" }
-    val options4 = employees.map { "${it.fname} ${it.lname}" }
-    val options5 = employees.map { "${it.fname} ${it.lname}" }
-    val options6 = employees.map { "${it.fname} ${it.lname}" }
+    val options1 = morningEmployees.map { "${it.fname} ${it.lname}" }
+    val options2 = morningEmployees.map { "${it.fname} ${it.lname}" }
+    val options3 = morningEmployees.map { "${it.fname} ${it.lname}" }
+    val options4 = eveningEmployees.map { "${it.fname} ${it.lname}" }
+    val options5 = eveningEmployees.map { "${it.fname} ${it.lname}" }
+    val options6 = eveningEmployees.map { "${it.fname} ${it.lname}" }
 
     // State to track the toggle state
     var toggleState by remember { mutableStateOf(false) }
@@ -136,7 +148,7 @@ fun ScheduleWeekDay(date: String?, viewModel: EmployeeViewModel) {
                     selectedEmployee1,
                     isExpanded1,
                     options1,
-                    employees,
+                    morningEmployees,
                     { selectedEmployee1 = it },
                     { isExpanded1 = !isExpanded1 }
                 )
@@ -146,7 +158,7 @@ fun ScheduleWeekDay(date: String?, viewModel: EmployeeViewModel) {
                     selectedEmployee2,
                     isExpanded2,
                     options2,
-                    employees,
+                    morningEmployees,
                     { selectedEmployee2 = it },
                     { isExpanded2 = !isExpanded2 }
                 )
@@ -158,7 +170,7 @@ fun ScheduleWeekDay(date: String?, viewModel: EmployeeViewModel) {
                         selectedEmployee3,
                         isExpanded3,
                         options3,
-                        employees,
+                        morningEmployees,
                         { selectedEmployee3 = it },
                         { isExpanded3 = !isExpanded3 }
                     )
@@ -188,7 +200,7 @@ fun ScheduleWeekDay(date: String?, viewModel: EmployeeViewModel) {
                     selectedEmployee4,
                     isExpanded4,
                     options4,
-                    employees,
+                    eveningEmployees,
                     { selectedEmployee4 = it },
                     { isExpanded4 = !isExpanded4 }
                 )
@@ -198,7 +210,7 @@ fun ScheduleWeekDay(date: String?, viewModel: EmployeeViewModel) {
                     selectedEmployee5,
                     isExpanded5,
                     options5,
-                    employees,
+                    eveningEmployees,
                     { selectedEmployee5 = it },
                     { isExpanded5 = !isExpanded5 }
                 )
@@ -210,7 +222,7 @@ fun ScheduleWeekDay(date: String?, viewModel: EmployeeViewModel) {
                         selectedEmployee6,
                         isExpanded6,
                         options6,
-                        employees,
+                        eveningEmployees,
                         { selectedEmployee6 = it },
                         { isExpanded6 = !isExpanded6 }
                     )

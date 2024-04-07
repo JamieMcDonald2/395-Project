@@ -121,12 +121,9 @@ fun Navigation(
         )
         {
             val arguments = navController.currentBackStackEntry?.arguments
-            Log.d("NavGraph", "Arguments: $arguments")
             var empID = arguments?.getString("id")
-            Log.d("NavGraph", "EmpID: $empID")
             if(empID == "{id}"){
                 empID = employeeViewModel.id.intValue.toString()
-                Log.d("NavGraph", "Changed EmpID: $empID")
             }
             if (empID != null) {
                 EditEmployeeInfoScreen(navController, employeeViewModel, topBarViewModel, empID)
@@ -144,12 +141,9 @@ fun Navigation(
                 )
             }) {
             val arguments = navController.currentBackStackEntry?.arguments
-            Log.d("NavGraph", "Arguments: $arguments")
             var empID = arguments?.getString("id")
-            Log.d("NavGraph", "EmpID: $empID")
             if(empID == "{id}"){
                 empID = employeeViewModel.id.intValue.toString()
-                Log.d("NavGraph", "Changed EmpID: $empID")
             }
             if (empID != null) {
                 EmployeeAvailabilityScreen(

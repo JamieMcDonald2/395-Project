@@ -11,7 +11,7 @@ class employeescheduleviewmodel(application: Application) : AndroidViewModel(app
         dbHelper.addShift(eadate, amAvailability, pmAvailability, adAvailability)
     }
 
-    fun deleteShift(eadate: String) {
-        dbHelper.deleteAvailability(eadate)
-    }
+//    fun deleteShift(eadate: String) {
+//        dbHelper.deleteAvailability(eadate)
+//    }
 }

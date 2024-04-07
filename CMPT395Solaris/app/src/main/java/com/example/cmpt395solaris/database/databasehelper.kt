@@ -34,6 +34,7 @@
 
 package com.example.cmpt395solaris.database
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
@@ -341,43 +342,83 @@ class DatabaseHelper(context: Context) :
             it.put("sunday", avail.sunday)
         }
 
-//        Log.d("DB Update", "Updating employee with ID: ${employee.id}") // testing
-        // Updating row
         val affectedRows = db.update("empavail", contentValues, "id = ?", arrayOf(avail.id.toString()))
-
-//        // Log the number of affected rows
-//        Log.d("DB Update", "Number of rows affected: $affectedRows") // testing
-//        Log.d("DB Update2", "New Values: ${employee.id}, ${employee.fname}, ${employee.lname}, ${employee.nname}, ${employee.email}, ${employee.pnumber}") // testing
 
         return affectedRows
     }
 
-//    fun addAvailability(eadate: String, amAvailability: String, pmAvailability: String, adAvailability: String): Boolean {
-//        val db = this.writableDatabase
-//        val contentValues = ContentValues()
-//        contentValues.put("eadate", eadate)
-//        contentValues.put("amAvailability", amAvailability)
-//        contentValues.put("pmAvailability", pmAvailability)
-//        contentValues.put("adAvailability", adAvailability)
-//
-//        return try {
-//            val result = db.insert("empavail", null, contentValues)
-//            db.close()
-//            result != -1L
-//        } catch (e: Exception) {
-//            Log.e("DatabaseHelper", "Error adding availability: ${e.message}")
-//            db.close()
-//            false
-//        }
-//    }
+    fun getAvailEmployees(fieldName: String): ArrayList<Employee>{
+        val db = this.readableDatabase
+        val employees = ArrayList<Employee>()
+        val idList = getIdsOfAvailableEmployees(fieldName)
 
-    fun deleteAvailability(eadate: String): Boolean {
-        val db = this.writableDatabase
-        val whereClause = "eadate = ?"
-        val whereArgs = arrayOf(eadate)
-        val result = db.delete("employeeavailability", whereClause, whereArgs).toLong()
-        db.close()
-        return result != -1L
+        for(id in idList){
+            val employee = getEmployeeById(id)
+            if (employee != null && employee.isActive) {
+                employees.add(employee)
+            }
+        }
+
+        return employees
+    }
+
+    fun getOpenTrainedEmployees(fieldName: String): ArrayList<Employee>{
+        val employees = getAvailEmployees(fieldName)
+
+        for(employee in employees){
+            if (!employee.opening){
+                employees.remove(employee)
+            }
+        }
+
+        return employees
+    }
+
+
+    fun getCloseTrainedEmployees(fieldName: String): ArrayList<Employee>{
+        val employees = getAvailEmployees(fieldName)
+
+        for(employee in employees){
+            if (!employee.closing){
+                employees.remove(employee)
+            }
+        }
+
+        return employees
+    }
+
+    fun getBothTrainedEmployees(fieldName: String): ArrayList<Employee>{
+        val employees = getAvailEmployees(fieldName)
+
+        for(employee in employees){
+            if (!employee.closing && !employee.opening){
+                employees.remove(employee)
+            }
+        }
+
+        return employees
+    }
+
+    @SuppressLint("Range")
+    fun getIdsOfAvailableEmployees(fieldName: String): List<Int> {
+        val db = this.readableDatabase
+        val ids = mutableListOf<Int>()
+        val cursor = db.query(
+            "empavail",
+            arrayOf("id", fieldName),
+            "$fieldName = 1",
+            null,
+            null,
+            null,
+            null
+        )
+        cursor.use {
+            while (cursor.moveToNext()) {
+                val id = cursor.getInt(cursor.getColumnIndex("id"))
+                ids.add(id)
+            }
+        }
+        return ids
     }
 
     fun addShift(dsdate: String, amAvailability: String, pmAvailability: String, adAvailability: String): Boolean {
