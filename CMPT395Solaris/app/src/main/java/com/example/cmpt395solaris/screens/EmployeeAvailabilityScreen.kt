@@ -38,7 +38,6 @@ import com.example.cmpt395solaris.database.employees.EmployeeViewModel
 import com.example.cmpt395solaris.database.TopBarViewModel
 import com.example.cmpt395solaris.database.availability.EmpAvail
 import com.example.cmpt395solaris.database.availability.EmpAvailabilityViewModel
-import com.example.cmpt395solaris.database.employees.Employee
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -57,7 +56,14 @@ fun EmployeeAvailabilityScreen(
 ) {
     val id = employeeID.toInt()
 
-    val avial: EmpAvail? = availabilityViewModel.getAvailability(id)
+    val avail: EmpAvail? = availabilityViewModel.getAvailability(id)
+
+//    if (avail != null) {
+//        availabilityViewModel.loadViewModel(avail)
+//    }
+
+    availabilityViewModel.loadAvailability(id)
+
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
     val showSnackbar = remember { mutableStateOf(false) }
@@ -70,14 +76,14 @@ fun EmployeeAvailabilityScreen(
     val editAvailability =
         remember { mutableStateOf(originalAvailability.value?.copy()) } // Create a copy for editing
 
-    Log.d("EditAvailabilityScreen", "Employee ID: $id, Availability: $avial")
+    Log.d("EditAvailabilityScreen - Main Function", "Employee ID: $id, Availability: $avail")
 
 //    avail: EmpAvail,
 //    availabilityViewModel: EmpAvailabilityViewModel,
 //    onAvailabilityChange: (EmpAvail) -> Unit
 
 
-    if (avial != null) {
+    if (avail != null) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -85,7 +91,7 @@ fun EmployeeAvailabilityScreen(
         ) {
             Box(modifier = Modifier.weight(1f)) {
                 AvailabilityFields(
-                    avial,
+                    avail,
                     availabilityViewModel
                 ) { updatedAvailability ->
                     editAvailability.value = updatedAvailability // Update the copy for editing

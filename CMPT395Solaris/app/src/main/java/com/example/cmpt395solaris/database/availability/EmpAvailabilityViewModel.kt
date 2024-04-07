@@ -5,7 +5,6 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.AndroidViewModel
 import com.example.cmpt395solaris.database.DatabaseHelper
-import com.example.cmpt395solaris.database.employees.Employee
 
 class EmpAvailabilityViewModel(application: Application) : AndroidViewModel(application) {
     private val dbHelper = DatabaseHelper(application)
@@ -64,6 +63,46 @@ class EmpAvailabilityViewModel(application: Application) : AndroidViewModel(appl
             updateAvailability(currentAvailability)
             originalAvailability.value = currentAvailability.copy()
         }
+    }
+
+
+    fun loadViewModel(avail: EmpAvail){
+        id.intValue = avail.id
+        mondayAM.value = avail.mondayAM
+        mondayPM.value = avail.mondayPM
+        tuesdayAM.value = avail.tuesdayAM
+        tuesdayPM.value = avail.tuesdayPM
+        wednesdayAM.value = avail.wednesdayAM
+        wednesdayPM.value = avail.wednesdayPM
+        thursdayAM.value = avail.thursdayAM
+        thursdayPM.value = avail.thursdayPM
+        fridayAM.value = avail.fridayAM
+        fridayPM.value = avail.fridayPM
+        saturday.value = avail.saturday
+        sunday.value = avail.sunday
+    }
+
+
+
+    //functions related to editing employees
+    fun loadAvailability(id: Int) {
+        val avail = getAvailability(id)
+        originalAvailability.value = avail?.copy() // Save a copy of the initial state
+
+        // Update the ViewModel fields
+        this.id.intValue = avail?.id ?: 0
+        this.mondayAM.value = avail?.mondayAM ?: false
+        this.mondayPM.value = avail?.mondayPM ?: false
+        this.tuesdayAM.value = avail?.tuesdayAM ?: false
+        this.tuesdayPM.value = avail?.tuesdayPM ?: false
+        this.wednesdayAM.value = avail?.wednesdayAM ?: false
+        this.wednesdayPM.value = avail?.wednesdayPM ?: false
+        this.thursdayAM.value = avail?.thursdayAM ?: false
+        this.thursdayPM.value = avail?.thursdayPM ?: false
+        this.fridayAM.value = avail?.fridayAM ?: false
+        this.fridayPM.value = avail?.fridayPM ?: false
+        this.saturday.value = avail?.saturday ?: false
+        this.sunday.value = avail?.sunday ?: false
     }
 
 //    fun deleteAvailability(eadate: String) {
