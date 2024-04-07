@@ -299,12 +299,12 @@ class DatabaseHelper(context: Context) :
             val tuesdayPM = cursor.getInt(4) != 0
             val wednesdayAM = cursor.getInt(5) != 0
             val wednesdayPM = cursor.getInt(6) != 0  //Boolean
-            val thursdayAM = cursor.getInt(3) != 0
-            val thursdayPM = cursor.getInt(4) != 0
-            val fridayAM = cursor.getInt(7) != 0   //Boolean
-            val fridayPM = cursor.getInt(8) != 0   //Boolean
-            val saturday = cursor.getInt(9) != 0   //Bool
-            val sunday = cursor.getInt(9) != 0   //Bool
+            val thursdayAM = cursor.getInt(7) != 0
+            val thursdayPM = cursor.getInt(8) != 0
+            val fridayAM = cursor.getInt(9) != 0   //Boolean
+            val fridayPM = cursor.getInt(10) != 0   //Boolean
+            val saturday = cursor.getInt(11) != 0   //Bool
+            val sunday = cursor.getInt(12) != 0   //Bool
             avail = EmpAvail(id,
                 mondayAM, mondayPM,
                 tuesdayAM, tuesdayPM,
