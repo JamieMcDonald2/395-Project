@@ -12,7 +12,7 @@ Jamie McDonald (JamieMcDonald2)
 
 # Project Name TBD
 
-## Release build "Solaris" v3.2-alpha
+## Release build "Solaris" v3.3-alpha
 
 ### See Release Notes at Bottom
 
@@ -67,6 +67,11 @@ Other Problems:
 https://github.com/macewanCS/w24goldwasser/blob/main/LICENSE
 
 ## Release Notes
+
+    3.3
+    - Redesigned the add employee screen to include the same logic as the edit employee screen
+    - Changed the phone number validator to accept 9 digit phone numbers, as most phone numbers in our area are 9 digits
+    - implemented a system for graudally incrementing the employee IDs 
 
     3.2
     - Added textfield logic for remaining screens that didn't have it
