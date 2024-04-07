@@ -12,7 +12,7 @@ Jamie McDonald (JamieMcDonald2)
 
 # Project Name TBD
 
-## Release build "Solaris" v3.2-alpha
+## Release build "Solaris" v3.3-alpha
 
 ### See Release Notes at Bottom
 
@@ -67,6 +67,8 @@ Other Problems:
 https://github.com/macewanCS/w24goldwasser/blob/main/LICENSE
 
 ## Release Notes
+    3.3
+    - Added more functionality to scheduling screens
 
     3.2
     - Added textfield logic for remaining screens that didn't have it

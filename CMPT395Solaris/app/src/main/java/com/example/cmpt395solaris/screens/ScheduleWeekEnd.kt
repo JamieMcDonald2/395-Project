@@ -1,4 +1,3 @@
-
 /**
  *   Schedule Employee page
  *   v2.03
@@ -30,6 +29,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -41,27 +41,22 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.example.cmpt395solaris.database.SharedViewModel
 import com.example.cmpt395solaris.database.employees.Employee
 import com.example.cmpt395solaris.database.employees.EmployeeViewModel
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
+val selectedEmployeesState: MutableState<MutableMap<String, List<Employee?>>> = mutableStateOf(mutableMapOf())
+
+
 
 @Composable
-fun ScheduleWeekEnd(date: String?, viewModel: EmployeeViewModel) {
+fun ScheduleWeekEnd(date: String?, viewModel: EmployeeViewModel, navController: NavController, sharedViewModel: SharedViewModel) {
     // Format the provided date string
     val dateString = formatDate3(parseDate2(date))
-
-    // State variables for selected employees for each shift
-    var selectedEmployee1 by remember { mutableStateOf<Employee?>(null) }
-    var selectedEmployee2 by remember { mutableStateOf<Employee?>(null) }
-    var selectedEmployee3 by remember { mutableStateOf<Employee?>(null) }
-
-    // State variables to manage expansion of dropdown menus for each shift
-    var isExpanded1 by remember { mutableStateOf(false) }
-    var isExpanded2 by remember { mutableStateOf(false) }
-    var isExpanded3 by remember { mutableStateOf(false) }
 
     // Fetch employees from the ViewModel and sort them
     val employees = viewModel.getAllEmployees().sortedWith(compareBy({ !it.isActive }, { it.fname }))
@@ -73,6 +68,7 @@ fun ScheduleWeekEnd(date: String?, viewModel: EmployeeViewModel) {
 
     // State to track the toggle state for additional dropdown menus
     var toggleState by remember { mutableStateOf(false) }
+    val isDropdownExpanded = remember { mutableStateOf(false) }
 
     // Column for displaying the selected date
     Column(
@@ -120,36 +116,84 @@ fun ScheduleWeekEnd(date: String?, viewModel: EmployeeViewModel) {
                 horizontalAlignment = Alignment.Start
             ) {
                 // Dropdown 1
+                val dropdownMenu1State = remember { mutableStateOf(false) }
+
                 DropdownMenu2(
-                    selectedEmployee1,
-                    isExpanded1,
-                    options1,
-                    employees,
-                    { selectedEmployee1 = it },
-                    { isExpanded1 = !isExpanded1 }
+                    selectedEmployee = selectedEmployeesState.value[dateString]?.getOrNull(0),
+                    isExpanded = dropdownMenu1State,
+                    options = options1,
+                    employees = employees,
+                    onEmployeeSelected = { employee ->
+                        // Update selected employees for the current day
+                        val updatedEmployees = selectedEmployeesState.value.toMutableMap()
+                        updatedEmployees[dateString] = mutableListOf(employee)
+                        selectedEmployeesState.value = updatedEmployees
+                    },
+                    onDropdownClicked = {
+                        dropdownMenu1State.value = true
+                    },
+                    onOptionSelected = {
+                        dropdownMenu1State.value = false
+                    }
                 )
+
                 Spacer(modifier = Modifier.height(10.dp))
-                // Dropdown 2
+
+// Dropdown 2
+                val dropdownMenu2State = remember { mutableStateOf(false) }
+
                 DropdownMenu2(
-                    selectedEmployee2,
-                    isExpanded2,
-                    options2,
-                    employees,
-                    { selectedEmployee2 = it },
-                    { isExpanded2 = !isExpanded2 }
+                    selectedEmployee = selectedEmployeesState.value[dateString]?.getOrNull(1),
+                    isExpanded = dropdownMenu2State,
+                    options = options2,
+                    employees = employees,
+                    onEmployeeSelected = { employee ->
+                        // Update selected employees for the current day
+                        val updatedEmployees = selectedEmployeesState.value.toMutableMap()
+                        updatedEmployees[dateString] = mutableListOf(
+                            selectedEmployeesState.value[dateString]?.getOrNull(0),
+                            employee
+                        )
+                        selectedEmployeesState.value = updatedEmployees
+                    },
+                    onDropdownClicked = {
+                        dropdownMenu2State.value = true
+                    },
+                    onOptionSelected = {
+                        dropdownMenu2State.value = false
+                    }
                 )
+
                 Spacer(modifier = Modifier.height(10.dp))
-                // Dropdown 3 if toggleState is true
+
+// Dropdown 3
                 if (toggleState) {
+                    val dropdownMenu3State = remember { mutableStateOf(false) }
+
                     DropdownMenu2(
-                        selectedEmployee3,
-                        isExpanded3,
-                        options3,
-                        employees,
-                        { selectedEmployee3 = it },
-                        { isExpanded3 = !isExpanded3 }
+                        selectedEmployee = selectedEmployeesState.value[dateString]?.getOrNull(2),
+                        isExpanded = dropdownMenu3State,
+                        options = options3,
+                        employees = employees,
+                        onEmployeeSelected = { employee ->
+                            // Update selected employees for the current day
+                            val updatedEmployees = selectedEmployeesState.value.toMutableMap()
+                            updatedEmployees[dateString] = mutableListOf(
+                                selectedEmployeesState.value[dateString]?.getOrNull(0),
+                                selectedEmployeesState.value[dateString]?.getOrNull(1),
+                                employee
+                            )
+                            selectedEmployeesState.value = updatedEmployees
+                        },
+                        onDropdownClicked = {
+                            dropdownMenu3State.value = true
+                        },
+                        onOptionSelected = {
+                            dropdownMenu3State.value = false
+                        }
                     )
                 }
+
             }
             // Adding space at the bottom
             Spacer(modifier = Modifier.height(10.dp))
@@ -186,7 +230,8 @@ fun ScheduleWeekEnd(date: String?, viewModel: EmployeeViewModel) {
             ) {
                 Button(
                     onClick = {
-                        // Haven't implemented logic for button yet
+                        // Update the selected employees before confirming
+                        navController.navigate("schedule1")
                     },
                 ) {
                     Text("Confirm")
@@ -210,11 +255,12 @@ fun ScheduleWeekEnd(date: String?, viewModel: EmployeeViewModel) {
 @Composable
 fun DropdownMenu2(
     selectedEmployee: Employee?,
-    isExpanded: Boolean,
+    isExpanded: MutableState<Boolean>,
     options: List<String>,
-    employeeOptions: List<Employee>,
+    employees: List<Employee>,
     onEmployeeSelected: (Employee?) -> Unit,
-    onDropdownClicked: () -> Unit
+    onDropdownClicked: () -> Unit,
+    onOptionSelected: () -> Unit
 ) {
     val borderColor = Color.LightGray // Light gray border color
     val backgroundColor = Color.White
@@ -224,8 +270,11 @@ fun DropdownMenu2(
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
-                .clickable { onDropdownClicked() }
-                .padding(horizontal = 15.dp)
+                .clickable {
+                    // Toggle expansion state and invoke the click callback
+                    isExpanded.value = !isExpanded.value
+                    onDropdownClicked()
+                }
                 .fillMaxWidth()
                 .height(50.dp)
                 .background(backgroundColor)
@@ -248,7 +297,7 @@ fun DropdownMenu2(
             )
         }
 
-        if (isExpanded) {
+        if (isExpanded.value) { // Check if the dropdown is expanded
             Column(
                 modifier = Modifier.fillMaxWidth()
             ) {
@@ -256,15 +305,19 @@ fun DropdownMenu2(
                     Box(
                         modifier = Modifier
                             .background(backgroundColor)
-                            .border(BorderStroke(1.dp, borderColor), shape = RoundedCornerShape(8.dp))
+                            .border(
+                                BorderStroke(1.dp, borderColor),
+                                shape = RoundedCornerShape(8.dp)
+                            )
                             .fillMaxWidth()
                             .padding(horizontal = 16.dp, vertical = 8.dp)
                             .clickable {
-                                val selectedEmployee = employeeOptions.find { employee ->
+                                val selectedEmployee = employees.find { employee ->
                                     "${employee.fname} ${employee.lname}" == option
                                 }
                                 onEmployeeSelected(selectedEmployee)
                                 onDropdownClicked()
+                                onOptionSelected() // Call the callback when an option is selected
                             }
                     ) {
                         Text(
@@ -281,7 +334,6 @@ fun DropdownMenu2(
         }
     }
 }
-
 
 fun parseDate2(dateString: String?): Date? {
     // Check if the input string is null
@@ -327,5 +379,9 @@ private fun getDayOfMonthWithOrdinal(day: Int): String {
     }
 }
 
+@Composable
+fun DropdownMenuState(initiallyExpanded: Boolean = false): MutableState<Boolean> {
+    return remember { mutableStateOf(initiallyExpanded) }
+}
 
 

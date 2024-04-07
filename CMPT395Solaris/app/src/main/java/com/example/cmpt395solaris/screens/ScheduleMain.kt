@@ -23,15 +23,19 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
 import androidx.compose.material3.DatePicker
+import androidx.compose.material3.DatePickerDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.cmpt395solaris.database.TopBarViewModel
@@ -79,10 +83,18 @@ fun ScheduleMain(navController: NavController, topBarViewModel: TopBarViewModel)
                 .padding(vertical = 0.dp)
         ) {
             item {
-                DatePicker(
-                    state = datePickerState,
-                    modifier = Modifier.fillMaxWidth()
-                )
+                CompositionLocalProvider(LocalContentColor provides Color.Red) {
+                    DatePicker(
+                        state = datePickerState,
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = DatePickerDefaults.colors(
+                            dayContentColor = Color.Red,
+                            todayContentColor = Color.Red,
+                            selectedDayContentColor = Color.Red,
+                            dayInSelectionRangeContainerColor = Color.Blue
+                        )
+                    )
+                }
             }
 
             item {
@@ -117,11 +129,9 @@ fun ScheduleMain(navController: NavController, topBarViewModel: TopBarViewModel)
     }
 }
 
-
 fun formatDate(date: Date?): String? {
     if (date == null) return null
     val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-    // No need to set time zone, it uses the system's default time zone
     return format.format(date)
 }
 
@@ -132,3 +142,5 @@ fun isWeekend(date: Date?): Boolean {
     val dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK)
     return dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY
 }
+
+
