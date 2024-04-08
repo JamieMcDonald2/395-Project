@@ -23,9 +23,11 @@
 
 package com.example.cmpt395solaris.screens
 
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -36,6 +38,7 @@ import com.example.cmpt395solaris.ComponentFunctions.NavigationBar
 import com.example.cmpt395solaris.ComponentFunctions.TopBar
 import com.example.cmpt395solaris.Navigation
 import com.example.cmpt395solaris.database.DatabaseHelper
+import com.example.cmpt395solaris.database.employees.seedDatabase
 import com.example.cmpt395solaris.database.ScheduleViewModel
 import com.example.cmpt395solaris.database.TopBarViewModel
 import com.example.cmpt395solaris.database.availability.EmpAvailabilityViewModel
@@ -52,6 +55,7 @@ import java.util.Locale
 
 class MainActivity : ComponentActivity() {
     private lateinit var dbHelper: DatabaseHelper
+//    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {

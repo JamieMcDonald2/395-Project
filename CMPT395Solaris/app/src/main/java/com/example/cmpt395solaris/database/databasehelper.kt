@@ -222,6 +222,7 @@ class DatabaseHelper(context: Context) :
     fun clearDatabase() {
         val db = this.writableDatabase
         db.delete("employees", null, null)
+        db.delete("empavail", null, null)
         db.close()
     }
 
@@ -342,45 +343,37 @@ class DatabaseHelper(context: Context) :
         return affectedRows
     }
 
-    fun getAvailEmployees(fieldName: String): ArrayList<Employee>{
+    fun getAvailEmployees(fieldName: String): ArrayList<Employee> {
         val db = this.readableDatabase
         val employees = ArrayList<Employee>()
         val idList = getIdsOfAvailableEmployees(fieldName)
 
-        for(id in idList){
-            val employee = getEmployeeById(id)
-            if (employee != null && employee.isActive) {
-                employees.add(employee)
-            }
-        }
-
-        return employees
+        return idList.mapNotNull { getEmployeeById(it) }
+            .filter { it.isActive }
+            .toCollection(ArrayList())
     }
 
-    fun getOpenTrainedEmployees(fieldName: String): ArrayList<Employee>{
+    fun getOpenTrainedEmployees(fieldName: String): ArrayList<Employee> {
         val employees = getAvailEmployees(fieldName)
-
-        for(employee in employees){
-            if (!employee.opening){
-                employees.remove(employee)
-            }
-        }
-
-        return employees
+        return employees.filter { it.opening } as ArrayList<Employee>
     }
 
 
-    fun getCloseTrainedEmployees(fieldName: String): ArrayList<Employee>{
+
+    fun getCloseTrainedEmployees(fieldName: String): ArrayList<Employee> {
         val employees = getAvailEmployees(fieldName)
+        val employeesToRemove = ArrayList<Employee>()
 
-        for(employee in employees){
-            if (!employee.closing){
-                employees.remove(employee)
+        for (employee in employees) {
+            if (!employee.closing) {
+                employeesToRemove.add(employee)
             }
         }
 
+        employees.removeAll(employeesToRemove)
         return employees
     }
+
 
     fun getBothTrainedEmployees(fieldName: String): ArrayList<Employee>{
         val employees = getAvailEmployees(fieldName)
@@ -420,6 +413,21 @@ class DatabaseHelper(context: Context) :
      * Scheduling functions
      */
 
+    fun doesDsDateExist(dsDate: String): Boolean {
+        val db = this.readableDatabase
+        val query = "SELECT COUNT(*) FROM dayschedule WHERE dsdate = ?"
+        val cursor = db.rawQuery(query, arrayOf(dsDate))
+        cursor.use {
+            if (it.moveToFirst()) {
+                val count = it.getInt(0)
+                return count > 0
+            }
+        }
+        return false
+    }
+
+
+
     fun updateDaySchedule(schedule: DaySchedule): Int {
         val db = this.writableDatabase
 
@@ -433,7 +441,7 @@ class DatabaseHelper(context: Context) :
             it.put("employeePM3", schedule.employeePM3)
         }
 
-
+        Log.d("UpdateSchedule", "Content: $contentValues")
         val affectedRows = db.update("dayschedule", contentValues, "dsdate = ?", arrayOf(schedule.dsdate))
 
         return affectedRows
@@ -453,6 +461,7 @@ class DatabaseHelper(context: Context) :
         }
 
         return try {
+            Log.d("AddSchedule", "Content: $contentValues")
             val result = db.insert("dayschedule", null, contentValues)
             db.close()
             result != -1L

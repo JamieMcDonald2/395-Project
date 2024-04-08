@@ -7,6 +7,8 @@
 
 package com.example.cmpt395solaris.database.employees
 
+import androidx.compose.runtime.MutableState
+
 data class Employee(
     var id: Int,
     val fname: String,

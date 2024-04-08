@@ -12,7 +12,7 @@ Jamie McDonald (JamieMcDonald2)
 
 # Project Name TBD
 
-## Release build "Solaris" v3.8-alpha
+## Release build "Solaris" v4.0-alpha
 
 ### See Release Notes at Bottom
 
@@ -67,6 +67,15 @@ Other Problems:
 https://github.com/macewanCS/w24goldwasser/blob/main/LICENSE
 
 ## Release Notes
+
+    4.0
+    - Implemented database functionality for weekday day schedules
+    - Modified weekday scheduling to filter drop downs by available employees and trained employees if neccisary 
+
+    3.9
+    - Implemented database functionality for weekend day schedules
+    - Modified weekend day scheduling page to filter drop downs by available employees or trained employees if neccisary
+
     3.8
     - Fixed drop down menus and added starting functionality for
       saving the employees for scheduling

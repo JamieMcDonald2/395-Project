@@ -15,6 +15,8 @@
 
 package com.example.cmpt395solaris
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInHorizontally
@@ -37,6 +39,7 @@ import com.example.cmpt395solaris.screens.EmployeeAvailabilityScreen
 import com.example.cmpt395solaris.screens.EmployeeMain
 import com.example.cmpt395solaris.screens.HomeScreen
 import com.example.cmpt395solaris.screens.ScheduleMain
+import com.example.cmpt395solaris.screens.ScheduleMain2
 import com.example.cmpt395solaris.screens.ScheduleWeekDay
 import com.example.cmpt395solaris.screens.ScheduleWeekEnd
 import com.example.cmpt395solaris.screens.SettingsMain
@@ -46,6 +49,7 @@ import com.google.accompanist.navigation.animation.AnimatedNavHost
 /**
  * some imported packages are obsolete but needed
  */
+//@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalAnimationApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun Navigation(
@@ -192,7 +196,9 @@ fun Navigation(
             }
         ) { backStackEntry ->
             val date = backStackEntry.arguments?.getString("date")
-            ScheduleWeekDay(date, employeeViewModel, navController, scheduleViewModel)
+            if (date != null) {
+                ScheduleWeekDay(date, employeeViewModel, navController, scheduleViewModel)
+            }
         }
 
         //schedule employee page
@@ -207,7 +213,9 @@ fun Navigation(
             }
         ) { backStackEntry ->
             val date = backStackEntry.arguments?.getString("date")
-            ScheduleWeekEnd(date, employeeViewModel, navController, scheduleViewModel)
+            if (date != null) {
+                ScheduleWeekEnd(date, employeeViewModel, navController, scheduleViewModel)
+            }
         }
     }
 }

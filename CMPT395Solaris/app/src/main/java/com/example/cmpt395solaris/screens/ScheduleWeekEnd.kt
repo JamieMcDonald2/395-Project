@@ -29,7 +29,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -43,6 +42,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.cmpt395solaris.database.ScheduleViewModel
+import com.example.cmpt395solaris.database.dayschedule.DaySchedule
 import com.example.cmpt395solaris.database.employees.Employee
 import com.example.cmpt395solaris.database.employees.EmployeeViewModel
 import java.text.SimpleDateFormat
@@ -52,7 +52,7 @@ import java.util.Locale
 
 @Composable
 fun ScheduleWeekEnd(
-    date: String?,
+    date: String,
     viewModel: EmployeeViewModel,
     navController: NavController,
     scheduleViewModel: ScheduleViewModel
@@ -62,22 +62,72 @@ fun ScheduleWeekEnd(
     val parts = dateString.split(", ")
     val day = parts.first().lowercase()
 
-    val fullDayEmployees = viewModel.getAvailableEmployees(day)
+    var toggleState by remember { mutableStateOf(false) }
+
+    scheduleViewModel.fullDayEmployees =
+        remember { mutableStateOf(viewModel.getAvailableEmployees(day)) }
+    scheduleViewModel.morningTrainedEmployees =
+        remember { mutableStateOf(viewModel.getOpenTrainedEmployees(day)) }
+    scheduleViewModel.eveningTrainedEmployees =
+        remember { mutableStateOf(viewModel.getCloseTrainedEmployees(day)) }
+    scheduleViewModel.bothTrainedEmployees =
+        remember {  mutableStateOf(viewModel.getBothTrainedEmployees(day)) }
+
+    var schedule = DaySchedule(
+        date,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1)
+
+    if (!scheduleViewModel.doesDsDateExist(date)){
+        scheduleViewModel.addDaySchedule(schedule)
+    }
+    else{
+        schedule = scheduleViewModel.getDaySchedule(date)!!
+    }
 
     // State variables for selected employees
-    var selectedEmployee1 by remember { mutableStateOf<Employee?>(null) }
-    var selectedEmployee2 by remember { mutableStateOf<Employee?>(null) }
-    var selectedEmployee3 by remember { mutableStateOf<Employee?>(null) }
+//    scheduleViewModel.selectedEmployee1 = remember { mutableStateOf<Employee?>(null) }
+//    scheduleViewModel.selectedEmployee2 = remember { mutableStateOf<Employee?>(null) }
+//    scheduleViewModel.selectedEmployee3 = remember { mutableStateOf<Employee?>(null) }
 
     // Fetching selected employees from the view model
-    val selectedEmployeesMap by scheduleViewModel.selectedEmployeesFlow.collectAsState()
+//    val selectedEmployeesMap by scheduleViewModel.selectedEmployeesFlow.collectAsState()
+//
+//    // Set selected employees if already stored in the view model
+//    val selectedEmployees = selectedEmployeesMap[dateString] ?: emptyList()
+//    if (selectedEmployees.size >= 3) {
+//        selectedEmployee1 = selectedEmployees[0]
+//        selectedEmployee2 = selectedEmployees[1]
+//        selectedEmployee3 = selectedEmployees[2]
+//    }
 
-    // Set selected employees if already stored in the view model
-    val selectedEmployees = selectedEmployeesMap[dateString] ?: emptyList()
-    if (selectedEmployees.size >= 3) {
-        selectedEmployee1 = selectedEmployees[0]
-        selectedEmployee2 = selectedEmployees[1]
-        selectedEmployee3 = selectedEmployees[2]
+
+    if(schedule.employeeAM1 > 0){
+        scheduleViewModel.selectedEmployee1 =
+            remember { mutableStateOf(viewModel.getEmployeeByID(schedule.employeeAM1)) }
+    }
+    else{
+        scheduleViewModel.selectedEmployee1 = remember { mutableStateOf<Employee?>(null) }
+    }
+    if(schedule.employeeAM2 > 0){
+        scheduleViewModel.selectedEmployee2 =
+            remember { mutableStateOf(viewModel.getEmployeeByID(schedule.employeeAM2)) }
+    }
+    else{
+        scheduleViewModel.selectedEmployee2 = remember { mutableStateOf<Employee?>(null) }
+    }
+    if(schedule.employeeAM3 > 0){
+        scheduleViewModel.selectedEmployee3 =
+            remember { mutableStateOf(viewModel.getEmployeeByID(schedule.employeeAM3)) }
+
+        toggleState = true
+    }
+    else{
+        scheduleViewModel.selectedEmployee3 = remember { mutableStateOf<Employee?>(null) }
     }
 
     // State variables to manage expansion of dropdown menus
@@ -85,23 +135,41 @@ fun ScheduleWeekEnd(
     var isExpanded2 by remember { mutableStateOf(false) }
     var isExpanded3 by remember { mutableStateOf(false) }
 
-    // Options for the dropdown menus
-    val options1 = fullDayEmployees.map { "${it.fname} ${it.lname}" }
-    val options2 = fullDayEmployees.map { "${it.fname} ${it.lname}" }
-    val options3 = fullDayEmployees.map { "${it.fname} ${it.lname}" }
 
-    // State to track the toggle state
-    var toggleState by remember { mutableStateOf(false) }
+
+    scheduleViewModel.options1 = remember {
+        mutableStateOf(scheduleViewModel.fullDayEmployees.value.map { "${it.fname} ${it.lname}" })
+    }
+    scheduleViewModel.options2 = remember {
+        mutableStateOf(scheduleViewModel.morningTrainedEmployees.value.map { "${it.fname} ${it.lname}" })
+    }
+    scheduleViewModel.options3 = remember {
+        mutableStateOf(scheduleViewModel.eveningTrainedEmployees.value.map { "${it.fname} ${it.lname}" })
+    }
+    scheduleViewModel.options4 = remember {
+        mutableStateOf(scheduleViewModel.bothTrainedEmployees.value.map { "${it.fname} ${it.lname}" })
+    }
+
+
+
 
     // Function to handle confirm button click
     fun onConfirmClicked() {
         // Update selected employees in the view model
-        val selectedEmployees = listOf(selectedEmployee1, selectedEmployee2, selectedEmployee3)
-        scheduleViewModel.setSelectedEmployeesForDate(dateString, selectedEmployees)
+//        val selectedEmployees = listOf(selectedEmployee1, selectedEmployee2, selectedEmployee3)
+//        scheduleViewModel.setSelectedEmployeesForDate(dateString, selectedEmployees)
+
+        schedule.employeeAM1 = scheduleViewModel.selectedEmployee1.value?.id ?: -1
+        schedule.employeeAM2 = scheduleViewModel.selectedEmployee2.value?.id ?: -1
+        schedule.employeeAM3 = scheduleViewModel.selectedEmployee3.value?.id ?: -1
+
+        scheduleViewModel.updateDaySchedule(schedule)
     }
 
+
     Column(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
             .padding(vertical = 0.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -112,12 +180,14 @@ fun ScheduleWeekEnd(
                 style = TextStyle(fontSize = 22.sp, fontWeight = FontWeight.Bold)
             )
             Spacer(modifier = Modifier.height(40.dp))
+
             Divider(color = Color.Black, thickness = 1.dp, modifier = Modifier.align(Alignment.BottomCenter))
         }
     }
 
     LazyColumn(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
             .padding(top = 50.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.Start
@@ -135,33 +205,54 @@ fun ScheduleWeekEnd(
                 modifier = Modifier.padding(horizontal = 15.dp),
                 horizontalAlignment = Alignment.Start
             ) {
-                DropdownMenu2(
-                    selectedEmployee1,
+                DropdownMenu3(
+                    scheduleViewModel.selectedEmployee1.value,
+                    scheduleViewModel.selectedEmployee2.value,
+                    scheduleViewModel.selectedEmployee3.value,
                     isExpanded1,
-                    options1,
-                    fullDayEmployees,
-                    { selectedEmployee1 = it },
-                    { isExpanded1 = !isExpanded1 }
-                )
+                    scheduleViewModel.fullDayEmployees.value,
+                    scheduleViewModel.morningTrainedEmployees.value,
+                    scheduleViewModel.eveningTrainedEmployees.value,
+                    scheduleViewModel.bothTrainedEmployees.value,
+                    {
+                        if (it != null) {
+                            scheduleViewModel.selectedEmployee1.value = it
+                        }
+                    }
+                ) { isExpanded1 = !isExpanded1 }
                 Spacer(modifier = Modifier.height(10.dp))
-                DropdownMenu2(
-                    selectedEmployee2,
+                DropdownMenu3(
+                    scheduleViewModel.selectedEmployee2.value,
+                    scheduleViewModel.selectedEmployee1.value,
+                    scheduleViewModel.selectedEmployee3.value,
                     isExpanded2,
-                    options2,
-                    fullDayEmployees,
-                    { selectedEmployee2 = it },
-                    { isExpanded2 = !isExpanded2 }
-                )
+                    scheduleViewModel.fullDayEmployees.value,
+                    scheduleViewModel.morningTrainedEmployees.value,
+                    scheduleViewModel.eveningTrainedEmployees.value,
+                    scheduleViewModel.bothTrainedEmployees.value,
+                    {
+                        if (it != null) {
+                            scheduleViewModel.selectedEmployee2.value = it
+                        }
+                    }
+                ) { isExpanded2 = !isExpanded2 }
                 Spacer(modifier = Modifier.height(10.dp))
                 if (toggleState) {
-                    DropdownMenu2(
-                        selectedEmployee3,
+                    DropdownMenu3(
+                        scheduleViewModel.selectedEmployee3.value,
+                        scheduleViewModel.selectedEmployee1.value,
+                        scheduleViewModel.selectedEmployee2.value,
                         isExpanded3,
-                        options3,
-                        fullDayEmployees,
-                        { selectedEmployee3 = it },
-                        { isExpanded3 = !isExpanded3 }
-                    )
+                        scheduleViewModel.fullDayEmployees.value,
+                        scheduleViewModel.morningTrainedEmployees.value,
+                        scheduleViewModel.eveningTrainedEmployees.value,
+                        scheduleViewModel.bothTrainedEmployees.value,
+                        {
+                            if (it != null) {
+                                scheduleViewModel.selectedEmployee3.value = it
+                            }
+                        }
+                    ) { isExpanded3 = !isExpanded3 }
                 }
             }
 
@@ -170,12 +261,16 @@ fun ScheduleWeekEnd(
 
         item {
             Row(
-                modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
                     text = "Busy Day?",
-                    modifier = Modifier.align(Alignment.CenterVertically).padding(start = 8.dp)
+                    modifier = Modifier
+                        .align(Alignment.CenterVertically)
+                        .padding(start = 8.dp)
                 )
                 Switch(
                     checked = toggleState,
@@ -187,7 +282,8 @@ fun ScheduleWeekEnd(
             Spacer(modifier = Modifier.height(20.dp))
 
             Box(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
                     .padding(bottom = 4.dp),
                 contentAlignment = Alignment.Center
             ) {
@@ -215,81 +311,6 @@ fun ScheduleWeekEnd(
  * @param onEmployeeSelected Callback function to handle selection of an employee.
  * @param onDropdownClicked Callback function to handle dropdown click.
  */
-
-@Composable
-fun DropdownMenu2(
-    selectedEmployee: Employee?,
-    isExpanded: Boolean,
-    options: List<String>,
-    employeeOptions: List<Employee>,
-    onEmployeeSelected: (Employee?) -> Unit,
-    onDropdownClicked: () -> Unit
-) {
-    val borderColor = Color.LightGray // Light gray border color
-    val backgroundColor = Color.White
-    val textColor = Color.Black
-
-    Column {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .clickable { onDropdownClicked() }
-                .padding(horizontal = 15.dp)
-                .fillMaxWidth()
-                .height(50.dp)
-                .background(backgroundColor)
-                .border(BorderStroke(1.dp, borderColor), shape = RoundedCornerShape(8.dp))
-        ) {
-            Text(
-                text = selectedEmployee?.let { "${it.fname} ${it.lname}" } ?: "Select Employee",
-                modifier = Modifier.weight(1f).padding(start = 16.dp),
-                color = if (selectedEmployee == null) Color.Gray else Color.Black,
-                style = TextStyle(
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Normal,
-                )
-            )
-            Icon(
-                imageVector = Icons.Default.ArrowDropDown,
-                contentDescription = "Dropdown Icon",
-                tint = Color.Black,
-                modifier = Modifier.padding(16.dp)
-            )
-        }
-
-        if (isExpanded) {
-            Column(
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                options.forEach { option ->
-                    Box(
-                        modifier = Modifier
-                            .background(backgroundColor)
-                            .border(BorderStroke(1.dp, borderColor), shape = RoundedCornerShape(8.dp))
-                            .fillMaxWidth()
-                            .padding(horizontal = 16.dp, vertical = 8.dp)
-                            .clickable {
-                                val selectedEmployee = employeeOptions.find { employee ->
-                                    "${employee.fname} ${employee.lname}" == option
-                                }
-                                onEmployeeSelected(selectedEmployee)
-                                onDropdownClicked()
-                            }
-                    ) {
-                        Text(
-                            text = option,
-                            modifier = Modifier.padding(8.dp),
-                            style = TextStyle(
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.Normal,
-                            )
-                        )
-                    }
-                }
-            }
-        }
-    }
-}
 
 fun parseDate2(dateString: String?): Date? {
     // Check if the input string is null
@@ -335,5 +356,144 @@ private fun getDayOfMonthWithOrdinal(day: Int): String {
     }
 }
 
-// Function to handle confirm button click
 
+@Composable
+fun DropdownMenu3(
+    selectedEmployee: Employee?,
+    otherSelectedEmp1: Employee?,
+    otherSelectedEmp2: Employee?,
+    isExpanded: Boolean,
+    employeeOptions: List<Employee>,
+    openOptions: List<Employee>,
+    closeOptions: List<Employee>,
+    bothOptions: List<Employee>,
+    onEmployeeSelected: (Employee?) -> Unit,
+    onDropdownClicked: () -> Unit
+) {
+    val borderColor = Color.LightGray // Light gray border color
+    val backgroundColor = Color.White
+    val textColor = Color.Black
+
+//    // Create a copy of the options list to prevent ConcurrentModificationException
+//    var options = remember { calculateOptions(
+//        selectedEmployee,
+//        otherSelectedEmp1,
+//        otherSelectedEmp2,
+//        employeeOptions,
+//        openOptions,
+//        closeOptions,
+//        bothOptions
+//    ) }
+
+    Column {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .clickable { onDropdownClicked() }
+                .padding(horizontal = 15.dp)
+                .fillMaxWidth()
+                .height(50.dp)
+                .background(backgroundColor)
+                .border(BorderStroke(1.dp, borderColor), shape = RoundedCornerShape(8.dp))
+        ) {
+            Text(
+                text = selectedEmployee?.let { "${it.fname} ${it.lname}" } ?: "Select Employee",
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(start = 16.dp),
+                color = if (selectedEmployee == null) Color.Gray else Color.Black,
+                style = TextStyle(
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Normal,
+                )
+            )
+            Icon(
+                imageVector = Icons.Default.ArrowDropDown,
+                contentDescription = "Dropdown Icon",
+                tint = Color.Black,
+                modifier = Modifier.padding(16.dp)
+            )
+        }
+
+        if (isExpanded) {
+            val options = remember { calculateOptions2(
+                selectedEmployee,
+                otherSelectedEmp1,
+                otherSelectedEmp2,
+                employeeOptions,
+                openOptions,
+                closeOptions,
+                bothOptions
+            ) }
+            Column(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                // Iterate over the copy of options list
+                options.forEach { option ->
+                    Box(
+                        modifier = Modifier
+                            .background(backgroundColor)
+                            .border(
+                                BorderStroke(1.dp, borderColor),
+                                shape = RoundedCornerShape(8.dp)
+                            )
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp, vertical = 8.dp)
+                            .clickable {
+                                val newEmployee = employeeOptions.find { employee ->
+                                    "${employee.fname} ${employee.lname}" == option
+                                }
+                                onEmployeeSelected(newEmployee)
+                                onDropdownClicked()
+                            }
+                    ) {
+                        Text(
+                            text = option.toString(),
+                            modifier = Modifier.padding(8.dp),
+                            style = TextStyle(
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.Normal,
+                            )
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+fun calculateOptions2(
+    selectedEmployee: Employee?,
+    otherSelectedEmp1: Employee?,
+    otherSelectedEmp2: Employee?,
+    employeeOptions: List<Employee>,
+    openOptions: List<Employee>,
+    closeOptions: List<Employee>,
+    bothOptions: List<Employee>
+): List<String> {
+    val opening = otherSelectedEmp1?.opening == true || otherSelectedEmp2?.opening == true
+    val closing = otherSelectedEmp1?.closing == true || otherSelectedEmp2?.closing == true
+
+    // Determine the appropriate options list based on opening and closing statuses
+    val options = if (opening && closing) {
+        employeeOptions
+    } else if (opening) {
+        closeOptions
+    } else if (closing) {
+        openOptions
+    } else {
+        bothOptions
+    }
+
+    // Map options to strings
+    val optionStrings = options.map { "${it.fname} ${it.lname}" }
+
+    // Filter out selected employee, otherSelectedEmp1, and otherSelectedEmp2
+    return optionStrings.filter {
+        it != "${selectedEmployee?.fname} ${selectedEmployee?.lname}" &&
+                it != "${otherSelectedEmp1?.fname} ${otherSelectedEmp1?.lname}" &&
+                it != "${otherSelectedEmp2?.fname} ${otherSelectedEmp2?.lname}"
+    }
+}

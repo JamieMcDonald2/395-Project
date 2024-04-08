@@ -88,9 +88,9 @@ fun ScheduleMain(navController: NavController, topBarViewModel: TopBarViewModel)
                         state = datePickerState,
                         modifier = Modifier.fillMaxWidth(),
                         colors = DatePickerDefaults.colors(
-                            dayContentColor = Color.Red,
-                            todayContentColor = Color.Red,
-                            selectedDayContentColor = Color.Red,
+                            dayContentColor = Color.Black,
+//                            todayContentColor = Color.Black,
+                            selectedDayContentColor = Color.Black,
                             dayInSelectionRangeContainerColor = Color.Blue
                         )
                     )
