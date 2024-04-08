@@ -343,45 +343,37 @@ class DatabaseHelper(context: Context) :
         return affectedRows
     }
 
-    fun getAvailEmployees(fieldName: String): ArrayList<Employee>{
+    fun getAvailEmployees(fieldName: String): ArrayList<Employee> {
         val db = this.readableDatabase
         val employees = ArrayList<Employee>()
         val idList = getIdsOfAvailableEmployees(fieldName)
 
-        for(id in idList){
-            val employee = getEmployeeById(id)
-            if (employee != null && employee.isActive) {
-                employees.add(employee)
-            }
-        }
-
-        return employees
+        return idList.mapNotNull { getEmployeeById(it) }
+            .filter { it.isActive }
+            .toCollection(ArrayList())
     }
 
-    fun getOpenTrainedEmployees(fieldName: String): ArrayList<Employee>{
+    fun getOpenTrainedEmployees(fieldName: String): ArrayList<Employee> {
         val employees = getAvailEmployees(fieldName)
-
-        for(employee in employees){
-            if (!employee.opening){
-                employees.remove(employee)
-            }
-        }
-
-        return employees
+        return employees.filter { it.opening } as ArrayList<Employee>
     }
 
 
-    fun getCloseTrainedEmployees(fieldName: String): ArrayList<Employee>{
+
+    fun getCloseTrainedEmployees(fieldName: String): ArrayList<Employee> {
         val employees = getAvailEmployees(fieldName)
+        val employeesToRemove = ArrayList<Employee>()
 
-        for(employee in employees){
-            if (!employee.closing){
-                employees.remove(employee)
+        for (employee in employees) {
+            if (!employee.closing) {
+                employeesToRemove.add(employee)
             }
         }
 
+        employees.removeAll(employeesToRemove)
         return employees
     }
+
 
     fun getBothTrainedEmployees(fieldName: String): ArrayList<Employee>{
         val employees = getAvailEmployees(fieldName)
