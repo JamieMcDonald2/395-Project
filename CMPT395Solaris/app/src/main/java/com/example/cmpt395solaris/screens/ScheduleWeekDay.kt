@@ -30,6 +30,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -87,7 +88,7 @@ fun ScheduleWeekDay(
     var isExpanded6 by remember { mutableStateOf(false) }
 
     // Fetch employees from the ViewModel and sort them by activity status and first name
-//    val employees = viewModel.getAllEmployees().sortedWith(compareBy({ !it.isActive }, { it.fname }))
+    //val employees = viewModel.getAllEmployees().sortedWith(compareBy({ !it.isActive }, { it.fname }))
 
     // Options for the dropdown menus
     val options1 = morningEmployees.map { "${it.fname} ${it.lname}" }
@@ -97,6 +98,28 @@ fun ScheduleWeekDay(
     val options5 = eveningEmployees.map { "${it.fname} ${it.lname}" }
     val options6 = eveningEmployees.map { "${it.fname} ${it.lname}" }
 
+
+    // Fetching selected employees from the view model
+    val selectedEmployeesMap by scheduleViewModel.selectedEmployeesFlow.collectAsState()
+
+    // Set selected employees if already stored in the view model
+    val selectedEmployees = selectedEmployeesMap[dateString] ?: emptyList()
+    if (selectedEmployees.size >= 6) {
+        selectedEmployee1 = selectedEmployees[0]
+        selectedEmployee2 = selectedEmployees[1]
+        selectedEmployee3 = selectedEmployees[2]
+        selectedEmployee4 = selectedEmployees[3]
+        selectedEmployee5 = selectedEmployees[4]
+        selectedEmployee6 = selectedEmployees[5]
+    }
+
+    // Function to handle confirm button click
+    fun onConfirmClicked() {
+        // Update selected employees in the view model
+        val selectedEmployees = listOf(selectedEmployee1, selectedEmployee2, selectedEmployee3,
+            selectedEmployee4, selectedEmployee5, selectedEmployee6)
+        scheduleViewModel.setSelectedEmployeesForDate(dateString, selectedEmployees)
+    }
     // State to track the toggle state
     var toggleState by remember { mutableStateOf(false) }
 
@@ -270,7 +293,8 @@ fun ScheduleWeekDay(
             ) {
                 Button(
                     onClick = {
-                        // Haven't implemented logic for button yet
+                        onConfirmClicked()
+                        navController.navigate("schedule1")
 
                     },
                 ) {
