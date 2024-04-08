@@ -193,7 +193,7 @@ fun Navigation(
             }
         ) { backStackEntry ->
             val date = backStackEntry.arguments?.getString("date")
-            ScheduleWeekDay(date, employeeViewModel)
+            ScheduleWeekDay(date, employeeViewModel, navController, sharedViewModel)
         }
 
         //schedule employee page

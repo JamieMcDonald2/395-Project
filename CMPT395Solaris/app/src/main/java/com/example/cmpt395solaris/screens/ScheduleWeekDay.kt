@@ -42,6 +42,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.toLowerCase
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.example.cmpt395solaris.database.SharedViewModel
 import com.example.cmpt395solaris.database.employees.Employee
 import com.example.cmpt395solaris.database.employees.EmployeeViewModel
 import java.text.SimpleDateFormat
@@ -49,7 +51,12 @@ import java.util.Date
 import java.util.Locale
 
 @Composable
-fun ScheduleWeekDay(date: String?, viewModel: EmployeeViewModel) {
+fun ScheduleWeekDay(
+    date: String?,
+    viewModel: EmployeeViewModel,
+    navController: NavController,
+    sharedViewModel: SharedViewModel
+) {
     // Convert date string to a formatted date
     val dateString = formatDate2(parseDate(date))
     val parts = dateString.split(", ")
@@ -265,6 +272,7 @@ fun ScheduleWeekDay(date: String?, viewModel: EmployeeViewModel) {
                 Button(
                     onClick = {
                         // Haven't implemented logic for button yet
+
                     },
                 ) {
                     Text("Confirm")
