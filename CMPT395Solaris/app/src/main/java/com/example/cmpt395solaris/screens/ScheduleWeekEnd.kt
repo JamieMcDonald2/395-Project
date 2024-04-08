@@ -110,9 +110,15 @@ fun ScheduleWeekEnd(
         scheduleViewModel.selectedEmployee1 =
             remember { mutableStateOf(viewModel.getEmployeeByID(schedule.employeeAM1)) }
     }
+    else{
+        scheduleViewModel.selectedEmployee1 = remember { mutableStateOf<Employee?>(null) }
+    }
     if(schedule.employeeAM2 > 0){
         scheduleViewModel.selectedEmployee2 =
             remember { mutableStateOf(viewModel.getEmployeeByID(schedule.employeeAM2)) }
+    }
+    else{
+        scheduleViewModel.selectedEmployee2 = remember { mutableStateOf<Employee?>(null) }
     }
     if(schedule.employeeAM3 > 0){
         scheduleViewModel.selectedEmployee3 =
@@ -120,15 +126,15 @@ fun ScheduleWeekEnd(
 
         toggleState = true
     }
+    else{
+        scheduleViewModel.selectedEmployee3 = remember { mutableStateOf<Employee?>(null) }
+    }
 
     // State variables to manage expansion of dropdown menus
     var isExpanded1 by remember { mutableStateOf(false) }
     var isExpanded2 by remember { mutableStateOf(false) }
     var isExpanded3 by remember { mutableStateOf(false) }
 
-    // Options for the dropdown menus
-
-    val employeeList = scheduleViewModel.fullDayEmployees
 
 
     scheduleViewModel.options1 = remember {
@@ -160,12 +166,6 @@ fun ScheduleWeekEnd(
         scheduleViewModel.updateDaySchedule(schedule)
     }
 
-    // State to track the toggle state
-
-
-
-    // State to manage visibility of additional DropdownMenus
-    var showAdditionalDropdowns by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier
@@ -311,127 +311,6 @@ fun ScheduleWeekEnd(
  * @param onEmployeeSelected Callback function to handle selection of an employee.
  * @param onDropdownClicked Callback function to handle dropdown click.
  */
-
-
-
-@Composable
-fun DropdownMenu2(
-    selectedEmployee: Employee?,
-    otherSelectedEmp1: Employee?,
-    otherSelectedEmp2: Employee?,
-    isExpanded: Boolean,
-    employeeOptions: List<Employee>,
-    openOptions: List<Employee>,
-    closeOptions: List<Employee>,
-    bothOptions: List<Employee>,
-    onEmployeeSelected: (Employee?) -> Unit,
-    onDropdownClicked: () -> Unit
-) {
-        val borderColor = Color.LightGray // Light gray border color
-        val backgroundColor = Color.White
-        val textColor = Color.Black
-
-        val updatedEmployee = remember {
-            selectedEmployee?.let { mutableStateOf(it.copy()) }
-        }
-
-        var options: List<String>? = null
-        var opening = false
-        var closing = false
-
-        if(otherSelectedEmp1 != null){
-            if(otherSelectedEmp1.opening){
-                opening = true
-            }
-            if(otherSelectedEmp1.closing){
-                closing = true
-            }
-        }
-        if(otherSelectedEmp2 != null){
-            if(otherSelectedEmp2.opening){
-                opening = true
-            }
-            if(otherSelectedEmp2.closing){
-                closing = true
-            }
-        }
-        options = if(opening && closing){
-            employeeOptions.map { "${it.fname} ${it.lname}" }
-        } else if(opening){
-            closeOptions.map { "${it.fname} ${it.lname}" }
-        } else if(closing){
-            openOptions.map { "${it.fname} ${it.lname}" }
-        } else{
-            bothOptions.map { "${it.fname} ${it.lname}" }
-        }
-
-    Column {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .clickable { onDropdownClicked() }
-                .padding(horizontal = 15.dp)
-                .fillMaxWidth()
-                .height(50.dp)
-                .background(backgroundColor)
-                .border(BorderStroke(1.dp, borderColor), shape = RoundedCornerShape(8.dp))
-        ) {
-            Text(
-                text = selectedEmployee?.let { "${it.fname} ${it.lname}" } ?: "Select Employee",
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(start = 16.dp),
-                color = if (selectedEmployee == null) Color.Gray else Color.Black,
-                style = TextStyle(
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Normal,
-                )
-            )
-            Icon(
-                imageVector = Icons.Default.ArrowDropDown,
-                contentDescription = "Dropdown Icon",
-                tint = Color.Black,
-                modifier = Modifier.padding(16.dp)
-            )
-        }
-
-        if (isExpanded) {
-            Column(
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                val filteredOptions = options.toList()
-                options.forEach { option ->
-                    Box(
-                        modifier = Modifier
-                            .background(backgroundColor)
-                            .border(
-                                BorderStroke(1.dp, borderColor),
-                                shape = RoundedCornerShape(8.dp)
-                            )
-                            .fillMaxWidth()
-                            .padding(horizontal = 16.dp, vertical = 8.dp)
-                            .clickable {
-                                val newEmployee = employeeOptions.find { employee ->
-                                    "${employee.fname} ${employee.lname}" == option
-                                }
-                                onEmployeeSelected(newEmployee)
-                                onDropdownClicked()
-                            }
-                    ) {
-                        Text(
-                            text = option,
-                            modifier = Modifier.padding(8.dp),
-                            style = TextStyle(
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.Normal,
-                            )
-                        )
-                    }
-                }
-            }
-        }
-    }
-}
 
 fun parseDate2(dateString: String?): Date? {
     // Check if the input string is null
@@ -584,31 +463,6 @@ fun DropdownMenu3(
 }
 
 
-fun calculateOptions(
-    selectedEmployee: Employee?,
-    otherSelectedEmp1: Employee?,
-    otherSelectedEmp2: Employee?,
-    employeeOptions: List<Employee>,
-    openOptions: List<Employee>,
-    closeOptions: List<Employee>,
-    bothOptions: List<Employee>
-): List<Any> {
-    val opening = otherSelectedEmp1?.opening == true || otherSelectedEmp2?.opening == true
-    val closing = otherSelectedEmp1?.closing == true || otherSelectedEmp2?.closing == true
-
-    val options = if (opening && closing) {
-        employeeOptions.map { "${it.fname} ${it.lname}" }
-    } else if (opening) {
-        closeOptions.map { "${it.fname} ${it.lname}" }
-    } else if (closing) {
-        openOptions.map { "${it.fname} ${it.lname}" }
-    } else {
-        bothOptions.map { "${it.fname} ${it.lname}" }
-    }
-
-    // Filter out the selected employee from the options list
-    return options.filter { it != "${selectedEmployee?.fname} ${selectedEmployee?.lname}" }
-}
 
 fun calculateOptions2(
     selectedEmployee: Employee?,
