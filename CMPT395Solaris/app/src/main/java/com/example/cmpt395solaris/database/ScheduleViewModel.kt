@@ -1,13 +1,18 @@
 package com.example.cmpt395solaris.database
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.cmpt395solaris.database.dayschedule.DaySchedule
 import com.example.cmpt395solaris.database.employees.Employee
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class SharedViewModel : ViewModel() {
+class ScheduleViewModel(application: Application): AndroidViewModel(application) {
+
+    private val dbHelper = DatabaseHelper(application)
 
     // Define StateFlow properties for selected employees for each day
     private val selectedEmployeesMap = mutableMapOf<String, List<Employee?>>()
@@ -23,4 +28,17 @@ class SharedViewModel : ViewModel() {
             _selectedEmployeesFlow.value = selectedEmployeesMap.toMap()
         }
     }
+
+    fun addDaySchedule(schedule: DaySchedule): Boolean {
+        return dbHelper.addDaySchedule(schedule)
+    }
+
+    fun getDaySchedule(dsdate: String): DaySchedule?{
+        return dbHelper.getDaySchedule(dsdate)
+    }
+
+    fun updateDaySchedule(schedule: DaySchedule): Int {
+        return dbHelper.updateDaySchedule(schedule)
+    }
+
 }

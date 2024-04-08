@@ -26,13 +26,14 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.example.cmpt395solaris.database.SharedViewModel
+import com.example.cmpt395solaris.database.ScheduleViewModel
 import com.example.cmpt395solaris.database.TopBarViewModel
+import com.example.cmpt395solaris.database.availability.EmpAvailabilityViewModel
 import com.example.cmpt395solaris.database.employees.EmployeeViewModel
 import com.example.cmpt395solaris.database.settings.SettingsViewModel
-import com.example.cmpt395solaris.screens.AddEmployeeScreen
 import com.example.cmpt395solaris.screens.AddEmployeeScreen2
 import com.example.cmpt395solaris.screens.EditEmployeeInfoScreen
+import com.example.cmpt395solaris.screens.EmployeeAvailabilityScreen
 import com.example.cmpt395solaris.screens.EmployeeMain
 import com.example.cmpt395solaris.screens.HomeScreen
 import com.example.cmpt395solaris.screens.ScheduleMain
@@ -47,7 +48,13 @@ import com.google.accompanist.navigation.animation.AnimatedNavHost
  */
 @OptIn(ExperimentalAnimationApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun Navigation(navController: NavHostController, employeeViewModel: EmployeeViewModel, topBarViewModel: TopBarViewModel, settingsViewModel: SettingsViewModel, sharedViewModel: SharedViewModel) {
+fun Navigation(
+    navController: NavHostController,
+    employeeViewModel: EmployeeViewModel,
+    topBarViewModel: TopBarViewModel,
+    settingsViewModel: SettingsViewModel,
+    scheduleViewModel: ScheduleViewModel,
+    availabilityViewModel: EmpAvailabilityViewModel) {
     AnimatedNavHost(navController, startDestination = "home") {
         //home screen
         composable(
@@ -113,13 +120,43 @@ fun Navigation(navController: NavHostController, employeeViewModel: EmployeeView
         )
         {
             val arguments = navController.currentBackStackEntry?.arguments
-            val empID = arguments?.getString("id")
+            var empID = arguments?.getString("id")
+            if(empID == "{id}"){
+                empID = employeeViewModel.id.intValue.toString()
+            }
             if (empID != null) {
                 EditEmployeeInfoScreen(navController, employeeViewModel, topBarViewModel, empID)
             } else {
                 // need to change this to snackbar probably
                 Text("Error: No employee ID provided")
             }
+        }
+        composable(
+            "Availability1/{id}",
+            enterTransition = {
+                slideInHorizontally(
+                    initialOffsetX = { 1000 },
+                    animationSpec = tween(500)
+                )
+            }) {
+            val arguments = navController.currentBackStackEntry?.arguments
+            var empID = arguments?.getString("id")
+            if(empID == "{id}"){
+                empID = employeeViewModel.id.intValue.toString()
+            }
+            if (empID != null) {
+                EmployeeAvailabilityScreen(
+                    navController = navController,
+                    viewModel = employeeViewModel,
+                    topBarViewModel = topBarViewModel,
+                    id = empID!!,
+                    availabilityViewModel = availabilityViewModel
+                )
+            } else {
+                // need to change this to snackbar probably
+                Text("Error: No employee ID provided")
+            }
+
         }
         //schedule main
         composable(
@@ -155,7 +192,7 @@ fun Navigation(navController: NavHostController, employeeViewModel: EmployeeView
             }
         ) { backStackEntry ->
             val date = backStackEntry.arguments?.getString("date")
-            ScheduleWeekDay(date, employeeViewModel)
+            ScheduleWeekDay(date, employeeViewModel, navController, scheduleViewModel)
         }
 
         //schedule employee page
@@ -170,7 +207,7 @@ fun Navigation(navController: NavHostController, employeeViewModel: EmployeeView
             }
         ) { backStackEntry ->
             val date = backStackEntry.arguments?.getString("date")
-            ScheduleWeekEnd(date, employeeViewModel, navController, sharedViewModel)
+            ScheduleWeekEnd(date, employeeViewModel, navController, scheduleViewModel)
         }
     }
 }

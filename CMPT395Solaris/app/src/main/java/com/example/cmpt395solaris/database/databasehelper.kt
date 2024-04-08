@@ -34,11 +34,14 @@
 
 package com.example.cmpt395solaris.database
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
+import com.example.cmpt395solaris.database.availability.EmpAvail
+import com.example.cmpt395solaris.database.dayschedule.DaySchedule
 import com.example.cmpt395solaris.database.employees.Employee
 
 class DatabaseHelper(context: Context) :
@@ -66,16 +69,28 @@ class DatabaseHelper(context: Context) :
 
         val CREATE_DAYSCHEDULE_TABLE = ("CREATE TABLE dayschedule ( "
             + "dsdate TEXT PRIMARY KEY, "
-            + "employee1 TEXT, "
-            + "employee2 TEXT, "
-            + "employee3 TEXT) ")
+            + "employeeAM1 INTEGER, "
+            + "employeeAM2 INTEGER, "
+            + "employeeAM3 INTEGER, "
+            + "employeePM1 INTEGER, "
+            + "employeePM2 INTEGER, "
+            + "employeePM3 INTEGER) ")
         db.execSQL(CREATE_DAYSCHEDULE_TABLE)
 
         val CREATE_EMPAVAIL_TABLE = ("CREATE TABLE empavail ( "
-            + "eadate TEXT PRIMARY KEY, "
-            + "amAvailability TEXT, "
-            + "pmAvailability TEXT, "
-            + "adAvailability TEXT) ")
+            + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + "mondayAM INTEGER,"
+            + "mondayPM INTEGER,"
+            + "tuesdayAM INTEGER,"
+            + "tuesdayPM INTEGER,"
+            + "wednesdayAM INTEGER,"
+            + "wednesdayPM INTEGER,"
+            + "thursdayAM INTEGER,"
+            + "thursdayPM INTEGER,"
+            + "fridayAM INTEGER,"
+            + "fridayPM INTEGER,"
+            + "saturday INTEGER, "
+            + "sunday INTEGER) ")
         db.execSQL(CREATE_EMPAVAIL_TABLE)
 
         val CREATE_SETTINGS_TABLE = ("CREATE TABLE settings (username TEXT UNIQUE)")
@@ -196,19 +211,6 @@ class DatabaseHelper(context: Context) :
         return employee
     }
 
-    // get employee ID based on 'X'
-//    fun getEmployeeIdByCondition(condition: String): Int? {
-//        val db = this.readableDatabase
-//        val cursor = db.rawQuery("SELECT id FROM employees WHERE $condition", null)
-//        var employeeId: Int? = null
-//        if (cursor.moveToFirst()) {
-//            employeeId = cursor.getInt(0) // Get the ID, which is the first column in the result
-//        }
-//        cursor.close()
-//        db.close()
-//        return employeeId
-//    }
-
     // delete employee
     fun deleteEmployee(id: Int): Boolean {
         val db = this.writableDatabase
@@ -250,62 +252,252 @@ class DatabaseHelper(context: Context) :
         return affectedRows
     }
 
-    fun addAvailability(eadate: String, amAvailability: String, pmAvailability: String, adAvailability: String): Boolean {
+    /**
+     * Availability functions
+     */
+
+    fun addEmployeeToAvailabilityDB(id: Int): Boolean{
         val db = this.writableDatabase
-        val contentValues = ContentValues()
-        contentValues.put("eadate", eadate)
-        contentValues.put("amAvailability", amAvailability)
-        contentValues.put("pmAvailability", pmAvailability)
-        contentValues.put("adAvailability", adAvailability)
+        val contentValues = ContentValues().also {
+            it.put("mondayAM", false)
+            it.put("mondayPM", false)
+            it.put("tuesdayAM", false)
+            it.put("tuesdayPM", false)
+            it.put("wednesdayAM", false)
+            it.put("wednesdayPM", false)
+            it.put("thursdayAM", false)
+            it.put("thursdayPM", false)
+            it.put("fridayAM", false)
+            it.put("fridayPM", false)
+            it.put("saturday", false)
+            it.put("sunday", false)
+        }
 
         return try {
             val result = db.insert("empavail", null, contentValues)
             db.close()
             result != -1L
         } catch (e: Exception) {
-            Log.e("DatabaseHelper", "Error adding availability: ${e.message}")
+            Log.e("DatabaseHelper", "Error adding employee availability: ${e.message}")
             db.close()
             false
         }
     }
 
-    fun deleteAvailability(eadate: String): Boolean {
-        val db = this.writableDatabase
-        val whereClause = "eadate = ?"
-        val whereArgs = arrayOf(eadate)
-        val result = db.delete("employeeavailability", whereClause, whereArgs).toLong()
+    fun getAvailabilityById(id: Int): EmpAvail? {
+        val db = this.readableDatabase
+        val cursor = db.rawQuery("SELECT * FROM empavail WHERE id = ?", arrayOf(id.toString()))
+        var avail: EmpAvail? = null
+        if (cursor.moveToFirst()) {
+            val mondayAM = cursor.getInt(1) != 0
+            val mondayPM = cursor.getInt(2) != 0
+            val tuesdayAM = cursor.getInt(3) != 0
+            val tuesdayPM = cursor.getInt(4) != 0
+            val wednesdayAM = cursor.getInt(5) != 0
+            val wednesdayPM = cursor.getInt(6) != 0  //Boolean
+            val thursdayAM = cursor.getInt(7) != 0
+            val thursdayPM = cursor.getInt(8) != 0
+            val fridayAM = cursor.getInt(9) != 0   //Boolean
+            val fridayPM = cursor.getInt(10) != 0   //Boolean
+            val saturday = cursor.getInt(11) != 0   //Bool
+            val sunday = cursor.getInt(12) != 0   //Bool
+            avail = EmpAvail(id,
+                mondayAM, mondayPM,
+                tuesdayAM, tuesdayPM,
+                wednesdayAM, wednesdayPM,
+                thursdayAM, thursdayPM,
+                fridayAM, fridayPM,
+                saturday, sunday)
+        }
+        cursor.close()
         db.close()
-        return result != -1L
+        if (avail != null) {
+            Log.d("AvailabilityById", "employeeID: ${avail.id}")          //testing
+        }
+        return avail
     }
 
-    fun addShift(dsdate: String, amAvailability: String, pmAvailability: String, adAvailability: String): Boolean {
-        val db = this.writableDatabase
-        val contentValues = ContentValues()
-        contentValues.put("dsdate", dsdate)
-        contentValues.put("employee2", amAvailability)
-        contentValues.put("employee3", pmAvailability)
+    fun updateAvailability(avail: EmpAvail): Int {
 
+        Log.d("ViewModelUpdate", "Updating Availability: $avail") // testing
+
+        val db = this.writableDatabase
+        val contentValues = ContentValues().also {
+            it.put("mondayAM", avail.mondayAM)
+            it.put("mondayPM", avail.mondayPM)
+            it.put("tuesdayAM", avail.tuesdayAM)
+            it.put("tuesdayPM", avail.tuesdayPM)
+            it.put("wednesdayAM", avail.wednesdayAM)
+            it.put("wednesdayPM", avail.wednesdayPM)
+            it.put("thursdayAM", avail.wednesdayAM)
+            it.put("thursdayPM", avail.wednesdayPM)
+            it.put("fridayAM", avail.fridayAM)
+            it.put("fridayPM", avail.fridayPM)
+            it.put("saturday", avail.saturday)
+            it.put("sunday", avail.sunday)
+        }
+
+        val affectedRows = db.update("empavail", contentValues, "id = ?", arrayOf(avail.id.toString()))
+
+        return affectedRows
+    }
+
+    fun getAvailEmployees(fieldName: String): ArrayList<Employee>{
+        val db = this.readableDatabase
+        val employees = ArrayList<Employee>()
+        val idList = getIdsOfAvailableEmployees(fieldName)
+
+        for(id in idList){
+            val employee = getEmployeeById(id)
+            if (employee != null && employee.isActive) {
+                employees.add(employee)
+            }
+        }
+
+        return employees
+    }
+
+    fun getOpenTrainedEmployees(fieldName: String): ArrayList<Employee>{
+        val employees = getAvailEmployees(fieldName)
+
+        for(employee in employees){
+            if (!employee.opening){
+                employees.remove(employee)
+            }
+        }
+
+        return employees
+    }
+
+
+    fun getCloseTrainedEmployees(fieldName: String): ArrayList<Employee>{
+        val employees = getAvailEmployees(fieldName)
+
+        for(employee in employees){
+            if (!employee.closing){
+                employees.remove(employee)
+            }
+        }
+
+        return employees
+    }
+
+    fun getBothTrainedEmployees(fieldName: String): ArrayList<Employee>{
+        val employees = getAvailEmployees(fieldName)
+
+        for(employee in employees){
+            if (!employee.closing && !employee.opening){
+                employees.remove(employee)
+            }
+        }
+
+        return employees
+    }
+
+    @SuppressLint("Range")
+    fun getIdsOfAvailableEmployees(fieldName: String): List<Int> {
+        val db = this.readableDatabase
+        val ids = mutableListOf<Int>()
+        val cursor = db.query(
+            "empavail",
+            arrayOf("id", fieldName),
+            "$fieldName = 1",
+            null,
+            null,
+            null,
+            null
+        )
+        cursor.use {
+            while (cursor.moveToNext()) {
+                val id = cursor.getInt(cursor.getColumnIndex("id"))
+                ids.add(id)
+            }
+        }
+        return ids
+    }
+
+    /**
+     * Scheduling functions
+     */
+
+    fun updateDaySchedule(schedule: DaySchedule): Int {
+        val db = this.writableDatabase
+
+        val contentValues = ContentValues().also {
+            it.put("dsdate", schedule.dsdate)
+            it.put("employeeAM1", schedule.employeeAM1)
+            it.put("employeeAM2", schedule.employeeAM2)
+            it.put("employeeAM3", schedule.employeeAM3)
+            it.put("employeePM1", schedule.employeePM1)
+            it.put("employeePM2", schedule.employeePM2)
+            it.put("employeePM3", schedule.employeePM3)
+        }
+
+
+        val affectedRows = db.update("dayschedule", contentValues, "dsdate = ?", arrayOf(schedule.dsdate))
+
+        return affectedRows
+    }
+
+    fun addDaySchedule(schedule: DaySchedule): Boolean {
+        val db = this.writableDatabase
+
+        val contentValues = ContentValues().also {
+            it.put("dsdate", schedule.dsdate)
+            it.put("employeeAM1", schedule.employeeAM1)
+            it.put("employeeAM2", schedule.employeeAM2)
+            it.put("employeeAM3", schedule.employeeAM3)
+            it.put("employeePM1", schedule.employeePM1)
+            it.put("employeePM2", schedule.employeePM2)
+            it.put("employeePM3", schedule.employeePM3)
+        }
 
         return try {
             val result = db.insert("dayschedule", null, contentValues)
             db.close()
             result != -1L
         } catch (e: Exception) {
-            Log.e("DatabaseHelper", "Error adding availability: ${e.message}")
+            Log.e("DatabaseHelper", "Error adding day schedule: ${e.message}")
             db.close()
             false
-
         }
     }
 
-    fun deleteShift(dsdate: String): Boolean {
-        val db = this.writableDatabase
-        val whereClause = "employeeid = ? AND dsdate = ?"
-        val whereArgs = arrayOf(dsdate)
-        val result = db.delete("dayschedule", whereClause, whereArgs).toLong()
+
+    @SuppressLint("Recycle")
+    fun getDaySchedule(dsdate: String): DaySchedule? {
+        val db = this.readableDatabase
+        val cursor = db.rawQuery("SELECT * FROM dayschedule WHERE dsdate = ?", arrayOf(dsdate))
+        var daySched: DaySchedule? = null
+
+        if (cursor.moveToFirst()) {
+            val employeeAM1 = cursor.getInt(1)
+            val employeeAM2 = cursor.getInt(2)
+            val employeeAM3 = cursor.getInt(3)
+            val employeePM1 = cursor.getInt(4)
+            val employeePM2 = cursor.getInt(5)
+            val employeePM3 = cursor.getInt(6)
+
+            daySched = DaySchedule(
+                dsdate,
+                employeeAM1,
+                employeeAM2,
+                employeeAM3,
+                employeePM1,
+                employeePM2,
+                employeePM3
+            )
+        }
+        cursor.close()
         db.close()
-        return result != -1L
+
+        return daySched
     }
+
+    /**
+     * Username functions
+     */
+
 
     // update username in view model through settings page
     fun updateUsername(newUsername: String) {

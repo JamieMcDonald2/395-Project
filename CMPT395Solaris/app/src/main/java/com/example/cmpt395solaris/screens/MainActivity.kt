@@ -36,10 +36,10 @@ import com.example.cmpt395solaris.ComponentFunctions.NavigationBar
 import com.example.cmpt395solaris.ComponentFunctions.TopBar
 import com.example.cmpt395solaris.Navigation
 import com.example.cmpt395solaris.database.DatabaseHelper
-import com.example.cmpt395solaris.database.SharedViewModel
+import com.example.cmpt395solaris.database.ScheduleViewModel
 import com.example.cmpt395solaris.database.TopBarViewModel
+import com.example.cmpt395solaris.database.availability.EmpAvailabilityViewModel
 import com.example.cmpt395solaris.database.employees.EmployeeViewModel
-import com.example.cmpt395solaris.database.employees.seedDatabase
 import com.example.cmpt395solaris.database.settings.SettingsViewModel
 import com.example.cmpt395solaris.ui.theme.CMPT395SolarisTheme
 import java.text.SimpleDateFormat
@@ -66,9 +66,11 @@ class MainActivity : ComponentActivity() {
                 // Create an instance of SettingsViewModel
                 val settingsViewModel: SettingsViewModel = viewModel()
 
-                val sharedViewModel = viewModel<SharedViewModel>()
+                val scheduleViewModel: ScheduleViewModel = viewModel()
 
                 val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+
+                val availabilityViewModel: EmpAvailabilityViewModel = viewModel()
 
                 Scaffold(
                     topBar = { TopBar(navController, topBarViewModel) },
@@ -76,7 +78,7 @@ class MainActivity : ComponentActivity() {
                 ) { paddingValues ->
                     Box(modifier = Modifier.padding(paddingValues)) {
                         //ScheduleWeekEnd(date = currentDate, employeeViewModel, navController, sharedViewModel = sharedViewModel)
-                        Navigation(navController, employeeViewModel, topBarViewModel, settingsViewModel, sharedViewModel)
+                        Navigation(navController, employeeViewModel, topBarViewModel, settingsViewModel, scheduleViewModel, availabilityViewModel)
                     }
                 }
                 // remove this when testing is over

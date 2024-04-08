@@ -77,10 +77,27 @@ class EmployeeViewModel(application: Application) : AndroidViewModel(application
 //        Log.d("addEmployee", "employee email: ${email}")  // testing
 //        Log.d("addEmployee", "employee pnumber: ${pnumber}")  // testing
         dbHelper.addEmployee(id, fname, lname, nname, email, pnumber, isActive, opening, closing)
+        dbHelper.addEmployeeToAvailabilityDB(id)
     }
 
     fun getAllEmployees(): List<Employee> {
         return dbHelper.getAllEmployees()
+    }
+
+    fun getAvailableEmployees(fieldName: String): List<Employee>{
+        return dbHelper.getAvailEmployees(fieldName)
+    }
+
+    fun getOpenTrainedEmployees(fieldName: String): List<Employee>{
+        return dbHelper.getOpenTrainedEmployees(fieldName)
+    }
+
+    fun getCloseTrainedEmployees(fieldName: String): List<Employee>{
+        return dbHelper.getCloseTrainedEmployees(fieldName)
+    }
+
+    fun getBothTrainedEmployees(fieldName: String): List<Employee>{
+        return dbHelper.getBothTrainedEmployees(fieldName)
     }
 
     fun getEmployeeByID(id: Int): Employee? {

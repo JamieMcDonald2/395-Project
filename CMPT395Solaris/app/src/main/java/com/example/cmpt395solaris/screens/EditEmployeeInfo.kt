@@ -123,6 +123,8 @@ import com.example.cmpt395solaris.ComponentFunctions.Overlay
 import com.example.cmpt395solaris.database.employees.Employee
 import com.example.cmpt395solaris.database.employees.EmployeeViewModel
 import com.example.cmpt395solaris.database.TopBarViewModel
+import com.example.cmpt395solaris.database.availability.EmpAvail
+import com.example.cmpt395solaris.database.availability.EmpAvailabilityViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.time.Month
@@ -130,12 +132,13 @@ import java.time.Month
 /**
  *  Do not alter without consulting Jamie!
  */
+
 @Composable
 fun EditEmployeeInfoScreen(
     navController: NavController,
     viewModel: EmployeeViewModel,
     topBarViewModel: TopBarViewModel,
-    employeeID: String
+    employeeID: String,
 ) {
     val id = employeeID.toInt()
 
@@ -166,7 +169,8 @@ fun EditEmployeeInfoScreen(
             Box(modifier = Modifier.weight(1f)) {
                 DataFields(
                     viewModel = viewModel,
-                    employee = employee
+                    employee = employee,
+                    navController = navController
                 ) { updatedEmployee ->
                     editEmployee.value = updatedEmployee // Update the copy for editing
 
@@ -243,29 +247,18 @@ fun EditEmployeeInfoScreen(
     CustomSnackbar(snackbarHostState = snackbarHostState)
 }
 
+
 @Composable
 fun DataFields(
     viewModel: EmployeeViewModel,
     employee: Employee,
+    navController: NavController,
     onEmployeeChange: (Employee) -> Unit
 ) {
     // Create a mutable copy of the employee
     val updatedEmployee = remember { mutableStateOf(employee.copy()) }
 
     val fields = listOf(
-        // probably remove any ability to edit ID field
-//        Field(
-//            "id",
-//            FieldValue.StringField(employee.id.toString()),
-//            "ID",
-//            "Enter ID"
-//        ) { newValue ->
-//            val newId = (newValue as FieldValue.StringField).value.toIntOrNull()
-//            if (newId != null) {
-//                viewModel.id.intValue = newId
-//                viewModel.hasChanges.value = true
-//            }
-//        },
         Field(
             "fname",
             FieldValue.StringField(updatedEmployee.value.fname),
@@ -361,7 +354,7 @@ fun DataFields(
     }
     LazyColumn {
 
-        item { EditAvailabilityButton() } // edit availability button
+        item { EditAvailabilityButton(navController, employee.id.toString()) } // edit availability button
 
         items(fields.size) { index ->
             val field = fields[index]
@@ -497,10 +490,9 @@ fun EditEmployeeButton(
     }
 }
 
-@Composable
-fun EditAvailabilityButton() {
-    val showDialog = remember { mutableStateOf(false) }
 
+@Composable
+fun EditAvailabilityButton(navController: NavController, employeeID: String) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -509,39 +501,14 @@ fun EditAvailabilityButton() {
     ) {
         Button(
             onClick = {
-                showDialog.value = true
+                navController.navigate("Availability1/$employeeID")
             }
         ) {
             Text("Edit Availability")
         }
     }
-    Overlay(showDialog)
+
 }
-
-@RequiresApi(Build.VERSION_CODES.O)
-@Composable
-fun AvailabilityOverlay(showOverlay: MutableState<Boolean>) {
-    if (showOverlay.value) {
-        Dialog(onDismissRequest = { showOverlay.value = false }) {
-            Column {
-                // Date selection
-                val selectedMonth = remember { mutableStateOf(Month.JANUARY) }
-                // Replace with your MonthPicker
-
-                // Availability entry
-                val availability = remember { mutableStateOf(List(31) { false }) }
-                // Replace with your AvailabilityGrid
-
-                // Submission
-                Button(onClick = { /* Handle submission */ }) {
-                    Text("Submit")
-                }
-            }
-        }
-    }
-}
-
-
 
 
 

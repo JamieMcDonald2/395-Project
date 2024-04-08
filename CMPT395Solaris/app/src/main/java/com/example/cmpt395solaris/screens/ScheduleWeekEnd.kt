@@ -42,7 +42,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.cmpt395solaris.database.SharedViewModel
+import com.example.cmpt395solaris.database.ScheduleViewModel
 import com.example.cmpt395solaris.database.employees.Employee
 import com.example.cmpt395solaris.database.employees.EmployeeViewModel
 import java.text.SimpleDateFormat
@@ -54,7 +54,7 @@ val selectedEmployeesState: MutableState<MutableMap<String, List<Employee?>>> = 
 
 
 @Composable
-fun ScheduleWeekEnd(date: String?, viewModel: EmployeeViewModel, navController: NavController, sharedViewModel: SharedViewModel) {
+fun ScheduleWeekEnd(date: String?, viewModel: EmployeeViewModel, navController: NavController, scheduleViewModel: ScheduleViewModel) {
     // Format the provided date string
     val dateString = formatDate3(parseDate2(date))
 

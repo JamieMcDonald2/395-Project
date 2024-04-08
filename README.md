@@ -12,7 +12,7 @@ Jamie McDonald (JamieMcDonald2)
 
 # Project Name TBD
 
-## Release build "Solaris" v3.5-alpha
+## Release build "Solaris" v3.7-alpha
 
 ### See Release Notes at Bottom
 
@@ -67,6 +67,19 @@ Other Problems:
 https://github.com/macewanCS/w24goldwasser/blob/main/LICENSE
 
 ## Release Notes
+
+    3.7
+    - Redesigned the Day schedule database
+    - Created new database helper functions for the day schedule
+    - created viewModel functions for the helper function
+
+    3.6
+    - Created employee availability screen
+    - updtated avialability view model 
+    - changed database table for availability to make it weekly
+    - added database helper functions for new availability table
+    - fixed issue with sending ID parameter through back button
+
     3.5
     - Added more functionality to schedule screens
 
