@@ -62,5 +62,6 @@ fun seedDatabase(context: Context) {
         val closing = (i % 5 == 0)
 
         dbHelper.addEmployee(id, nameParts[0], nameParts[1], nameParts[0], email, pnumber, isActive, opening, closing)
+        dbHelper.addEmployeeToAvailabilityDB(id)
     }
 }

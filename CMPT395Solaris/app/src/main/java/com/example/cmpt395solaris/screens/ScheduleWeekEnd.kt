@@ -43,6 +43,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.cmpt395solaris.database.ScheduleViewModel
+import com.example.cmpt395solaris.database.dayschedule.DaySchedule
 import com.example.cmpt395solaris.database.employees.Employee
 import com.example.cmpt395solaris.database.employees.EmployeeViewModel
 import java.text.SimpleDateFormat
@@ -52,7 +53,7 @@ import java.util.Locale
 
 @Composable
 fun ScheduleWeekEnd(
-    date: String?,
+    date: String,
     viewModel: EmployeeViewModel,
     navController: NavController,
     scheduleViewModel: ScheduleViewModel
@@ -63,6 +64,25 @@ fun ScheduleWeekEnd(
     val day = parts.first().lowercase()
 
     val fullDayEmployees = viewModel.getAvailableEmployees(day)
+    val morningTrainedEmployees = viewModel.getOpenTrainedEmployees(day)
+    val eveningTrainedEmployees = viewModel.getCloseTrainedEmployees(day)
+    val bothTrainedEmployees = viewModel.getBothTrainedEmployees(day)
+
+    var schedule = DaySchedule(
+        date,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1)
+
+    if (!scheduleViewModel.doesDsDateExist(date)){
+        scheduleViewModel.addDaySchedule(schedule)
+    }
+    else{
+        schedule = scheduleViewModel.getDaySchedule(date)!!
+    }
 
     // State variables for selected employees
     var selectedEmployee1 by remember { mutableStateOf<Employee?>(null) }
@@ -70,14 +90,25 @@ fun ScheduleWeekEnd(
     var selectedEmployee3 by remember { mutableStateOf<Employee?>(null) }
 
     // Fetching selected employees from the view model
-    val selectedEmployeesMap by scheduleViewModel.selectedEmployeesFlow.collectAsState()
+//    val selectedEmployeesMap by scheduleViewModel.selectedEmployeesFlow.collectAsState()
+//
+//    // Set selected employees if already stored in the view model
+//    val selectedEmployees = selectedEmployeesMap[dateString] ?: emptyList()
+//    if (selectedEmployees.size >= 3) {
+//        selectedEmployee1 = selectedEmployees[0]
+//        selectedEmployee2 = selectedEmployees[1]
+//        selectedEmployee3 = selectedEmployees[2]
+//    }
 
-    // Set selected employees if already stored in the view model
-    val selectedEmployees = selectedEmployeesMap[dateString] ?: emptyList()
-    if (selectedEmployees.size >= 3) {
-        selectedEmployee1 = selectedEmployees[0]
-        selectedEmployee2 = selectedEmployees[1]
-        selectedEmployee3 = selectedEmployees[2]
+
+    if(schedule.employeeAM1 > 0){
+        selectedEmployee1 = viewModel.getEmployeeByID(schedule.employeeAM1)
+    }
+    if(schedule.employeeAM2 > 0){
+        selectedEmployee2 = viewModel.getEmployeeByID(schedule.employeeAM2)
+    }
+    if(schedule.employeeAM3 > 0){
+        selectedEmployee3 = viewModel.getEmployeeByID(schedule.employeeAM3)
     }
 
     // State variables to manage expansion of dropdown menus
@@ -90,15 +121,26 @@ fun ScheduleWeekEnd(
     val options2 = fullDayEmployees.map { "${it.fname} ${it.lname}" }
     val options3 = fullDayEmployees.map { "${it.fname} ${it.lname}" }
 
-    // State to track the toggle state
-    var toggleState by remember { mutableStateOf(false) }
+
 
     // Function to handle confirm button click
     fun onConfirmClicked() {
         // Update selected employees in the view model
         val selectedEmployees = listOf(selectedEmployee1, selectedEmployee2, selectedEmployee3)
         scheduleViewModel.setSelectedEmployeesForDate(dateString, selectedEmployees)
+
+        schedule.employeeAM1 = selectedEmployee1?.id ?: -1
+        schedule.employeeAM2 = selectedEmployee2?.id ?: -1
+        schedule.employeeAM3 = selectedEmployee3?.id ?: -1
+
+        scheduleViewModel.updateDaySchedule(schedule)
     }
+
+    // State to track the toggle state
+    var toggleState by remember { mutableStateOf(false) }
+
+    // State to manage visibility of additional DropdownMenus
+    var showAdditionalDropdowns by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier.fillMaxWidth()
@@ -112,6 +154,7 @@ fun ScheduleWeekEnd(
                 style = TextStyle(fontSize = 22.sp, fontWeight = FontWeight.Bold)
             )
             Spacer(modifier = Modifier.height(40.dp))
+
             Divider(color = Color.Black, thickness = 1.dp, modifier = Modifier.align(Alignment.BottomCenter))
         }
     }
@@ -269,10 +312,10 @@ fun DropdownMenu2(
                             .fillMaxWidth()
                             .padding(horizontal = 16.dp, vertical = 8.dp)
                             .clickable {
-                                val selectedEmployee = employeeOptions.find { employee ->
+                                val newEmployee = employeeOptions.find { employee ->
                                     "${employee.fname} ${employee.lname}" == option
                                 }
-                                onEmployeeSelected(selectedEmployee)
+                                onEmployeeSelected(newEmployee)
                                 onDropdownClicked()
                             }
                     ) {
@@ -336,4 +379,3 @@ private fun getDayOfMonthWithOrdinal(day: Int): String {
 }
 
 // Function to handle confirm button click
-

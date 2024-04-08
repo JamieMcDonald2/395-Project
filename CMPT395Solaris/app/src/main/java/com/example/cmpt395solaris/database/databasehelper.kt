@@ -222,6 +222,7 @@ class DatabaseHelper(context: Context) :
     fun clearDatabase() {
         val db = this.writableDatabase
         db.delete("employees", null, null)
+        db.delete("empavail", null, null)
         db.close()
     }
 
@@ -420,6 +421,21 @@ class DatabaseHelper(context: Context) :
      * Scheduling functions
      */
 
+    fun doesDsDateExist(dsDate: String): Boolean {
+        val db = this.readableDatabase
+        val query = "SELECT COUNT(*) FROM dayschedule WHERE dsdate = ?"
+        val cursor = db.rawQuery(query, arrayOf(dsDate))
+        cursor.use {
+            if (it.moveToFirst()) {
+                val count = it.getInt(0)
+                return count > 0
+            }
+        }
+        return false
+    }
+
+
+
     fun updateDaySchedule(schedule: DaySchedule): Int {
         val db = this.writableDatabase
 
@@ -433,7 +449,7 @@ class DatabaseHelper(context: Context) :
             it.put("employeePM3", schedule.employeePM3)
         }
 
-
+        Log.d("UpdateSchedule", "Content: $contentValues")
         val affectedRows = db.update("dayschedule", contentValues, "dsdate = ?", arrayOf(schedule.dsdate))
 
         return affectedRows
@@ -453,6 +469,7 @@ class DatabaseHelper(context: Context) :
         }
 
         return try {
+            Log.d("AddSchedule", "Content: $contentValues")
             val result = db.insert("dayschedule", null, contentValues)
             db.close()
             result != -1L

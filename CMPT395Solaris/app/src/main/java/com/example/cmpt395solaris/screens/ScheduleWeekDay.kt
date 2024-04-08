@@ -44,6 +44,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.cmpt395solaris.database.ScheduleViewModel
+import com.example.cmpt395solaris.database.dayschedule.DaySchedule
 import com.example.cmpt395solaris.database.employees.Employee
 import com.example.cmpt395solaris.database.employees.EmployeeViewModel
 import java.text.SimpleDateFormat
@@ -52,7 +53,7 @@ import java.util.Locale
 
 @Composable
 fun ScheduleWeekDay(
-    date: String?,
+    date: String,
     viewModel: EmployeeViewModel,
     navController: NavController,
     scheduleViewModel: ScheduleViewModel
@@ -70,6 +71,21 @@ fun ScheduleWeekDay(
     val morningTrainedEmployees = viewModel.getOpenTrainedEmployees(morningField)
     val eveningTrainedEmployees = viewModel.getCloseTrainedEmployees(eveningField)
 
+    var schedule = DaySchedule(
+        date,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1)
+
+    if (!scheduleViewModel.doesDsDateExist(date)){
+        scheduleViewModel.addDaySchedule(schedule)
+    }
+    else{
+        schedule = scheduleViewModel.getDaySchedule(date)!!
+    }
 
     // State variables for selected employees
     var selectedEmployee1 by remember { mutableStateOf<Employee?>(null) }
@@ -78,6 +94,25 @@ fun ScheduleWeekDay(
     var selectedEmployee4 by remember { mutableStateOf<Employee?>(null) }
     var selectedEmployee5 by remember { mutableStateOf<Employee?>(null) }
     var selectedEmployee6 by remember { mutableStateOf<Employee?>(null) }
+
+    if(schedule.employeeAM1 > 0){
+        selectedEmployee1 = viewModel.getEmployeeByID(schedule.employeeAM1)
+    }
+    if(schedule.employeeAM2 > 0){
+        selectedEmployee2 = viewModel.getEmployeeByID(schedule.employeeAM2)
+    }
+    if(schedule.employeeAM3 > 0){
+        selectedEmployee3 = viewModel.getEmployeeByID(schedule.employeeAM3)
+    }
+    if(schedule.employeePM1 > 0){
+        selectedEmployee4 = viewModel.getEmployeeByID(schedule.employeePM1)
+    }
+    if(schedule.employeePM2 > 0){
+        selectedEmployee5 = viewModel.getEmployeeByID(schedule.employeePM2)
+    }
+    if(schedule.employeePM3 > 0){
+        selectedEmployee6 = viewModel.getEmployeeByID(schedule.employeePM3)
+    }
 
     // State variables to manage expansion of dropdown menus
     var isExpanded1 by remember { mutableStateOf(false) }
@@ -92,26 +127,23 @@ fun ScheduleWeekDay(
 
     // Options for the dropdown menus
     val options1 = morningEmployees.map { "${it.fname} ${it.lname}" }
-    val options2 = morningEmployees.map { "${it.fname} ${it.lname}" }
-    val options3 = morningEmployees.map { "${it.fname} ${it.lname}" }
-    val options4 = eveningEmployees.map { "${it.fname} ${it.lname}" }
-    val options5 = eveningEmployees.map { "${it.fname} ${it.lname}" }
-    val options6 = eveningEmployees.map { "${it.fname} ${it.lname}" }
+    val options2 = eveningEmployees.map { "${it.fname} ${it.lname}" }
+    val options3 = morningTrainedEmployees.map { "${it.fname} ${it.lname}" }
+    val options4 = eveningTrainedEmployees.map { "${it.fname} ${it.lname}" }
 
-
-    // Fetching selected employees from the view model
-    val selectedEmployeesMap by scheduleViewModel.selectedEmployeesFlow.collectAsState()
-
-    // Set selected employees if already stored in the view model
-    val selectedEmployees = selectedEmployeesMap[dateString] ?: emptyList()
-    if (selectedEmployees.size >= 6) {
-        selectedEmployee1 = selectedEmployees[0]
-        selectedEmployee2 = selectedEmployees[1]
-        selectedEmployee3 = selectedEmployees[2]
-        selectedEmployee4 = selectedEmployees[3]
-        selectedEmployee5 = selectedEmployees[4]
-        selectedEmployee6 = selectedEmployees[5]
-    }
+//    // Fetching selected employees from the view model
+//    val selectedEmployeesMap by scheduleViewModel.selectedEmployeesFlow.collectAsState()
+//
+//    // Set selected employees if already stored in the view model
+//    val selectedEmployees = selectedEmployeesMap[dateString] ?: emptyList()
+//    if (selectedEmployees.size >= 6) {
+//        selectedEmployee1 = selectedEmployees[0]
+//        selectedEmployee2 = selectedEmployees[1]
+//        selectedEmployee3 = selectedEmployees[2]
+//        selectedEmployee4 = selectedEmployees[3]
+//        selectedEmployee5 = selectedEmployees[4]
+//        selectedEmployee6 = selectedEmployees[5]
+//    }
 
     // Function to handle confirm button click
     fun onConfirmClicked() {
@@ -119,6 +151,16 @@ fun ScheduleWeekDay(
         val selectedEmployees = listOf(selectedEmployee1, selectedEmployee2, selectedEmployee3,
             selectedEmployee4, selectedEmployee5, selectedEmployee6)
         scheduleViewModel.setSelectedEmployeesForDate(dateString, selectedEmployees)
+
+        schedule.employeeAM1 = selectedEmployee1?.id ?: -1
+        schedule.employeeAM2 = selectedEmployee2?.id ?: -1
+        schedule.employeeAM3 = selectedEmployee3?.id ?: -1
+        schedule.employeePM1 = selectedEmployee4?.id ?: -1
+        schedule.employeePM2 = selectedEmployee5?.id ?: -1
+        schedule.employeePM3 = selectedEmployee6?.id ?: -1
+
+        scheduleViewModel.updateDaySchedule(schedule)
+
     }
     // State to track the toggle state
     var toggleState by remember { mutableStateOf(false) }
@@ -186,7 +228,7 @@ fun ScheduleWeekDay(
                 DropdownMenu(
                     selectedEmployee2,
                     isExpanded2,
-                    options2,
+                    options1,
                     morningEmployees,
                     { selectedEmployee2 = it },
                     { isExpanded2 = !isExpanded2 }
@@ -198,7 +240,7 @@ fun ScheduleWeekDay(
                     DropdownMenu(
                         selectedEmployee3,
                         isExpanded3,
-                        options3,
+                        options1,
                         morningEmployees,
                         { selectedEmployee3 = it },
                         { isExpanded3 = !isExpanded3 }
@@ -228,7 +270,7 @@ fun ScheduleWeekDay(
                 DropdownMenu(
                     selectedEmployee4,
                     isExpanded4,
-                    options4,
+                    options2,
                     eveningEmployees,
                     { selectedEmployee4 = it },
                     { isExpanded4 = !isExpanded4 }
@@ -238,7 +280,7 @@ fun ScheduleWeekDay(
                 DropdownMenu(
                     selectedEmployee5,
                     isExpanded5,
-                    options5,
+                    options2,
                     eveningEmployees,
                     { selectedEmployee5 = it },
                     { isExpanded5 = !isExpanded5 }
@@ -250,7 +292,7 @@ fun ScheduleWeekDay(
                     DropdownMenu(
                         selectedEmployee6,
                         isExpanded6,
-                        options6,
+                        options2,
                         eveningEmployees,
                         { selectedEmployee6 = it },
                         { isExpanded6 = !isExpanded6 }
@@ -369,10 +411,10 @@ fun DropdownMenu(
                             .fillMaxWidth()
                             .padding(horizontal = 16.dp, vertical = 8.dp)
                             .clickable {
-                                val selectedEmployee = employeeOptions.find { employee ->
+                                val newEmployee = employeeOptions.find { employee ->
                                     "${employee.fname} ${employee.lname}" == option
                                 }
-                                onEmployeeSelected(selectedEmployee)
+                                onEmployeeSelected(newEmployee)
                                 onDropdownClicked()
                             }
                     ) {

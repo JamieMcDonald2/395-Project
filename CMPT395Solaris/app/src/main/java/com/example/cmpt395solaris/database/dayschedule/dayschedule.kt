@@ -6,10 +6,10 @@ package com.example.cmpt395solaris.database.dayschedule
 
 data class DaySchedule(
     val dsdate: String,
-    val employeeAM1: Int,
-    val employeeAM2: Int,
-    val employeeAM3: Int,
-    val employeePM1: Int,
-    val employeePM2: Int,
-    val employeePM3: Int
+    var employeeAM1: Int,
+    var employeeAM2: Int,
+    var employeeAM3: Int,
+    var employeePM1: Int,
+    var employeePM2: Int,
+    var employeePM3: Int
 )

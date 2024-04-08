@@ -41,4 +41,8 @@ class ScheduleViewModel(application: Application): AndroidViewModel(application)
         return dbHelper.updateDaySchedule(schedule)
     }
 
+    fun doesDsDateExist(dsdate: String): Boolean{
+        return dbHelper.doesDsDateExist(dsdate)
+    }
+
 }
