@@ -15,7 +15,6 @@
 
 package com.example.cmpt395solaris
 
-import android.util.Log
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInHorizontally
@@ -27,7 +26,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.example.cmpt395solaris.database.SharedViewModel
+import com.example.cmpt395solaris.database.ScheduleViewModel
 import com.example.cmpt395solaris.database.TopBarViewModel
 import com.example.cmpt395solaris.database.availability.EmpAvailabilityViewModel
 import com.example.cmpt395solaris.database.employees.EmployeeViewModel
@@ -54,7 +53,7 @@ fun Navigation(
     employeeViewModel: EmployeeViewModel,
     topBarViewModel: TopBarViewModel,
     settingsViewModel: SettingsViewModel,
-    sharedViewModel: SharedViewModel,
+    scheduleViewModel: ScheduleViewModel,
     availabilityViewModel: EmpAvailabilityViewModel) {
     AnimatedNavHost(navController, startDestination = "home") {
         //home screen
@@ -193,7 +192,7 @@ fun Navigation(
             }
         ) { backStackEntry ->
             val date = backStackEntry.arguments?.getString("date")
-            ScheduleWeekDay(date, employeeViewModel, navController, sharedViewModel)
+            ScheduleWeekDay(date, employeeViewModel, navController, scheduleViewModel)
         }
 
         //schedule employee page
@@ -208,7 +207,7 @@ fun Navigation(
             }
         ) { backStackEntry ->
             val date = backStackEntry.arguments?.getString("date")
-            ScheduleWeekEnd(date, employeeViewModel, navController, sharedViewModel)
+            ScheduleWeekEnd(date, employeeViewModel, navController, scheduleViewModel)
         }
     }
 }

@@ -39,11 +39,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.toLowerCase
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.cmpt395solaris.database.SharedViewModel
+import com.example.cmpt395solaris.database.ScheduleViewModel
 import com.example.cmpt395solaris.database.employees.Employee
 import com.example.cmpt395solaris.database.employees.EmployeeViewModel
 import java.text.SimpleDateFormat
@@ -55,7 +54,7 @@ fun ScheduleWeekDay(
     date: String?,
     viewModel: EmployeeViewModel,
     navController: NavController,
-    sharedViewModel: SharedViewModel
+    scheduleViewModel: ScheduleViewModel
 ) {
     // Convert date string to a formatted date
     val dateString = formatDate2(parseDate(date))

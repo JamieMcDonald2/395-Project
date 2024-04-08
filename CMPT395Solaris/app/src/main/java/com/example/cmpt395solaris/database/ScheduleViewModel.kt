@@ -1,10 +1,7 @@
 package com.example.cmpt395solaris.database
 
 import android.app.Application
-import android.util.Log
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
-import com.example.cmpt395solaris.database.DatabaseHelper
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cmpt395solaris.database.dayschedule.DaySchedule
@@ -13,7 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class SharedViewModel(application: Application)  : ViewModel() {
+class ScheduleViewModel(application: Application): AndroidViewModel(application) {
 
     private val dbHelper = DatabaseHelper(application)
 

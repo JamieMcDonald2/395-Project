@@ -36,7 +36,7 @@ import com.example.cmpt395solaris.ComponentFunctions.NavigationBar
 import com.example.cmpt395solaris.ComponentFunctions.TopBar
 import com.example.cmpt395solaris.Navigation
 import com.example.cmpt395solaris.database.DatabaseHelper
-import com.example.cmpt395solaris.database.SharedViewModel
+import com.example.cmpt395solaris.database.ScheduleViewModel
 import com.example.cmpt395solaris.database.TopBarViewModel
 import com.example.cmpt395solaris.database.availability.EmpAvailabilityViewModel
 import com.example.cmpt395solaris.database.employees.EmployeeViewModel
@@ -66,7 +66,7 @@ class MainActivity : ComponentActivity() {
                 // Create an instance of SettingsViewModel
                 val settingsViewModel: SettingsViewModel = viewModel()
 
-                val scheduleViewModel: SharedViewModel = viewModel()
+                val scheduleViewModel: ScheduleViewModel = viewModel()
 
                 val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
 
