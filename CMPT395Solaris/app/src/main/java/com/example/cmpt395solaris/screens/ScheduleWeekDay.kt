@@ -370,6 +370,7 @@ fun ScheduleWeekDay(
                 Button(
                     onClick = {
                         onConfirmClicked()
+                        navController.popBackStack()
                         navController.navigate("schedule1")
 
                     },

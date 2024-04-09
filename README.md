@@ -12,7 +12,7 @@ Jamie McDonald (JamieMcDonald2)
 
 # Project Name TBD
 
-## Release build "Solaris" v4.0-alpha
+## Release build "Solaris" v4.01-alpha
 
 ### See Release Notes at Bottom
 
@@ -67,6 +67,9 @@ Other Problems:
 https://github.com/macewanCS/w24goldwasser/blob/main/LICENSE
 
 ## Release Notes
+
+    4.01
+    - fixed issue with back button after day schedule is made
 
     4.0
     - Implemented database functionality for weekday day schedules
